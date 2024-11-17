@@ -1,7 +1,13 @@
-export default function App() {
+import React from "react";
+import "./App.css"; 
+
+function App() {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-  )
+    <div>
+      <h1>Hello, Roman!</h1>
+      <p>This text should now use your custom fonts.</p>
+    </div>
+  );
 }
+
+export default App;

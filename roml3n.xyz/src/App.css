@@ -1,3 +1,35 @@
+@font-face {
+  font-family: "PPNeueMontreal";
+  src: url("./fonts/ppneuemontreal-book.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "PPNeueMontreal";
+  src: url("./fonts/ppneuemontreal-medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "PPEditorialNew";
+  src: url("./fonts/PPEditorialNew-Ultralight.otf") format("opentype");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "PPEditorialNew";
+  src: url("./fonts/PPEditorialNew-UltralightItalic.otf") format("opentype");
+  font-weight: 200;
+  font-style: italic;
+}
+
+body {
+  font-family: "PPEditorialNew", "PPNeueMontreal", sans-serif;
+}
+
 .App {
   text-align: center;
 }
