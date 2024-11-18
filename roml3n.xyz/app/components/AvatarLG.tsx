@@ -9,6 +9,7 @@ const AvatarLG = () => {
     alt="Avatar Image"  
     width={64}  
     height={64}
+    className="rounded-full border border-solid border-midgrey"
   />
   )
 }
