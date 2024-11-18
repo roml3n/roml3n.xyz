@@ -1,12 +1,14 @@
 import React from "react";
-import "./App.css"; 
+import "./App.css";
 
 function App() {
   return (
-    <div>
-      <h1>Hello, Roman!</h1>
-      <p>This text should now use your custom fonts.</p>
-    </div>
+    <section>
+      <div className="w-full flex flex-col items-center">
+        <div className="h1 text-mainblue italic ">This is Editorial!</div>
+        <p>This text should now use your custom fonts.</p>
+      </div>
+    </section>
   );
 }
 

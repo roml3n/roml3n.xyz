@@ -26,6 +26,32 @@
   font-style: italic;
 }
 
+/* Font Styles */
+.h1 {
+  @apply text-h1 font-editorial leading-[120%];
+}
+
+.h2 {
+  @apply text-h2 font-editorial leading-[120%];
+}
+
+.h3 {
+  @apply text-h3 font-editorial leading-[120%];
+}
+
+.h4 {
+  @apply text-h4 font-montreal leading-[120%];
+}
+
+.h5 {
+  @apply text-h5 font-montreal leading-[120%];
+}
+
+.h6 {
+  @apply text-h6 font-montreal leading-[120%];
+}
+
+
 body {
   font-family: "PPEditorialNew", "PPNeueMontreal", sans-serif;
 }
