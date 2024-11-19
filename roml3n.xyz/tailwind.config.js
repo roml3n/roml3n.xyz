@@ -15,12 +15,12 @@ module.exports = {
       },
 
       fontSize: {
-        h1: "2.5rem",
-        h2: "2rem",
-        h3: "1.5rem",
-        h4: "1.25rem",
-        h5: "1.125rem",
-        h6: "1rem",
+        h1: "2.25rem",
+        h2: "1.75rem",
+        h3: "1.375rem",
+        h4: "1.125rem",
+        h5: "1rem",
+        h6: "0.875rem",
       },
 
       colors: {

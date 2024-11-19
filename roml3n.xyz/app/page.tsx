@@ -5,6 +5,7 @@ import Header from "./components/Header.jsx";
 import { Hero } from "./sections/home/hero";
 import { ProjectCard } from "./components/ProjectCard";
 import ButtonLink from "./components/ButtonLink";
+import { StackIconsGrid } from "./components/StackIconsGrid";
 
 function App() {
   const scrollRef = useRef(null);
@@ -45,7 +46,7 @@ function App() {
             <div className=" relative self-center w-[115%] flex flex-col">
               {/* Left Gradient */}
               {!scrollState.atStart && (
-                <div className="absolute left-0 top-0 h-full w-[12%] bg-gradient-to-r from-lightgrey to-transparent pointer-events-none z-10"></div>
+                <div className="absolute left-0 top-0 h-full w-[20%] bg-gradient-to-r from-lightgrey to-transparent pointer-events-none z-10"></div>
               )}
 
               {/* Scrollables */}
@@ -77,8 +78,22 @@ function App() {
 
               {/* Right Gradient */}
               {!scrollState.atEnd && (
-                <div className="absolute right-0 top-0 h-full w-[12%] bg-gradient-to-l from-lightgrey to-transparent pointer-events-none z-10"></div>
+                <div className="absolute right-0 top-0 h-full w-[20%] bg-gradient-to-l from-lightgrey to-transparent pointer-events-none z-10"></div>
               )}
+            </div>
+          </section>
+
+          {/* Tool Stack */}
+
+          <section className="mt-[4rem] flex flex-col self-center items-center w-screen py-16 rounded-t-[2rem] border-t border-midgrey bg-fullwhite">
+            <div className="flex flex-col w-[80%] max-w-[1024px] gap-9">
+              <p className="h2">
+                My tool
+                <span className="p-2 h2 italic !text-mainblue">stack</span>
+              </p>
+
+              {/* Icons */}
+              <StackIconsGrid />
             </div>
           </section>
         </main>

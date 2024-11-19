@@ -5,22 +5,21 @@ import AvatarLG from "@/app/components/AvatarLG";
 export const Hero = () => {
   return (
     <section className="w-full flex flex-col gap-[40px] h-fit">
-      <div className="w-full flex flex-col gap-0 items-center">
-        {/* Row 1 */}
+
+      {/* Me */}
+      <div className="w-full mt-24 flex flex-col gap-0 items-center">
         <div className="w-full flex gap-4 justify-center items-center">
           <p className="h1 text-center">I&apos;m</p>
           <p className="h1 text-center italic !text-mainblue">Roman</p>
           <AvatarLG />
         </div>
 
-        {/* Row 2 */}
         <div className="w-full flex gap-4 justify-center items-center">
           <p className="h1 text-center">a</p>
           <p className="h1 text-center">Product</p>
           <p className="h1 text-center">Designer</p>
         </div>
 
-        {/* Row 3 */}
         <div className="w-full flex gap-4 justify-center items-center">
           <p className="h1 text-center">based</p>
           <p className="h1 text-center">in</p>
