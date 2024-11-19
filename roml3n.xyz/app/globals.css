@@ -17,7 +17,7 @@
 
 body {
   background: #F5f5f5;
-  overflow: hidden;
+  overflow: auto;
   box-sizing: border-box;
 }
 
