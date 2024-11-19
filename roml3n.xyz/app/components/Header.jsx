@@ -4,9 +4,9 @@ import AvatarSM from "./AvatarSM";
 
 const Header = () => {
   return (
-    <div className="w-full justify-between inline-flex relative py-8">
+    <div className=" sticky top-0 w-full justify-between inline-flex py-8">
       <AvatarSM />
-      <Button label="Let's Talk" />
+      <Button label="Let's Talk"/>
     </div>
   );
 };

@@ -30,9 +30,22 @@ module.exports = {
         almostwhite: "#F8F8F9",
         midgrey: "#DDDDDD",
         lightgrey: "#F5F5F5",
-        fullwhite: "FFFFFF",
+        fullwhite: "#FFFFFF",
       },
     },
   },
-  plugins: [],
+  plugins: [
+
+    function ({ addUtilities }) {
+      addUtilities({
+        ".scrollbar-hide": {
+          "-ms-overflow-style": "none", 
+          "scrollbar-width": "none",  
+          "&::-webkit-scrollbar": {
+            display: "none",    
+          },
+        },
+      });
+    },
+  ],
 }

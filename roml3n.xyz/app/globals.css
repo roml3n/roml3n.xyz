@@ -15,9 +15,11 @@
   }
 } */
 
-/* body {
-  font-family: "PPEditorialNew", "PPNeueMontreal", sans-serif;
-} */
+body {
+  background: #F5f5f5;
+  overflow: hidden;
+  box-sizing: border-box;
+}
 
 
 @font-face {
