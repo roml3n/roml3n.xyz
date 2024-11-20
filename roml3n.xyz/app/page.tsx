@@ -6,6 +6,15 @@ import { Hero } from "./sections/home/hero";
 import { ProjectCard } from "./components/ProjectCard";
 import ButtonLink from "./components/ButtonLink";
 import { StackIconsGrid } from "./components/StackIconsGrid";
+import { FloatingDock } from "./components/ui/floating-dock";
+import {
+  IconHomeFilled,
+  IconPhotoFilled,
+  IconPaletteFilled,
+  IconUserFilled,
+  IconBallpenFilled,
+  IconFlaskFilled,
+} from "@tabler/icons-react";
 
 function App() {
   const scrollRef = useRef(null);
@@ -30,6 +39,7 @@ function App() {
     <section className="m-auto items-center w-[80%] max-w-5xl">
       <div className="flex flex-col items-center relative">
         <Header />
+
         <main className="flex flex-col w-full">
           <Hero />
 
@@ -97,6 +107,41 @@ function App() {
             </div>
           </section>
         </main>
+
+        <FloatingDock
+          items={[
+            {
+              title: "Home",
+              icon: <IconHomeFilled className="h-8 w-8" />,
+              href: "#",
+            },
+            {
+              title: "About",
+              icon: <IconUserFilled className="h-8 w-8" />,
+              href: "#",
+            },
+            {
+              title: "Work",
+              icon: <IconPaletteFilled className="h-8 w-8" />,
+              href: "#",
+            },
+            {
+              title: "Writing",
+              icon: <IconBallpenFilled className="h-8 w-8" />,
+              href: "#",
+            },
+            {
+              title: "Experiments",
+              icon: <IconFlaskFilled className="h-8 w-8" />,
+              href: "#",
+            },
+            {
+              title: "Photos",
+              icon: <IconPhotoFilled className="h-8 w-8" />,
+              href: "#",
+            },
+          ]}
+        />
       </div>
     </section>
   );
