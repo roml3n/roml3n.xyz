@@ -2,11 +2,12 @@ import React from "react";
 import Image from "next/image";
 import AvatarLG from "@/app/components/AvatarLG";
 
+
 export const Hero = () => {
   return (
     <section className="w-full flex flex-col gap-[40px] h-fit">
 
-      {/* Me */}
+      {/* Me */} 
       <div className="w-full mt-24 flex flex-col gap-0 items-center">
         <div className="w-full flex gap-4 justify-center items-center">
           <p className="h1 text-center">I&apos;m</p>

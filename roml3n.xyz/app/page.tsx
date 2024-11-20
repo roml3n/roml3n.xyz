@@ -108,39 +108,43 @@ function App() {
           </section>
         </main>
 
+        {/* Floating Dock */}
+
         <FloatingDock
           items={[
             {
               title: "Home",
-              icon: <IconHomeFilled className="h-8 w-8" />,
+              icon: <IconHomeFilled className="h-12 w-12 text-darkgrey group-hover:text-mainblue" />,
               href: "#",
             },
             {
               title: "About",
-              icon: <IconUserFilled className="h-8 w-8" />,
+              icon: <IconUserFilled className="h-12 w-12 text-darkgrey group-hover:text-mainblue" />,
               href: "#",
             },
             {
               title: "Work",
-              icon: <IconPaletteFilled className="h-8 w-8" />,
+              icon: <IconPaletteFilled className="h-12 w-12 text-darkgrey group-hover:text-mainblue" />,
               href: "#",
             },
             {
               title: "Writing",
-              icon: <IconBallpenFilled className="h-8 w-8" />,
+              icon: <IconBallpenFilled className="h-12 w-12 text-darkgrey group-hover:text-mainblue" />,
               href: "#",
             },
             {
               title: "Experiments",
-              icon: <IconFlaskFilled className="h-8 w-8" />,
+              icon: <IconFlaskFilled className="h-12 w-12 text-darkgrey group-hover:text-mainblue" />,
               href: "#",
             },
             {
               title: "Photos",
-              icon: <IconPhotoFilled className="h-8 w-8" />,
+              icon: <IconPhotoFilled className="h-12 w-12 text-darkgrey group-hover:text-mainblue" />,
               href: "#",
             },
           ]}
+
+          desktopClassName="fixed bottom-4 rounded-full !bg-lightgrey border border-solid !border-midgrey"
         />
       </div>
     </section>
