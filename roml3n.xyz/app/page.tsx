@@ -16,6 +16,7 @@ import {
   IconFlaskFilled,
 } from "@tabler/icons-react";
 
+
 function App() {
   const scrollRef = useRef(null);
   const [scrollState, setScrollState] = useState({
@@ -104,6 +105,7 @@ function App() {
 
               {/* Icons */}
               <StackIconsGrid />
+              
             </div>
           </section>
         </main>
@@ -114,36 +116,47 @@ function App() {
           items={[
             {
               title: "Home",
-              icon: <IconHomeFilled className="h-12 w-12 text-darkgrey group-hover:text-mainblue" />,
+              icon: (
+                <IconHomeFilled className="h-12 w-12 text-darkgrey group-hover:text-mainblue" />
+              ),
               href: "#",
             },
             {
               title: "About",
-              icon: <IconUserFilled className="h-12 w-12 text-darkgrey group-hover:text-mainblue" />,
+              icon: (
+                <IconUserFilled className="h-12 w-12 text-darkgrey group-hover:text-mainblue" />
+              ),
               href: "#",
             },
             {
               title: "Work",
-              icon: <IconPaletteFilled className="h-12 w-12 text-darkgrey group-hover:text-mainblue" />,
+              icon: (
+                <IconPaletteFilled className="h-12 w-12 text-darkgrey group-hover:text-mainblue" />
+              ),
               href: "#",
             },
             {
               title: "Writing",
-              icon: <IconBallpenFilled className="h-12 w-12 text-darkgrey group-hover:text-mainblue" />,
+              icon: (
+                <IconBallpenFilled className="h-12 w-12 text-darkgrey group-hover:text-mainblue" />
+              ),
               href: "#",
             },
             {
               title: "Experiments",
-              icon: <IconFlaskFilled className="h-12 w-12 text-darkgrey group-hover:text-mainblue" />,
+              icon: (
+                <IconFlaskFilled className="h-12 w-12 text-darkgrey group-hover:text-mainblue" />
+              ),
               href: "#",
             },
             {
               title: "Photos",
-              icon: <IconPhotoFilled className="h-12 w-12 text-darkgrey group-hover:text-mainblue" />,
+              icon: (
+                <IconPhotoFilled className="h-12 w-12 text-darkgrey group-hover:text-mainblue" />
+              ),
               href: "#",
             },
           ]}
-
           desktopClassName="fixed bottom-4 rounded-full !bg-lightgrey border border-solid !border-midgrey"
         />
       </div>

@@ -8,11 +8,11 @@ type ButtonLinkProps = {
 
 const ButtonLink: React.FC<ButtonLinkProps> = ({ Label = "Link", URL }) => {
   return (
-    <div className="w-fit flex flex-col relative ">
-      <Link href={URL} className="px-2 p-4 rounded-full h4 relative w-fit bg-red-400">
+    <div className="w-fit flex flex-col relative group">
+      <Link href={URL} className="px-2 rounded-full h4 relative transition-all duration-300 w-fit group-hover:mt-[4px]">
         {Label}
       </Link>
-      <div className="relative h-2 bg-mainblue rounded-full opacity-20 transition-all duration-300  hover:p-2 origin-bottom hover:h-8"></div>
+      <div className="relative h-2 bg-mainblue -mt-2 rounded-full opacity-20 transition-all duration-300 group-hover:h-8 group-hover:-mt-[28px]"></div>
     </div>
   );
 };
