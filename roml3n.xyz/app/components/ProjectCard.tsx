@@ -9,7 +9,7 @@ export const ProjectCard: React.FC<{
   return (
     <div className="relative flex shrink-0 grow-0 flex-col justify-between !w-[427px] pt-6 px-6 h-[620px] bg-fullwhite rounded-2xl overflow-hidden border border-solid border-midgrey group">
       {/* BorderTrail */}
-      <div className="absolute inset-0 z-10 opacity-0 transition-opacity duration-300 rounded-2xl group-hover:opacity-100">
+      <div className="absolute inset-0 z-2 opacity-0 transition-opacity duration-300 rounded-2xl group-hover:opacity-100">
         <BorderTrail
           style={{
             boxShadow:
