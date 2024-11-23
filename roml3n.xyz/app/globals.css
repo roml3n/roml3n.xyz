@@ -6,6 +6,7 @@
 body {
   background: #F5f5f5;
   overflow: auto;
+  overflow-x: hidden;
   box-sizing: border-box;
 }
 

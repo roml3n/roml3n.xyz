@@ -1,87 +1,49 @@
 import React from "react";
 import Image from "next/image";
 
+import Experience from "@/app/components/ui/experience";
 const ExperienceSection = () => {
   return (
-    <section className="m-auto items-center w-[80%] max-w-5xl">
+    <section className="m-auto flex gap-6 flex-col items-center w-full">
       <div className="w-full text-left h2">Work experience</div>
 
       <div className="w-full flex flex-col gap-3">
-        <div className="flex justify-between">
-          <div className="flex gap-3">
-            <div className="place-items-center h-20 w-20 aspect-square rounded-2xl border border-solid border-midgrey">
-              <Image 
-              src="/images/icons/Pawa.svg"
-              alt="Pawa IT Solutions Logo"
-              width={48}
-              height={48}
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <p className="h4 bold">Product Designer</p>
-              <p className="h4">Pawa IT Solutions</p>
-            </div>
+        <Experience
+        iconSrc="/images/icons/Pawa.svg"
+        company="Pawa IT Solutions"
+        alt="Pawa IT Solutions Logo"
+        href="https://linkedin.com/company/pawa-it"
+        role="Product Designer"
+        time="now"
+        />
 
-            <p className="h4">now</p>
-          </div>
-        </div>
+        <Experience
+        iconSrc="/images/icons/CB.svg"
+        company="The Creative Brands Group"
+        alt="The CB Group Logo"
+        href="https://www.linkedin.com/company/thecreativebrandsgroup"
+        role="Brand and Product Designer"
+        time="2023"
+        />
 
-        <div className="flex justify-between">
-          <div className="flex gap-3">
-            <div className="place-items-center h-20 w-20 aspect-square rounded-2xl border border-solid border-midgrey">
-            <Image 
-              src="/images/icons/CB.svg"
-              alt="The Creative Brands Group Logo"
-              width={48}
-              height={48}
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <p className="h4 bold">Brand and Product Designer</p>
-              <p className="h4">The Creative Brands Group</p>
-            </div>
+        <Experience
+        iconSrc="/images/icons/Waya.svg"
+        company="Waya"
+        alt="Waya Logo"
+        href="https://www.linkedin.com/company/wayapay"
+        role="Product Designer"
+        time="2023"
+        />
 
-            <p className="h4">2023</p>
-          </div>
-        </div>
+        <Experience
+        iconSrc="/images/icons/Kalax.svg"
+        company="Kalax Computer World"
+        alt="Computer Icon"
+        href="https://www.linkedin.com/company/kalax-computer-system-inc/"
+        role="Visual Designer"
+        time="2020"
+        />
 
-        <div className="flex justify-between">
-          <div className="flex gap-3">
-            <div className="place-items-center h-20 w-20 aspect-square rounded-2xl border border-solid border-midgrey">
-            <Image 
-              src="/images/icons/Waya.svg"
-              alt="Waya Logo"
-              width={48}
-              height={48}
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <p className="h4 bold">Product Designer</p>
-              <p className="h4">Waya</p>
-            </div>
-
-            <p className="h4">2023</p>
-          </div>
-        </div>
-
-        <div className="flex justify-between">
-          <div className="flex gap-3">
-            <div className="place-items-center h-20 w-20 aspect-square rounded-2xl border border-solid border-midgrey">
-            <Image 
-              src="/images/icons/Kalax.svg"
-              alt="Kalax Computer World Logo"
-              width={48}
-              height={48}
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <p className="h4 bold">Visual Designer</p>
-              <p className="h4">Kalax Computer World</p>
-            </div>
-
-            <p className="h4">2020</p>
-          </div>
-        </div>
       </div>
     </section>
   );
