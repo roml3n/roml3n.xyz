@@ -6,6 +6,7 @@ import { Hero } from "./sections/home/hero";
 import { ProjectsSection } from "./sections/home/ProjectsSection";
 import { ToolStackSection } from "./sections/home/ToolStackSection";
 import DockSection from "./sections/home/DockSection";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
           <ToolStackSection />
         </main>
         <DockSection className="flex justify-center w-fit" />{" "}
-        {/* Floating Dock */}
+       <Footer />
       </div>
     </section>
   );
