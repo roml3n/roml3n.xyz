@@ -40,7 +40,7 @@ const DockSection = ({ className } : { className: string }) => {
               icon: (
                 <IconBallpenFilled className="h-12 w-12 text-darkgrey group-hover:text-mainblue" />
               ),
-              href: "writing",
+              href: "/writing",
             },
             {
               title: "Experiments",
