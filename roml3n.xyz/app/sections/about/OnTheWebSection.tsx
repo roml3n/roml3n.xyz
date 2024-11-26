@@ -7,7 +7,7 @@ const OnTheWebSection = () => {
     <section className="m-auto gap-6 flex flex-col items-center w-full">
       <div className="w-full text-left h2">On the web</div>
 
-      <div className="w-full flex gap-16">
+      <div className="w-full flex flex-col md:flex-row gap-4 md:gap-16">
         {/* Left */}
         <div className="flex flex-col gap-3 w-full">
           <SocialLink

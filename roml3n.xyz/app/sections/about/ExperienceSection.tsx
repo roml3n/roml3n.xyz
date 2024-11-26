@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 
 import Experience from "@/app/components/ui/experience";
 const ExperienceSection = () => {
