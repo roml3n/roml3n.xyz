@@ -6,6 +6,7 @@ import ExperienceSection from "@/app/sections/about/ExperienceSection";
 import OnTheWebSection from "@/app/sections/about/OnTheWebSection";
 import CurrentlyReadingSection from "@/app/sections/about/CurrentlyReadingSection";
 import DockSection from "@/app/sections/home/DockSection";
+import Footer from "../components/Footer";
 
 
 const about = () => {
@@ -34,6 +35,7 @@ const about = () => {
         <CurrentlyReadingSection />
         <DockSection className="flex justify-center w-fit" />{" "}
       </main>
+      <Footer />
     </section>
   );
 };
