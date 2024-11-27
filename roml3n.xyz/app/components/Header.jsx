@@ -6,7 +6,7 @@ const Header = () => {
   return (
     <div className="z-50 sticky top-0 w-full justify-between inline-flex py-8">
       <AvatarSM />
-      <Button label="Let's Talk"/>
+      <Button label="Let's Talk" url="mailto:roman25lenjo@gmail.com"/>
     </div>
   );
 };
