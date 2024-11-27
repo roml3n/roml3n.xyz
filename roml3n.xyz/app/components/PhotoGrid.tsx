@@ -1,12 +1,14 @@
 import React from "react";
 import { Photo } from "./ui/Photo";
 
-// Dynamic list of photos
 const photos = [
   { imageSrc: "/images/home/stackIcons/Arc.png", alt: "Arc Browser Icon" },
   { imageSrc: "/images/home/stackIcons/Figma.png", alt: "Figma Icon" },
   { imageSrc: "/images/home/stackIcons/Framer.png", alt: "Framer Icon" },
-  { imageSrc: "/images/home/stackIcons/Illustrator.png", alt: "Illustrator Icon" },
+  {
+    imageSrc: "/images/home/stackIcons/Illustrator.png",
+    alt: "Illustrator Icon",
+  },
   { imageSrc: "/images/home/stackIcons/Notion.png", alt: "Notion Icon" },
   { imageSrc: "/images/home/stackIcons/Photoshop.png", alt: "Photoshop Icon" },
   { imageSrc: "/images/home/stackIcons/Protopie.png", alt: "Protopie Icon" },
