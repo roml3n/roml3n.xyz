@@ -12,8 +12,6 @@ const Photos = () => {
       <main className="flex flex-col mt-24 gap-16 items-center relative">
         <h1 className="h1 w-full">Photos</h1>
 
-        {/* Photos 
-        grid has to have max 5 columns, resize according to screen size, until 2 col on smallest screen, images update automatically (?) fetch API?*/}
         <div className="w-screen px-2 sm:px-3 lg:px-[2%] flex flex-col">
           <PhotoGrid />
         </div>

@@ -1,9 +1,3 @@
-/**
- * Note: Use position fixed according to your needs
- * Desktop navbar is better positioned at the bottom
- * Mobile navbar is better positioned at bottom right.
- **/
-
 import { cn } from "@/lib/utils";
 import { IconLayoutNavbarCollapse } from "@tabler/icons-react";
 import {
@@ -70,9 +64,10 @@ const FloatingDockMobile = ({
                 <Link
                   href={item.href}
                   key={item.title}
-                  className="h-10 w-10 rounded-full bg-midgrey flex items-center justify-center"
+                  className="h-14 w-14 rounded-full bg-midgrey flex items-center justify-center" // Increased size
                 >
-                  <div className="h-4 w-4">{item.icon}</div>
+                  <div className="h-6 w-6">{item.icon}</div> // Increased icon
+                  size
                 </Link>
               </motion.div>
             ))}
@@ -81,9 +76,9 @@ const FloatingDockMobile = ({
       </AnimatePresence>
       <button
         onClick={() => setOpen(!open)}
-        className="h-10 w-10 rounded-full bg-gray-50 dark:bg-neutral-800 flex items-center justify-center"
+        className="h-14 w-14 rounded-full bg-gray-50 dark:bg-neutral-800 flex items-center justify-center" // Increased size
       >
-        <IconLayoutNavbarCollapse className="h-5 w-5 text-neutral-500 dark:text-neutral-400" />
+        <IconLayoutNavbarCollapse className="h-7 w-7 text-neutral-500 dark:text-neutral-400" />{" "}
       </button>
     </div>
   );
@@ -102,8 +97,8 @@ const FloatingDockDesktop = ({
       onMouseMove={(e) => mouseX.set(e.pageX)}
       onMouseLeave={() => mouseX.set(Infinity)}
       className={cn(
-        "mx-auto hidden md:flex h-[60px] gap-1 items-end rounded-2xl bg-gray-50 px-2 pb-2",
-        className
+        "mx-auto hidden md:flex h-[80px] gap-2 items-end rounded-3xl bg-gray-50 px-3 w-fit pb-2",
+        className,
       )}
     >
       {items.map((item) => (
@@ -128,18 +123,21 @@ function IconContainer({
 
   const distance = useTransform(mouseX, (val) => {
     const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
-
     return val - bounds.x - bounds.width / 2;
   });
 
-  const widthTransform = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
-  const heightTransform = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
+  const widthTransform = useTransform(distance, [-150, 0, 150], [60, 100, 60]); // Increased sizes
+  const heightTransform = useTransform(distance, [-150, 0, 150], [60, 100, 60]); // Increased sizes
 
-  const widthTransformIcon = useTransform(distance, [-150, 0, 150], [20, 40, 20]);
+  const widthTransformIcon = useTransform(
+    distance,
+    [-150, 0, 150],
+    [30, 50, 30], // Increased icon sizes
+  );
   const heightTransformIcon = useTransform(
     distance,
     [-150, 0, 150],
-    [20, 40, 20]
+    [30, 50, 30], // Increased icon sizes
   );
 
   const width = useSpring(widthTransform, {
@@ -181,9 +179,9 @@ function IconContainer({
               initial={{ opacity: 0, y: 20, x: "-50%" }}
               animate={{ opacity: 1, y: 0, x: "-50%" }}
               exit={{ opacity: 0, y: 2, x: "-50%" }}
-              className="px-2 py-1 whitespace-pre rounded-md bg-fullwhite border border-midgrey absolute left-1/2 -translate-x-1/2 -top-8 w-fit text-xs"
+              className="px-3 py-2 whitespace-pre rounded-md bg-fullwhite border border-midgrey absolute left-1/2 -translate-x-1/2 -top-12 w-fit text-sm"
             >
-              <div className="h4 !text-[1rem] font-medium">{title}</div>
+              <div className="h4 !text-[1.25rem] font-medium">{title}</div>
             </motion.div>
           )}
         </AnimatePresence>
