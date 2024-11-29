@@ -25,7 +25,7 @@ export const ProjectsSection = () => {
       {/* Project Heading */}
       <div className="w-full flex justify-between items-center py-4">
         <h2 className="h2"> Featured Projects </h2>
-        <ButtonLink Label="view all projects" URL="#" />
+        <ButtonLink Label="view all projects" URL="/work" />
       </div>
 
       {/* Project Cards */}
