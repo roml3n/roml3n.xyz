@@ -1,15 +1,12 @@
 "use client";
 import React from "react";
-import Header from "@/app/components/Header.jsx";
-import DockSection from "@/app/sections/home/DockSection";
 import Footer from "../components/Footer";
 import BlogPostLink from "@/app/components/BlogPostLink";
 import Divider from "@/app/components/ui/Divider";
 
 const Writing = () => {
   return (
-    <section className="m-auto items-center w-[80%] max-w-5xl gap-16">
-      <Header />
+    <section className="m-auto items-center w-full gap-16">
       <main className="flex flex-col mt-24 gap-16 items-center relative">
         <h1 className="h1 w-full">
           {" "}
@@ -70,8 +67,6 @@ const Writing = () => {
             url="/"
           />
         </div>
-
-        <DockSection className="flex justify-center w-fit" />
       </main>
       <Divider />
       <Footer />

@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import SocialLink from "@/app/components/ui/social-link";
 
 const OnTheWebSection = () => {

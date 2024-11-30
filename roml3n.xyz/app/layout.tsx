@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import DockSection from "@/app/sections/home/DockSection";
+import Header from "@/app/components/Header.jsx";
+
+// import CustomCursor from "./components/ui/custom-cursor";
 
 const ppEditorial = localFont({
   src: [
@@ -49,10 +53,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${ppEditorial.variable} ${ppNeueMontreal.variable} antialiased`}
+        className={`${ppEditorial.variable} ${ppNeueMontreal.variable} antialiased w-[80%] mx-auto max-w-5xl`}
       >
+        <Header />
+
+        
         {children}
+        <DockSection className="flex hover-target self-center mx-auto justify-center w-fit" />
       </body>
     </html>
   );
-};
+}

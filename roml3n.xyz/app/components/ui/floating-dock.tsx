@@ -64,10 +64,9 @@ const FloatingDockMobile = ({
                 <Link
                   href={item.href}
                   key={item.title}
-                  className="h-14 w-14 rounded-full bg-midgrey flex items-center justify-center" // Increased size
+                  className="h-14 w-14 rounded-full bg-midgrey flex items-center justify-center"
                 >
-                  <div className="h-6 w-6">{item.icon}</div> // Increased icon
-                  size
+                  <div className="h-6 w-6">{item.icon}</div>
                 </Link>
               </motion.div>
             ))}
