@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { FloatingDock } from "@/app/components/ui/floating-dock";
 import {

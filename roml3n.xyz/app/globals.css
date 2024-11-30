@@ -10,6 +10,10 @@ body {
   box-sizing: border-box;
 }
 
+/* html, body, a  {
+  cursor: none;
+} */
+
 
 @font-face {
   font-family: "PPNeueMontreal";
@@ -37,6 +41,10 @@ body {
   src: url("./fonts/PPEditorialNew-UltralightItalic.otf") format("opentype");
   font-weight: 200;
   font-style: italic;
+}
+
+.cursor {
+  transition: transform 0.01s linear;
 }
 
 

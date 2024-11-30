@@ -30,7 +30,7 @@ export const Hero = () => {
             width={64}
             height={64}
             alt="The flag of Kenya"
-            className="rounded-full border-none"
+            className="rounded-full border-none shadow-[0px_28px_34px_-19px_rgba(0,0,0,1)]"
           />
         </div>
       </div>

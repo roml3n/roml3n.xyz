@@ -1,18 +1,14 @@
 "use client";
 import React from "react";
-import Header from "@/app/components/Header.jsx";
 import ImagesSection from "@/app/sections/about/ImagesSection";
 import ExperienceSection from "@/app/sections/about/ExperienceSection";
 import OnTheWebSection from "@/app/sections/about/OnTheWebSection";
 import CurrentlyReadingSection from "@/app/sections/about/CurrentlyReadingSection";
-import DockSection from "@/app/sections/home/DockSection";
 import Footer from "../components/Footer";
-
 
 const about = () => {
   return (
-    <section className="m-auto items-center w-[80%] max-w-5xl gap-16">
-      <Header />
+    <section className="m-auto items-center w-full gap-16">
       <main className="flex flex-col mt-24 gap-16 items-center relative">
         <ImagesSection />
         <p className="h4 w-full">
@@ -33,7 +29,6 @@ const about = () => {
         <div className="w-full h-[1px] bg-midgrey"></div>
         <OnTheWebSection />
         <CurrentlyReadingSection />
-        <DockSection className="flex justify-center w-fit" />{" "}
       </main>
       <Footer />
     </section>
