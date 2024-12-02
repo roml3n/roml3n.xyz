@@ -3,8 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import DockSection from "@/app/sections/home/DockSection";
 import Header from "@/app/components/Header.jsx";
-
-// import CustomCursor from "./components/ui/custom-cursor";
+import { LinearBlur } from "progressive-blur";
 
 const ppEditorial = localFont({
   src: [
@@ -55,11 +54,42 @@ export default function RootLayout({
       <body
         className={`${ppEditorial.variable} ${ppNeueMontreal.variable} antialiased w-[80%] mx-auto max-w-5xl`}
       >
+        <LinearBlur
+          side="top"
+          steps={10}
+          strength={42}
+          falloffPercentage={100}
+          tint="#ffffff50"
+          style={{
+            position: "fixed",
+            bottom: 0,
+            inset: 0,
+            zIndex: 8998,
+            height: 200,
+          }}
+        />
+
         <Header />
 
-        
         {children}
-        <DockSection className="flex hover-target self-center mx-auto justify-center w-fit" />
+        <DockSection className="flex hover-target self-center mx-auto justify-center w-fit !z-[9999]" />
+
+        <LinearBlur
+          side="bottom"
+          steps={10}
+          strength={42}
+          falloffPercentage={100}
+          tint="#ffffff50"
+          style={{
+            position: "fixed",
+            bottom: 0,
+            inset: "82% 0 0",
+            zIndex: 20,
+            height: 180,
+            width: "100vw",
+          }}
+        />
+       
       </body>
     </html>
   );

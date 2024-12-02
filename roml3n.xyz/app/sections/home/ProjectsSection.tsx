@@ -3,6 +3,7 @@ import React, { useState, useRef } from "react";
 import { ProjectCard } from "@/app/components/ProjectCard";
 import ButtonLink from "@/app/components/ButtonLink";
 
+
 export const ProjectsSection = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [scrollState, setScrollState] = useState({
@@ -44,6 +45,7 @@ export const ProjectsSection = () => {
           <ProjectCard
             description="Bigstore"
             imageSrc="/images/projectCard/waya-screen.png"
+            
           />
 
           <ProjectCard
