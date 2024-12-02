@@ -17,7 +17,9 @@
     "lucide-react": "^0.460.0",
     "next": "15.0.3",
     "postcss-loader": "^8.1.1",
+    "progressive-blur": "^1.0.0",
     "react": "^18.2.0",
+    "react-creative-cursor": "^1.2.7",
     "react-dom": "^18.2.0",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7"
