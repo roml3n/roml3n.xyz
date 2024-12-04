@@ -62,7 +62,7 @@ export default function RootLayout({
           tint="#ffffff50"
           style={{
             position: "fixed",
-            bottom: 0,
+            top: 0,
             inset: 0,
             zIndex: 8998,
             height: 200,
@@ -83,10 +83,9 @@ export default function RootLayout({
           style={{
             position: "fixed",
             bottom: 0,
-            inset: "82% 0 0",
-            zIndex: 20,
+            inset: 0,
+            zIndex: 8998,
             height: 180,
-            width: "100vw",
           }}
         />
        
