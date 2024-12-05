@@ -41,6 +41,7 @@ next-env.d.ts
 
 # Ignore the parent directory's React Lessons folder
 ../React Lessons/
+React Lessons/
 
 # Ignore macOS .DS_Store files
 .DS_Store
