@@ -83,7 +83,6 @@ export default function RootLayout({
           style={{
             position: "fixed",
             bottom: 0,
-            inset: 0,
             zIndex: 8998,
             height: 180,
           }}
