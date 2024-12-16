@@ -18,7 +18,7 @@ const Hero = () => {
         engagement and sales.
       </h4>
 
-      <div className="flex w-fit gap-2 items-center justify-center">
+      <div className="flex flex-col sm:flex-row w-fit gap-2 items-start justify-center">
         <Button
           target-blank
           url="https://bigstore.africa"
