@@ -72,3 +72,16 @@ body {
   @apply text-h6 font-montreal text-darkgrey leading-[120%];
 }
 
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%); 
+  }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite; 
+  white-space: nowrap;
+}

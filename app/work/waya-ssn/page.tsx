@@ -9,6 +9,7 @@ import WayaInterviewCard from "@/app/components/ui/WayaInterviewCard";
 import AnalysisCard from "@/app/components/ui/AnalysisCard";
 import Divider from "@/app/components/ui/Divider";
 import ImagesSection from "@/app/sections/work/waya-ssn/ImagesSection";
+import MarqueeSection from "@/app/sections/work/waya-ssn/MarqueeSection";
 
 const WayaSSN = () => {
   return (
@@ -152,6 +153,8 @@ const WayaSSN = () => {
 
             <ImagesSection />
 
+            <MarqueeSection />
+
             <CaseSection title="Looking back...">
               <div className="flex flex-col items-start gap-4  bg-[#EEF4F8] p-4 md:p-6 rounded-3xl">
                 <p className="h4 font-medium">What went well</p>
@@ -195,35 +198,47 @@ const WayaSSN = () => {
             <Divider />
 
             <CaseSection title="This challenge wasn’t short of lessons">
-
-                <div className="flex flex-col md:flex-row gap-4">
-                  <div className="bg-[#B0ECC8] pt-6 rounded-3xl h-full flex flex-col items-start justify-end w-full border border-black border-opacity-10 overflow-hidden">
-                    <p className="h4 font-medium px-6 pb-4">User-centric design 🔑</p>
-                    <div className="h4 flex bg-almostwhite p-6 rounded-2xl">
-                      Prioritizing a user-centric design approach is crucial for
-                      developing solutions that effectively address the needs
-                      and challenges of the target audience. By empathizing with
-                      users and understanding their unique circumstances, we can
-                      create more impactful and inclusive products.
-                    </div>
-                  </div>
-                  <div className="bg-[#B0ECC8] pt-6 rounded-3xl h-full flex flex-col items-start justify-end w-full border border-black border-opacity-10 overflow-hidden">
-                    <p className="h4 font-medium px-6 pb-4">Regulatory compliance 💯</p>
-                    <div className="h4 flex bg-almostwhite p-6 rounded-2xl">
-                    Compliance with legal and regulatory requirements is essential, particularly in highly regulated industries such as fintech. Prioritizing compliance from the start of the project ensures that innovative solutions are developed within the boundaries of applicable laws and regulations.
-                    </div>
-                  </div>
-                  <div className="bg-[#B0ECC8] pt-6 rounded-3xl h-full flex flex-col items-start justify-end w-full border border-black border-opacity-10 overflow-hidden">
-                    <p className="h4 font-medium px-6 pb-4">Innovation 🤝 Collaboration</p>
-                    <div className="h4 flex bg-almostwhite p-6 rounded-2xl">
-                    Innovation thrives on cross-functional collaboration and diverse perspectives. By fostering collaboration between design, engineering, compliance, and other teams, we can leverage a wide range of expertise to develop innovative solutions.
-                    </div>
+              <div className="flex flex-col md:flex-row gap-4">
+                <div className="bg-[#B0ECC8] pt-6 rounded-3xl h-full flex flex-col items-start justify-end w-full border border-black border-opacity-10 overflow-hidden">
+                  <p className="h4 font-medium px-6 pb-4">
+                    User-centric design 🔑
+                  </p>
+                  <div className="h4 flex bg-almostwhite p-6 rounded-2xl">
+                    Prioritizing a user-centric design approach is crucial for
+                    developing solutions that effectively address the needs and
+                    challenges of the target audience. By empathizing with users
+                    and understanding their unique circumstances, we can create
+                    more impactful and inclusive products.
                   </div>
                 </div>
-
+                <div className="bg-[#B0ECC8] pt-6 rounded-3xl h-full flex flex-col items-start justify-end w-full border border-black border-opacity-10 overflow-hidden">
+                  <p className="h4 font-medium px-6 pb-4">
+                    Regulatory compliance 💯
+                  </p>
+                  <div className="h4 flex bg-almostwhite p-6 rounded-2xl">
+                    Compliance with legal and regulatory requirements is
+                    essential, particularly in highly regulated industries such
+                    as fintech. Prioritizing compliance from the start of the
+                    project ensures that innovative solutions are developed
+                    within the boundaries of applicable laws and regulations.
+                  </div>
+                </div>
+                <div className="bg-[#B0ECC8] pt-6 rounded-3xl h-full flex flex-col items-start justify-end w-full border border-black border-opacity-10 overflow-hidden">
+                  <p className="h4 font-medium px-6 pb-4">
+                    Innovation 🤝 Collaboration
+                  </p>
+                  <div className="h4 flex bg-almostwhite p-6 rounded-2xl">
+                    Innovation thrives on cross-functional collaboration and
+                    diverse perspectives. By fostering collaboration between
+                    design, engineering, compliance, and other teams, we can
+                    leverage a wide range of expertise to develop innovative
+                    solutions.
+                  </div>
+                </div>
+              </div>
             </CaseSection>
 
-            <div className="gradient w-screen h-64 bg-gradient-to-b from-transparent to-almostwhite"></div>
+            <div className="gradient w-screen h-16 bg-gradient-to-b from-transparent to-almostwhite"></div>
           </div>
         </section>
       </main>

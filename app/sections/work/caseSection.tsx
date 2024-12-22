@@ -2,7 +2,7 @@ import React from "react";
 
 interface CaseSectionProps {
   title: string;
-  description?: string;
+  description?: React.ReactNode;
   children?: React.ReactNode;
 }
 
