@@ -1,12 +1,12 @@
 import React from "react";
 
 interface WorkCardProps {
-  title: string;
+  children: React.ReactNode;
   index: number;
   activeIndex: number;
 }
 
-export const WorkCard: React.FC<WorkCardProps> = ({ title, index, activeIndex }) => {
+export const WorkCard: React.FC<WorkCardProps> = ({ children, index, activeIndex }) => {
     const topValue = 150 + (index - 1) * 16;
 
   const scale =
@@ -16,7 +16,7 @@ export const WorkCard: React.FC<WorkCardProps> = ({ title, index, activeIndex })
 
   return (
     <div
-      className="work-card w-full flex h-[489px] bg-fullwhite rounded-[16px] border border-solid border-midgrey items-center justify-center h2 sticky"
+      className="work-card w-full flex flex-col h-fit pt-8 px-16 gap-6 bg-fullwhite rounded-[16px] border border-solid border-midgrey items-center justify-center sticky"
       style={{
         top: `${topValue}px`,
         transform: `scale(${scale})`,
@@ -24,7 +24,7 @@ export const WorkCard: React.FC<WorkCardProps> = ({ title, index, activeIndex })
         zIndex: 100 + index,
       }}
     >
-      {title}
+      {children}
     </div>
   );
 };
