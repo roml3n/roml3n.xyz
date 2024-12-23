@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 const experiments = () => {
   return (
     <section className="m-auto items-center w-full gap-16">
-      <main className="flex flex-col mt-24 gap-16 items-center relative">
+      <main className="flex flex-col mt-10 md:mt-24 gap-16 items-center relative">
         <div>
           <h1 className="h1">Experiments</h1>
           <p className="h4 w-full">

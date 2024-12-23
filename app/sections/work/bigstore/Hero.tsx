@@ -5,7 +5,7 @@ import Button from "@/app/components/Button";
 
 const Hero = () => {
   return (
-    <section className="flex flex-col gap-6">
+    <section className="relative flex flex-col gap-6">
       <h1 className="h1 w-full">
         Redesigning e-commerce to boost loyalty, sales, and satisfaction
       </h1>
@@ -18,7 +18,7 @@ const Hero = () => {
         engagement and sales.
       </h4>
 
-      <div className="flex flex-col sm:flex-row w-fit gap-2 items-start justify-center">
+      <div className="flex flex-col sm:flex-row gap-2 justify-start">
         <Button
           target-blank
           url="https://bigstore.africa"

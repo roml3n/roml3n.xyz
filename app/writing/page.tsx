@@ -7,7 +7,7 @@ import Divider from "@/app/components/ui/Divider";
 const Writing = () => {
   return (
     <section className="m-auto items-center w-full gap-16">
-      <main className="flex flex-col mt-24 gap-16 items-center relative">
+      <main className="flex flex-col mt-10 md:mt-24 gap-16 items-center relative">
         <h1 className="h1 w-full">
           {" "}
           My thoughts and,

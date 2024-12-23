@@ -8,7 +8,7 @@ const AvatarLG = () => {
       alt="Avatar Image"
       width={64}
       height={64}
-      className="rounded-full border border-solid border-midgrey shadow-[0px_28px_34px_-19px_rgba(0,0,0,1)]"
+      className="rounded-full border border-solid border-midgrey size-12 md:size-16 shadow-[0px_28px_34px_-19px_rgba(0,0,0,1)]"
     />
   );
 };

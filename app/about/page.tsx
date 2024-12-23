@@ -9,7 +9,7 @@ import Footer from "../components/Footer";
 const about = () => {
   return (
     <section className="m-auto items-center w-full gap-16">
-      <main className="flex flex-col mt-24 gap-16 items-center relative">
+      <main className="flex flex-col mt-10 md:mt-24 gap-16 items-center relative">
         <ImagesSection />
         <p className="h4 w-full">
           My very first interaction with a computer was when I played my first

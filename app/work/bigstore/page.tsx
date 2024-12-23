@@ -14,7 +14,7 @@ import ImagesSection from "@/app/sections/work/bigstore/ImagesSection";
 const BigStore = () => {
   return (
     <section className="m-auto items-center w-full gap-16">
-      <main className="flex flex-col mt-24 items-center">
+      <main className="flex flex-col mt-10 md:mt-24 items-center">
         <Hero />
 
         {/* Case Section */}

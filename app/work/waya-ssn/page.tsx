@@ -14,7 +14,7 @@ import MarqueeSection from "@/app/sections/work/waya-ssn/MarqueeSection";
 const WayaSSN = () => {
   return (
     <section className="m-auto items-center w-full gap-16">
-      <main className="flex flex-col mt-24 items-center">
+      <main className="flex flex-col mt-10 md:mt-24 items-center">
         <Hero />
 
         {/* Case Section */}

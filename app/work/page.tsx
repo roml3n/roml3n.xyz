@@ -52,7 +52,7 @@ const Work = () => {
 
   return (
     <section className="m-auto items-center w-full gap-16">
-      <main className="flex flex-col mt-24 gap-16 items-center">
+      <main className="flex flex-col mt-10 md:mt-24 gap-16 items-center">
         <h1 className="h1 w-full">Work</h1>
 
         <div
