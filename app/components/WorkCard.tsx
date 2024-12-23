@@ -28,7 +28,7 @@ export const WorkCard: React.FC<WorkCardProps> = ({
         zIndex: 100 + index,
       }}
     >
-      <Link href={href} className="w-full h-full">
+      <Link href={href} className="w-full h-full flex flex-col items-center">
         {children}
       </Link>
     </div>

@@ -17,10 +17,10 @@ const Hero = () => {
         <Button
           target-blank
           url="https://play.google.com/store/apps/details?id=com.wayapay.neo.app&hl=en"
-          className="!bg-green-500 flex gap-2"
+          className="!bg-green-500 flex gap-2 group"
           newTab
         >
-          <p className="h4 !text-fullwhite">Download on Google Play</p>
+          <p className="h4 !text-fullwhite group-hover:mx-2 transition-all duration-300">Download on Google Play</p>
           <svg
             width="24"
             height="24"
@@ -40,10 +40,10 @@ const Hero = () => {
         <Button
           target-blank
           url="https://apps.apple.com/app/waya-mobile-banking/id6445921373"
-          className="!bg-mainblue flex gap-2"
+          className="!bg-mainblue flex gap-2 group"
           newTab
         >
-          <p className="h4 !text-fullwhite">Get it on App Store</p>
+          <p className="h4 !text-fullwhite  group-hover:mx-2 transition-all duration-300">Get it on App Store</p>
           <svg
             width="24"
             height="24"

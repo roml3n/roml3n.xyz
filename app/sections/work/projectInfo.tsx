@@ -13,7 +13,7 @@ const ProjectInfo = ({
 }) => {
   return (
     <div className="w-full flex flex-col gap-6 md:flex-row  px-3">
-      <div className="flex flex-col gap-6 w-full md:w-[70%] mb-6 sm:mb-0">
+      <div className="flex flex-col gap-6 w-full md:w-[30%] mb-6 sm:mb-0">
         <div className="flex-col gap-1 w-full">
           <h2 className="h2">Timeline</h2>
           <p className="h4">{Timeline}</p>
@@ -37,7 +37,7 @@ const ProjectInfo = ({
         </div>
       </div>
 
-      <div className="grow flex flex-col gap-1 items-start relative">
+      <div className="w-full flex flex-col gap-1 items-start relative">
         <h2 className="h2 w-full">Overview</h2>
         <p className="h4 w-full">{Overview}</p>
       </div>

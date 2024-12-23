@@ -22,10 +22,10 @@ const Hero = () => {
         <Button
           target-blank
           url="https://bigstore.africa"
-          className="!bg-mainblue flex gap-2"
+          className="!bg-mainblue flex gap-2 group"
           newTab
         >
-          <p className="h4 !text-fullwhite">See Live</p>
+          <p className="h4 !text-fullwhite  group-hover:mx-2 transition-all duration-300">See Live</p>
           <svg
             width="24"
             height="24"
@@ -44,7 +44,7 @@ const Hero = () => {
         <Button
           target-blank
           url="https://bigstore.africa"
-          className="flex gap-2"
+          className="flex gap-2 group"
           newTab
         >
           <svg
@@ -61,7 +61,7 @@ const Hero = () => {
               stroke-linejoin="round"
             />
           </svg>
-          <p className="h4">See it in Figma</p>
+          <p className="h4  group-hover:mx-2 transition-all duration-300">See it in Figma </p>
         </Button>
       </div>
 

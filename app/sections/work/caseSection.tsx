@@ -1,13 +1,13 @@
 import React from "react";
 
 interface CaseSectionProps {
-  title: string;
+  title?: string;
   description?: React.ReactNode;
   children?: React.ReactNode;
 }
 
 const CaseSection: React.FC<CaseSectionProps> = ({
-  title = "Default Title",
+  title,
   description,
   children,
 }) => {
