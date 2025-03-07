@@ -5,7 +5,7 @@ import Button from "@/app/components/Button";
 
 const Hero = () => {
   return (
-    <section className="flex flex-col gap-6">
+    <section className="relative flex flex-col gap-6">
       <h1 className="h1 w-full">
         Redesigning e-commerce to boost loyalty, sales, and satisfaction
       </h1>
@@ -18,14 +18,14 @@ const Hero = () => {
         engagement and sales.
       </h4>
 
-      <div className="flex flex-col sm:flex-row w-fit gap-2 items-start justify-center">
+      <div className="flex flex-col sm:flex-row gap-2 justify-start">
         <Button
           target-blank
           url="https://bigstore.africa"
-          className="!bg-mainblue flex gap-2"
+          className="!bg-mainblue flex gap-2 group"
           newTab
         >
-          <p className="h4 !text-fullwhite">See Live</p>
+          <p className="h4 !text-fullwhite  group-hover:mx-2 transition-all duration-300">See Live</p>
           <svg
             width="24"
             height="24"
@@ -44,7 +44,7 @@ const Hero = () => {
         <Button
           target-blank
           url="https://bigstore.africa"
-          className="flex gap-2"
+          className="flex gap-2 group"
           newTab
         >
           <svg
@@ -61,7 +61,7 @@ const Hero = () => {
               stroke-linejoin="round"
             />
           </svg>
-          <p className="h4">See it in Figma</p>
+          <p className="h4  group-hover:mx-2 transition-all duration-300">See it in Figma </p>
         </Button>
       </div>
 

@@ -28,27 +28,31 @@ const Work = () => {
       title: "Redesigning e-commerce to boost loyalty, sales, and satisfaction",
       tag: "Product Design",
       image: "/images/work/work-bigstore.png",
+      href: "/work/bigstore",
     },
     {
       title: "Enhancing financial inclusion for new Americans and immigrants",
       tag: "Product Design",
       image: "/images/work/work-waya.png",
+      href: "/work/waya-ssn",
     },
     {
       title: "Crafting a high-stakes experience for sports betting enthusiasts",
       tag: "UI Design",
       image: "/images/work/work-tucheze.png",
+      href: "/work/tucheze",
     },
     {
-      title: "Brandin for exsgdh",
+      title: "Branding for exsgdh",
       tag: "UI Design",
       image: "/images/work/work-waya.png",
+      href: "/work/exsgdh",
     },
   ];
 
   return (
     <section className="m-auto items-center w-full gap-16">
-      <main className="flex flex-col mt-24 gap-16 items-center">
+      <main className="flex flex-col mt-10 md:mt-24 gap-16 items-center">
         <h1 className="h1 w-full">Work</h1>
 
         <div
@@ -56,7 +60,12 @@ const Work = () => {
           className="w-full max-w-[1274px] flex flex-col gap-4 sticky"
         >
           {workItems.map((item, index) => (
-            <WorkCard key={index} index={index} activeIndex={activeIndex}>
+            <WorkCard
+              key={index}
+              index={index}
+              activeIndex={activeIndex}
+              href={item.href}
+            >
               <div className="flex w-full justify-between self-center">
                 <h2 className="h2 w-[75%] flex-wrap">{item.title}</h2>
                 <div className="self-start px-4 py-2 bg-almostwhite border border-solid border-midgrey rounded-full w-fit">

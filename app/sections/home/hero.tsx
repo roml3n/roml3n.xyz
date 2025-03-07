@@ -8,7 +8,7 @@ export const Hero = () => {
     <section className="w-full flex flex-col gap-[40px] h-fit">
 
       {/* Me */} 
-      <div className="w-full mt-24 flex flex-col gap-0 items-center">
+      <div className="w-full mt-10 md:mt-24 flex flex-col gap-0 items-center">
         <div className="w-full flex gap-4 justify-center items-center">
           <p className="h1 text-center">I&apos;m</p>
           <p className="h1 text-center italic !text-mainblue">Roman</p>
@@ -30,7 +30,7 @@ export const Hero = () => {
             width={64}
             height={64}
             alt="The flag of Kenya"
-            className="rounded-full border-none shadow-[0px_28px_34px_-19px_rgba(0,0,0,1)]"
+            className="rounded-full size-12 md:size-16 border-none shadow-[0px_28px_34px_-19px_rgba(0,0,0,1)]"
           />
         </div>
       </div>

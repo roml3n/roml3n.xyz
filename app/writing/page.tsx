@@ -7,7 +7,7 @@ import Divider from "@/app/components/ui/Divider";
 const Writing = () => {
   return (
     <section className="m-auto items-center w-full gap-16">
-      <main className="flex flex-col mt-24 gap-16 items-center relative">
+      <main className="flex flex-col mt-10 md:mt-24 gap-16 items-center relative">
         <h1 className="h1 w-full">
           {" "}
           My thoughts and,
@@ -21,51 +21,40 @@ const Writing = () => {
           <BlogPostLink
             title="On side projects"
             date="November 15, 2024"
-            description="Lessons and thoughts on having side projects."
             url="/"
           />
 
           <BlogPostLink
             title="On supercharging my productivity"
             date="October 27, 2024"
-            description="I share the tools that power my daily workflow."
             url="/"
           />
 
           <BlogPostLink
             title="On learning to code"
             date="October 8, 2024"
-            description="Lessons I've learnt about coding."
             url="/"
           />
 
           <BlogPostLink
             title="On the death of Kenyan design"
             date="September 5, 2024"
-            description="A rant on how design in Kenya is broken."
             url="/"
           />
 
           <BlogPostLink
             title="On bad design actually being a good thing"
             date="July 19, 2024"
-            description="Musings from the late Enzo Mari, a pioneer in design."
             url="/"
           />
 
           <BlogPostLink
             title="On the AI renaissance"
             date="September 5, 2024"
-            description="A rant on how AI is moving faster than we can keep up."
             url="/"
           />
 
-          <BlogPostLink
-            title="On upskilling"
-            date="March 5, 2024"
-            description="A rant on how important it is to level up, to stand out."
-            url="/"
-          />
+          <BlogPostLink title="On upskilling" date="March 5, 2024" url="/" />
         </div>
       </main>
       <Divider />

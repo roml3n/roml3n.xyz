@@ -1,6 +1,6 @@
+import React, { useState } from 'react';
 import { StackIconsGrid } from "./StackIconsGrid";
-import { TransitionPanel } from "./ui/TransitionPanel"
-}
+import { TransitionPanel } from "./ui/TransitionPanel";
 
 export const TransitionIcons = () => {
   const [activeIndex, setActiveIndex] = useState(0);

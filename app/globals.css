@@ -49,15 +49,15 @@ body {
 
 
 .h1 {
-  @apply text-h1 md:text-[2.5rem] lg:text-[3.5rem] font-editorial text-fullgrey leading-[120%];
+  @apply text-h1 md:text-[2.5rem] lg:text-[3rem] font-editorial text-fullgrey leading-[120%];
 }
 
 .h2 {
-  @apply text-h2 lg:text-[2rem] font-editorial text-fullgrey leading-[120%];
+  @apply text-h2 md:text-[1.875rem] lg:text-[2rem] font-editorial text-fullgrey leading-[120%];
 }
 
 .h3 {
-  @apply text-h3 lg:text-[1.5rem] font-editorial text-fullgrey leading-[120%];
+  @apply text-h3 md:text-[1.5rem] lg:text-[1.5rem] font-editorial text-fullgrey leading-[120%];
 }
 
 .h4 {
@@ -65,11 +65,11 @@ body {
 }
 
 .h5 {
-  @apply text-h5 md:text-[1.125rem] lg:text-[1.25rem] font-montreal text-darkgrey leading-[120%];
+  @apply text-h5  lg:text-[1.125rem] font-montreal text-darkgrey leading-[120%];
 }
 
 .h6 {
-  @apply text-h6 font-montreal text-darkgrey leading-[120%];
+  @apply text-h6 md:text-[1rem] font-montreal text-darkgrey leading-[120%];
 }
 
 @keyframes marquee {

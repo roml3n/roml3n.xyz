@@ -1,18 +1,22 @@
 import React from "react";
+import Link from "next/link";
 
 interface WorkCardProps {
   children: React.ReactNode;
   index: number;
   activeIndex: number;
+  href: string;
 }
 
-export const WorkCard: React.FC<WorkCardProps> = ({ children, index, activeIndex }) => {
-    const topValue = 150 + (index - 1) * 16;
+export const WorkCard: React.FC<WorkCardProps> = ({
+  children,
+  index,
+  activeIndex,
+  href,
+}) => {
+  const topValue = 150 + (index - 1) * 16;
 
-  const scale =
-    index < activeIndex
-      ? Math.pow(0.98, activeIndex - index)
-      : 1;
+  const scale = index < activeIndex ? Math.pow(0.98, activeIndex - index) : 1;
 
   return (
     <div
@@ -24,7 +28,9 @@ export const WorkCard: React.FC<WorkCardProps> = ({ children, index, activeIndex
         zIndex: 100 + index,
       }}
     >
-      {children}
+      <Link href={href} className="w-full h-full flex flex-col items-center">
+        {children}
+      </Link>
     </div>
   );
 };
