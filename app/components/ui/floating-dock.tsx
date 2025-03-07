@@ -14,72 +14,14 @@ import { useRef, useState } from "react";
 export const FloatingDock = ({
   items,
   desktopClassName,
-  mobileClassName,
 }: {
   items: { title: string; icon: React.ReactNode; href: string }[];
   desktopClassName?: string;
-  mobileClassName?: string;
 }) => {
   return (
     <>
       <FloatingDockDesktop items={items} className={desktopClassName} />
-      <FloatingDockMobile items={items} className={mobileClassName} />
     </>
-  );
-};
-
-const FloatingDockMobile = ({
-  items,
-  className,
-}: {
-  items: { title: string; icon: React.ReactNode; href: string }[];
-  className?: string;
-}) => {
-  const [open, setOpen] = useState(false);
-  return (
-    <div className={cn("relative block md:hidden", className)}>
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            layoutId="nav"
-            className="absolute bottom-full mb-2 inset-x-0 flex flex-col gap-4"
-          >
-            {items.map((item, idx) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                exit={{
-                  opacity: 0,
-                  y: 10,
-                  transition: {
-                    delay: idx * 0.05,
-                  },
-                }}
-                transition={{ delay: (items.length - 1 - idx) * 0.05 }}
-              >
-                <Link
-                  href={item.href}
-                  key={item.title}
-                  className="h-14 w-14 rounded-full bg-midgrey flex items-center justify-center"
-                >
-                  <div className="h-6 w-6">{item.icon}</div>
-                </Link>
-              </motion.div>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
-      <button
-        onClick={() => setOpen(!open)}
-        className="h-14 w-14 rounded-full bg-gray-50 dark:bg-neutral-800 flex items-center justify-center" // Increased size
-      >
-        <IconLayoutNavbarCollapse className="h-7 w-7 text-neutral-500 dark:text-neutral-400" />{" "}
-      </button>
-    </div>
   );
 };
 
@@ -96,8 +38,8 @@ const FloatingDockDesktop = ({
       onMouseMove={(e) => mouseX.set(e.pageX)}
       onMouseLeave={() => mouseX.set(Infinity)}
       className={cn(
-        "mx-auto hidden md:flex z-[9999] h-[80px] gap-2 items-end rounded-3xl bg-gray-50 px-3 w-fit pb-2",
-        className,
+        "mx-auto flex z-[9999] h-[80px] gap-2 items-end rounded-3xl bg-gray-50 px-3 w-fit pb-2",
+        className
       )}
     >
       {items.map((item) => (
@@ -131,12 +73,12 @@ function IconContainer({
   const widthTransformIcon = useTransform(
     distance,
     [-150, 0, 150],
-    [30, 50, 30], // Increased icon sizes
+    [30, 50, 30] // Increased icon sizes
   );
   const heightTransformIcon = useTransform(
     distance,
     [-150, 0, 150],
-    [30, 50, 30], // Increased icon sizes
+    [30, 50, 30] // Increased icon sizes
   );
 
   const width = useSpring(widthTransform, {
