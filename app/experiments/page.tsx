@@ -1,11 +1,8 @@
 "use client";
 import React from "react";
 import Footer from "../components/Footer";
-
-
-import React from "react";
 import Masonry from "react-masonry-css";
-import { Photo } from "./ui/Photo"; //fix this
+import { Photo } from "@/app/components/ui/Photo"; //fix this
 
 const photos = [
   { imageSrc: "/images/home/stackIcons/Arc.png", alt: "Arc Browser Icon" },

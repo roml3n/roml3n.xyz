@@ -51,13 +51,13 @@ const DockSection = ({ className }: { className: string }) => {
             ),
             href: "/experiments",
           },
-          {
-            title: "Photos",
-            icon: (
-              <IconPhotoFilled className="h-12 w-12 text-darkgrey group-hover:text-mainblue" />
-            ),
-            href: "/photos",
-          },
+          // {
+          //   title: "Photos",
+          //   icon: (
+          //     <IconPhotoFilled className="h-12 w-12 text-darkgrey group-hover:text-mainblue" />
+          //   ),
+          //   href: "/photos",
+          // },
         ]}
         desktopClassName="fixed bottom-4 rounded-full !bg-lightgrey border border-solid !border-midgrey"
       />
