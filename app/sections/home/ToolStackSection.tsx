@@ -47,26 +47,22 @@ export const ToolStackSection = () => {
           My tool
           <span className="p-2 h2 italic !text-mainblue">stack</span>
         </p>
+
+        {/* Tool Icons Section */}
         <div className="flex overflow-x-auto">
           {tools.map((tool, index) => (
-            <>
-              <div
-                key={index}
-                onClick={() => handleIconClick(index)}
-                className="cursor-pointer"
-              >
-                {/* Replace with actual icon component */}
-                <StackIcon
-                  key={index}
-                  imageSrc={tools[currentToolIndex].imageSrc}
-                  alt={tools[currentToolIndex].alt}
-                />{" "}
-                <div className="icon-placeholder">{tool.name}</div>
-              </div>
-            </>
+            <div
+              key={index}
+              onClick={() => handleIconClick(index)}
+              className="cursor-pointer"
+            >
+              <StackIcon imageSrc={tool.imageSrc} alt={tool.alt} />
+              <div className="icon-placeholder">{tool.name}</div>
+            </div>
           ))}
         </div>
 
+        {/* Dynamic Content Section */}
         <motion.div
           className="flex flex-col gap-4 p-4 rounded-xl bg-lightgrey"
           initial={{ opacity: 0, y: 20 }}
@@ -84,7 +80,6 @@ export const ToolStackSection = () => {
               <h3 className="h4 !font-semibold !text-darkgrey">
                 {tools[currentToolIndex].name}
               </h3>
-
               <Image
                 src="/LinkArrow.svg"
                 alt="arrow"
@@ -94,7 +89,7 @@ export const ToolStackSection = () => {
               />
             </div>
           </a>
-          <p className=" h4">{tools[currentToolIndex].description}</p>
+          <p className="h4">{tools[currentToolIndex].description}</p>
         </motion.div>
       </div>
     </section>

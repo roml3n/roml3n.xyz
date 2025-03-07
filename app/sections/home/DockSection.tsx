@@ -3,7 +3,7 @@ import React from "react";
 import { FloatingDock } from "@/app/components/ui/floating-dock";
 import {
   IconHomeFilled,
-  IconPhotoFilled,
+  // IconPhotoFilled,
   IconPaletteFilled,
   IconUserFilled,
   IconBallpenFilled,
@@ -66,4 +66,3 @@ const DockSection = ({ className }: { className: string }) => {
 };
 
 export default DockSection;
-
