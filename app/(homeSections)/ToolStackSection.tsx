@@ -125,7 +125,7 @@ export const ToolStackSection = () => {
                 borderColor:
                   index === currentToolIndex ? "#0D85DB" : "transparent",
                 borderWidth: 3,
-                borderRadius: 12,
+                borderRadius: 18,
                 boxShadow:
                   index === currentToolIndex
                     ? "0 0 15px 0 rgba(13, 133, 219, 0.4)" // Subtle glow
