@@ -2,12 +2,12 @@
 import React from "react";
 import Footer from "@/app/components/Footer";
 
-import Hero from "@/app/sections/work/tucheze/Hero";
-import ProjectInfo from "@/app/sections/work/projectInfo";
-import CaseSection from "@/app/sections/work/caseSection";
+import Hero from "@/app/(pages)/work/tucheze/Hero";
+import ProjectInfo from "@/app/(pages)/work/projectInfo";
+import CaseSection from "@/app/(pages)/work/caseSection";
 import TuchezeCard from "@/app/components/ui/TuchezeCard";
 import Divider from "@/app/components/ui/Divider";
-import ImagesSection from "@/app/sections/work/tucheze/ImagesSection";
+import ImagesSection from "@/app/(pages)/work/tucheze/ImagesSection";
 
 const Tucheze = () => {
   return (

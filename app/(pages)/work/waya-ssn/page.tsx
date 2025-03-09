@@ -2,14 +2,14 @@
 import React from "react";
 import Footer from "@/app/components/Footer";
 
-import Hero from "@/app/sections/work/waya-ssn/Hero";
-import ProjectInfo from "@/app/sections/work/projectInfo";
-import CaseSection from "@/app/sections/work/caseSection";
+import Hero from "@/app/(pages)/work/waya-ssn/Hero";
+import ProjectInfo from "@/app/(pages)/work/projectInfo";
+import CaseSection from "@/app/(pages)/work/caseSection";
 import WayaInterviewCard from "@/app/components/ui/WayaInterviewCard";
 import AnalysisCard from "@/app/components/ui/AnalysisCard";
 import Divider from "@/app/components/ui/Divider";
-import ImagesSection from "@/app/sections/work/waya-ssn/ImagesSection";
-import MarqueeSection from "@/app/sections/work/waya-ssn/MarqueeSection";
+import ImagesSection from "@/app/(pages)/work/waya-ssn/ImagesSection";
+import MarqueeSection from "@/app/(pages)/work/waya-ssn/MarqueeSection";
 
 const WayaSSN = () => {
   return (

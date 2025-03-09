@@ -43,7 +43,7 @@ const Hero = () => {
         </Button>
         <Button
           target-blank
-          url="https://bigstore.africa"
+          url="https://www.figma.com/design/sfeDE3gipPzbHZU4fUUZwq/%F0%9F%9F%A2-bigstore-%2F-bigstore-website-%5Bdeprecated%5D?node-id=151-16493&t=hB6qx1fvsVGA2xNr-1"
           className="flex gap-2 group"
           newTab
         >

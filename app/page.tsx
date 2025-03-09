@@ -2,9 +2,9 @@
 import React from "react";
 import "./globals.css";
 
-import { Hero } from "./sections/home/hero";
-import { ProjectsSection } from "./sections/home/ProjectsSection";
-import { ToolStackSection } from "./sections/home/ToolStackSection";
+import { Hero } from "./(homeSections)/hero";
+import { ProjectsSection } from "./(homeSections)/ProjectsSection";
+import { ToolStackSection } from "./(homeSections)/ToolStackSection";
 import Footer from "@/app/components/Footer";
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
           <ProjectsSection />
           <ToolStackSection />
         </main>
-       <Footer />
+        <Footer />
       </div>
     </section>
   );

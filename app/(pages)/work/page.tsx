@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Footer from "../components/Footer";
-import { WorkCard } from "../components/WorkCard";
+import Footer from "@/app/components/Footer";
+import { WorkCard } from "@/app/components/WorkCard";
 import Image from "next/image";
 
 const Work = () => {

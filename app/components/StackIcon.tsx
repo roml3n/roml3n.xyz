@@ -6,7 +6,7 @@ export const StackIcon: React.FC<{
   alt: string;
 }> = ({ imageSrc, alt }) => {
   return (
-    <div className="relative w-full aspect-square rounded-[20%] overflow-hidden border border-solid border-fullgrey border-opacity-20">
+    <div className="relative w-full aspect-square rounded-xl overflow-hidden border-2 border-solid border-fullgrey border-opacity-20">
       <Image src={imageSrc} alt={alt} fill className="object-cover" />
     </div>
   );

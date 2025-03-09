@@ -1,10 +1,10 @@
 "use client";
 import React from "react";
-import ImagesSection from "@/app/sections/about/ImagesSection";
-import ExperienceSection from "@/app/sections/about/ExperienceSection";
-import OnTheWebSection from "@/app/sections/about/OnTheWebSection";
-import CurrentlyReadingSection from "@/app/sections/about/CurrentlyReadingSection";
-import Footer from "../components/Footer";
+import ImagesSection from "@/app/(pages)/about/ImagesSection";
+import ExperienceSection from "@/app/(pages)/about/ExperienceSection";
+import OnTheWebSection from "@/app/(pages)/about/OnTheWebSection";
+import CurrentlyReadingSection from "@/app/(pages)/about/CurrentlyReadingSection";
+import Footer from "@/app/components/Footer";
 
 const about = () => {
   return (

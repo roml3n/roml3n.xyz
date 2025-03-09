@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import Footer from "../components/Footer";
+import Footer from "@/app/components/Footer";
 import BlogPostLink from "@/app/components/BlogPostLink";
 import Divider from "@/app/components/ui/Divider";
 
@@ -17,44 +17,40 @@ const Writing = () => {
         </h1>
 
         {/* Blog Posts */}
-        <div className="w-full flex flex-col gap-4">
-          <BlogPostLink
-            title="On side projects"
-            date="November 15, 2024"
-            url="/"
-          />
+        <div className="w-full flex flex-col gap-4 pb-32">
+          <BlogPostLink title="On side projects" date="November 2024" url="/" />
 
           <BlogPostLink
             title="On supercharging my productivity"
-            date="October 27, 2024"
+            date="October 2024"
             url="/"
           />
 
           <BlogPostLink
             title="On learning to code"
-            date="October 8, 2024"
+            date="October 2024"
             url="/"
           />
 
           <BlogPostLink
             title="On the death of Kenyan design"
-            date="September 5, 2024"
+            date="September 2024"
             url="/"
           />
 
           <BlogPostLink
             title="On bad design actually being a good thing"
-            date="July 19, 2024"
+            date="July 2024"
             url="/"
           />
 
           <BlogPostLink
             title="On the AI renaissance"
-            date="September 5, 2024"
+            date="September 2024"
             url="/"
           />
 
-          <BlogPostLink title="On upskilling" date="March 5, 2024" url="/" />
+          <BlogPostLink title="On upskilling" date="March 2024" url="/" />
         </div>
       </main>
       <Divider />

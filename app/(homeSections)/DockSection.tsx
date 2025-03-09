@@ -21,7 +21,7 @@ const DockSection = ({ className }: { className: string }) => {
             icon: (
               <IconHomeFilled className="h-12 w-12 text-darkgrey group-hover:text-mainblue" />
             ),
-            href: "/home",
+            href: "/",
           },
           {
             title: "About",

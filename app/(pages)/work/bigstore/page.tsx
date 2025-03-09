@@ -3,13 +3,14 @@ import React from "react";
 import Image from "next/image";
 import Footer from "@/app/components/Footer";
 
-import ProjectInfo from "@/app/sections/work/projectInfo";
-import CaseSection from "@/app/sections/work/caseSection";
+//sections
+import ProjectInfo from "@/app/(pages)/work/projectInfo";
+import CaseSection from "@/app/(pages)/work/caseSection";
 import InterviewCard from "@/app/components/ui/InterviewCard";
 import WorkProblemsCard from "@/app/components/ui/WorkProblemsCard";
 import Divider from "@/app/components/ui/Divider";
-import Hero from "@/app/sections/work/bigstore/Hero";
-import ImagesSection from "@/app/sections/work/bigstore/ImagesSection";
+import Hero from "@/app/(pages)/work/bigstore/Hero";
+import ImagesSection from "@/app/(pages)/work/bigstore/ImagesSection";
 
 const BigStore = () => {
   return (
@@ -55,7 +56,7 @@ const BigStore = () => {
             >
               <div className="grid grid-cols-1 grid-rows-3 md:grid-cols-2 md:grid-rows-2 gap-4">
                 <WorkProblemsCard
-                  imgSrc="/images/work/bigstore/beatrice-avatar.png"
+                  imgSrc="/images/work/bigstore/descriptions.svg"
                   problem="Product descriptions"
                   description={[
                     "Users struggled to find product features and specifications leading to confusion and hesitation to purchase.",
@@ -63,15 +64,15 @@ const BigStore = () => {
                   ]}
                 />
                 <WorkProblemsCard
-                  imgSrc="/images/work/bigstore/beatrice-avatar.png"
-                  problem="Product descriptions"
+                  imgSrc="/images/work/bigstore/reviews.svg"
+                  problem="Product reviews"
                   description={[
                     "Users struggled to find product features and specifications leading to confusion and hesitation to purchase. Low-quality or inadequate product images make it difficult to assess item details and features accurately.",
                   ]}
                 />
 
                 <WorkProblemsCard
-                  imgSrc="/images/work/bigstore/beatrice-avatar.png"
+                  imgSrc="/images/work/bigstore/checkout.svg"
                   problem="Checkout & payments"
                   description={[
                     "Confusing forms and unnecessary information requests created a frustrating and time-consuming experience.",
@@ -79,7 +80,7 @@ const BigStore = () => {
                   ]}
                 />
                 <WorkProblemsCard
-                  imgSrc="/images/work/bigstore/beatrice-avatar.png"
+                  imgSrc="/images/work/bigstore/tracking.svg"
                   problem="Order tracking"
                   description={[
                     "Lack of real-time updates or detailed information leaves users anxious and unsure about their orders.",

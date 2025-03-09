@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import DockSection from "@/app/sections/home/DockSection";
+import DockSection from "@/app/(homeSections)/DockSection";
 import Header from "@/app/components/Header.jsx";
 import { LinearBlur } from "progressive-blur";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   openGraph: {
     images: [
       {
-        url: "/images/og-image.png"
+        url: "/images/og-image.png",
       },
     ],
   },

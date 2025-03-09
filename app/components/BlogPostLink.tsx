@@ -17,7 +17,7 @@ const BlogPostLink = ({
         rel="noopener noreferrer"
         className="flex w-full items-center justify-between group"
       >
-        <div className="p-4 gap-2 flex items-center hover:bg-almostwhite hover:border hover:border-solid hover:border-midgrey transition-all duration-300 rounded-2xl w-full">
+        <div className="p-4 gap-2 flex items-center border border-midgrey border-opacity-0 hover:bg-almostwhite hover:border hover:border-solid hover:border-midgrey hover:border-opacity-100 transition-all duration-300 rounded-2xl w-full">
           <h2 className="h4 font-medium">{title}</h2>
           <div className="h-[1px] bg-midgrey flex-grow" />
           <p className="h4 font-medium">{date}</p>

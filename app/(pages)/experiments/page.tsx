@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import Footer from "../components/Footer";
+import Footer from "@/app/components/Footer";
 import Masonry from "react-masonry-css";
 import { Photo } from "@/app/components/ui/Photo"; //fix this
 
