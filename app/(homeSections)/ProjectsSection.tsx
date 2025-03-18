@@ -5,7 +5,7 @@ import ButtonLink from "@/app/components/ButtonLink";
 
 export const ProjectsSection = () => {
   return (
-    <section className="flex flex-col gap-0 md:gap-9 w-full items-center mt-[6.75rem]">
+    <section className="flex flex-col gap-9 w-full items-center mt-[6.75rem]">
       {/* Project Heading */}
       <div className="w-full flex flex-col md:flex-row justify-between items-center py-0 md:py-4">
         <h2 className="h2 pb-3 md:pb-0"> Featured Projects </h2>
@@ -13,8 +13,8 @@ export const ProjectsSection = () => {
       </div>
 
       {/* Project Cards */}
-      <div className="relative justify-center self-center w-full flex gap-4">
-        <div className="pt-9">
+      <div className="relative justify-center self-center w-full flex flex-col md:flex-row gap-4">
+        <div className="p-0 md:pt-9">
           <ProjectCard
             name="Bigstore"
             description="Redesigning e-commerce to boost loyalty, sales, and satisfaction"
@@ -24,7 +24,7 @@ export const ProjectsSection = () => {
           />
         </div>
 
-        <div className="pb-9">
+        <div className="p-0 md:pb-9">
           <ProjectCard
             name="Waya"
             description="Enhancing financial inclusion for new Americans and immigrants"
