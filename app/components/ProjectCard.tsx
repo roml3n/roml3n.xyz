@@ -1,42 +1,39 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { BorderTrail } from "./BorderTrail";
 
 export const ProjectCard: React.FC<{
+  name: string;
   description: string;
   imageSrc: string;
   href: string;
   className?: string;
-  edge?: boolean;
-}> = ({ description, imageSrc, href, className, edge }) => {
+  bgColor: string;
+}> = ({ name, description, imageSrc, href, className, bgColor }) => {
   return (
-    <>
-      <Link href={href}>
-        <div className="relative flex shrink-0 grow-0 flex-col justify-between !w-[427px] h-[620px] bg-fullwhite rounded-2xl overflow-hidden border border-solid border-midgrey group pt-6">
-          {/* BorderTrail */}
-          <div className="absolute inset-0 z-2 opacity-0 transition-opacity duration-300 rounded-2xl group-hover:opacity-100">
-            <BorderTrail
-              style={{
-                boxShadow:
-                  "0px 0px 60px 120px rgb(59 130 246 / 10%), 0 0 100px 90px rgb(59 130 246 / 50%), 0 0 140px 90px rgb(59 130 246 / 10%)",
-              }}
-              size={100}
-            />
-          </div>
+    <div
+      className={`relative flex shrink-0 grow-0 flex-col justify-between w-full  rounded-2xl overflow-hidden border border-solid border-fullgrey/10  ${bgColor}`}
+    >
+      <div className="w-full flex flex-col gap-3 pt-6 pb-0 px-6">
+        <p className="w-full h3">{name}</p>
+        <p className="w-full h5">{description}</p>
+        <Link
+          href={href}
+          className="h5 font-medium rounded-full w-fit !text-mainblue bg-white/60 hover:bg-white transition-all duration-300 px-4 py-2"
+        >
+          View case study
+        </Link>
+      </div>
 
-          <p className="w-full top-[36px] left-6 h3 px-6">{description}</p>
-          <div className={`relative w-full h-auto px-6 ${edge ? "scale-[115%] bottom-2" : ""}`}>
-            <Image
-              src={imageSrc}
-              alt="Frame Image"
-              width={854}
-              height={128}
-              className={`w-full h-auto ${className}`}
-            />
-          </div>
-        </div>
-      </Link>
-    </>
+      <div className="relative w-full h-auto">
+        <Image
+          src={imageSrc}
+          alt="Frame Image"
+          width={421}
+          height={357}
+          className={`w-full h-auto ${className}`}
+        />
+      </div>
+    </div>
   );
 };

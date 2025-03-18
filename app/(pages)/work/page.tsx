@@ -1,87 +1,47 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Footer from "@/app/components/Footer";
-import { WorkCard } from "@/app/components/WorkCard";
-import Image from "next/image";
+import { ProjectCard } from "@/app/components/ProjectCard";
+import { ComingSoonCard } from "@/app/components/ComingSoonCard";
 
 const Work = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const cards = document.querySelectorAll(".work-card");
-      cards.forEach((card, index) => {
-        const rect = card.getBoundingClientRect();
-
-        if (rect.top > 0 && rect.top < window.innerHeight / 2) {
-          setActiveIndex(index);
-        }
-      });
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const workItems = [
-    {
-      title: "Redesigning e-commerce to boost loyalty, sales, and satisfaction",
-      tag: "Product Design",
-      image: "/images/work/work-bigstore.png",
-      href: "/work/bigstore",
-    },
-    {
-      title: "Enhancing financial inclusion for new Americans and immigrants",
-      tag: "Product Design",
-      image: "/images/work/work-waya.png",
-      href: "/work/waya-ssn",
-    },
-    {
-      title: "Crafting a high-stakes experience for sports betting enthusiasts",
-      tag: "UI Design",
-      image: "/images/work/work-tucheze.png",
-      href: "/work/tucheze",
-    },
-    {
-      title: "Branding for exsgdh",
-      tag: "UI Design",
-      image: "/images/work/work-waya.png",
-      href: "/work/exsgdh",
-    },
-  ];
-
   return (
     <section className="m-auto items-center w-full gap-16">
       <main className="flex flex-col mt-10 md:mt-24 gap-16 items-center">
         <h1 className="h1 w-full">Work</h1>
 
-        <div
-          id="sticky-container"
-          className="w-full max-w-[1274px] flex flex-col gap-4 sticky"
-        >
-          {workItems.map((item, index) => (
-            <WorkCard
-              key={index}
-              index={index}
-              activeIndex={activeIndex}
-              href={item.href}
-            >
-              <div className="flex w-full justify-between self-center">
-                <h2 className="h2 w-[75%] flex-wrap">{item.title}</h2>
-                <div className="self-start px-4 py-2 bg-almostwhite border border-solid border-midgrey rounded-full w-fit">
-                  <p className="h4">{item.tag}</p>
-                </div>
-              </div>
+        <div className="relative justify-center self-center w-full flex flex-col md:flex-row gap-4">
+          <div className="p-0 md:pb-9 flex flex-col gap-4">
+            <ProjectCard
+              name="Bigstore"
+              description="Redesigning e-commerce to boost loyalty, sales, and satisfaction"
+              imageSrc="/images/projectCard/bigstore-screen.png"
+              href="/work/bigstore"
+              bgColor="bg-[#F2E7E6]"
+            />
 
-              <Image
-                src={item.image}
-                alt={item.title}
-                className="w-[80%] h-auto rounded-md mt-4"
-                width={480}
-                height={480}
-              />
-            </WorkCard>
-          ))}
+            <ProjectCard
+              name="Waya"
+              description="Enhancing financial inclusion for new Americans and immigrants"
+              imageSrc="/images/projectCard/waya-screen.png"
+              href="/work/waya-ssn"
+              bgColor="bg-[#E8F2EF]"
+            />
+          </div>
+
+          <div className="p-0 md:pt-9 flex flex-col gap-4">
+            <ProjectCard
+              name="Tucheze"
+              description="Crafting a high-stakes experience for sports betting enthusiasts"
+              imageSrc="/images/projectCard/tucheze-screen.png"
+              href="/work/tucheze"
+              bgColor="bg-[#E8ECF1]"
+            />
+            <ComingSoonCard
+              name="Stockpicha"
+              description="Branding a creative marketplace"
+            />
+          </div>
         </div>
       </main>
 

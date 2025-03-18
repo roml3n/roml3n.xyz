@@ -60,7 +60,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${ppEditorial.variable} ${ppNeueMontreal.variable} antialiased w-[80%] mx-auto max-w-5xl`}
+        className={`${ppEditorial.variable} ${ppNeueMontreal.variable} antialiased w-[90%] md:w-[80%] mx-auto max-w-5xl scroll-smooth`}
       >
         <SpeedInsights />
         <LinearBlur

@@ -4,11 +4,10 @@ module.exports = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
-     "./src/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
-
       fontFamily: {
         montreal: ["PPNeueMontreal", "sans-serif"],
         editorial: ["PPEditorialNew", "serif"],
@@ -32,20 +31,30 @@ module.exports = {
         lightgrey: "#F5F5F5",
         fullwhite: "#FFFFFF",
       },
+
+      keyframes: {
+        marquee: {
+          "0%": { transform: "translateX(100%)" },
+          "100%": { transform: "translateX(-100%)" },
+        },
+      },
+
+      animation: {
+        marquee: "marquee 10s linear infinite",
+      },
     },
   },
   plugins: [
-
     function ({ addUtilities }) {
       addUtilities({
         ".scrollbar-hide": {
-          "-ms-overflow-style": "none", 
-          "scrollbar-width": "none",  
+          "-ms-overflow-style": "none",
+          "scrollbar-width": "none",
           "&::-webkit-scrollbar": {
-            display: "none",    
+            display: "none",
           },
         },
       });
     },
   ],
-}
+};

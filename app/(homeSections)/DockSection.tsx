@@ -3,11 +3,11 @@ import React from "react";
 import { FloatingDock } from "@/app/components/ui/floating-dock";
 import {
   IconHomeFilled,
-  // IconPhotoFilled,
+  IconPhotoFilled,
   IconPaletteFilled,
   IconUserFilled,
   IconBallpenFilled,
-  IconFlaskFilled,
+  // IconFlaskFilled,
 } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
 
@@ -44,20 +44,20 @@ const DockSection = ({ className }: { className: string }) => {
             ),
             href: "/writing",
           },
-          {
-            title: "Experiments",
-            icon: (
-              <IconFlaskFilled className="h-12 w-12 text-darkgrey group-hover:text-mainblue" />
-            ),
-            href: "/experiments",
-          },
           // {
-          //   title: "Photos",
+          //   title: "Experiments",
           //   icon: (
-          //     <IconPhotoFilled className="h-12 w-12 text-darkgrey group-hover:text-mainblue" />
+          //     <IconFlaskFilled className="h-12 w-12 text-darkgrey group-hover:text-mainblue" />
           //   ),
-          //   href: "/photos",
+          //   href: "/experiments",
           // },
+          {
+            title: "Photos",
+            icon: (
+              <IconPhotoFilled className="h-12 w-12 text-darkgrey group-hover:text-mainblue" />
+            ),
+            href: "/photos",
+          },
         ]}
         desktopClassName="fixed bottom-4 rounded-full !bg-lightgrey border border-solid !border-midgrey"
       />
