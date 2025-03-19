@@ -18,39 +18,31 @@ const Writing = () => {
 
         {/* Blog Posts */}
         <div className="w-full flex flex-col gap-4 pb-32">
-          <BlogPostLink title="On side projects" date="November 2024" url="/" />
+          <BlogPostLink title="On side projects" date="11.2024" url="/" />
 
           <BlogPostLink
             title="On supercharging my productivity"
-            date="October 2024"
+            date="10.2024"
             url="/"
           />
 
-          <BlogPostLink
-            title="On learning to code"
-            date="October 2024"
-            url="/"
-          />
+          <BlogPostLink title="On learning to code" date="10.2024" url="/" />
 
           <BlogPostLink
             title="On the death of Kenyan design"
-            date="September 2024"
+            date="09.2024"
             url="/"
           />
 
           <BlogPostLink
             title="On bad design actually being a good thing"
-            date="July 2024"
+            date="07.2024"
             url="/"
           />
 
-          <BlogPostLink
-            title="On the AI renaissance"
-            date="September 2024"
-            url="/"
-          />
+          <BlogPostLink title="On the AI renaissance" date="09.2024" url="/" />
 
-          <BlogPostLink title="On upskilling" date="March 2024" url="/" />
+          <BlogPostLink title="On upskilling" date="03.2024" url="/" />
         </div>
       </main>
       <Divider />
