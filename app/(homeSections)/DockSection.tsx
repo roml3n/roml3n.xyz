@@ -7,7 +7,6 @@ import {
   IconPaletteFilled,
   IconUserFilled,
   IconBallpenFilled,
-  // IconFlaskFilled,
 } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
 
@@ -44,13 +43,6 @@ const DockSection = ({ className }: { className: string }) => {
             ),
             href: "/writing",
           },
-          // {
-          //   title: "Experiments",
-          //   icon: (
-          //     <IconFlaskFilled className="h-10 w-10 text-darkgrey group-hover:text-mainblue" />
-          //   ),
-          //   href: "/experiments",
-          // },
           {
             title: "Photos",
             icon: (
