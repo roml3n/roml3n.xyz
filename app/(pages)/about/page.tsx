@@ -28,6 +28,7 @@ const about = () => {
         <ExperienceSection />
         <div className="w-full h-[1px] bg-midgrey"></div>
         <OnTheWebSection />
+        <div className="w-full h-[1px] bg-midgrey"></div>
         <CurrentlyReadingSection />
       </main>
       <Footer />

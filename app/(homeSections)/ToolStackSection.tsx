@@ -108,14 +108,14 @@ export const ToolStackSection = () => {
 
   return (
     <section className="mt-[4rem] flex flex-col self-center items-center w-screen py-16 pb-32 rounded-t-[2rem] border-t border-midgrey bg-fullwhite">
-      <div className="flex flex-col w-[80%] max-w-[1024px] gap-9">
+      <div className="flex flex-col w-[90%] md:w-[80%] max-w-[1024px] gap-9">
         <p className="h2">
           My tool
           <span className="p-2 h2 italic !text-mainblue">stack</span>
         </p>
 
         {/* Tool Icons Section */}
-        <div className="grid grid-cols-5 md:grid-cols-10 gap-2 w-full">
+        <div className="grid grid-cols-5 md:grid-cols-10 gap-0 md:gap-2 w-full">
           {tools.map((tool, index) => (
             <motion.div
               key={index}
