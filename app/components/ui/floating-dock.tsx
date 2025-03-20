@@ -32,18 +32,25 @@ const FloatingDockDesktop = ({
   items: { title: string; icon: React.ReactNode; href: string }[];
   className?: string;
 }) => {
+  const isMobile = window.innerWidth < 768; // Check if the device is mobile
   const mouseX = useMotionValue(Infinity);
+
   return (
     <motion.div
-      onMouseMove={(e) => mouseX.set(e.pageX)}
-      onMouseLeave={() => mouseX.set(Infinity)}
+      onMouseMove={!isMobile ? (e) => mouseX.set(e.pageX) : undefined} // Disable mouse move on mobile
+      onMouseLeave={!isMobile ? () => mouseX.set(Infinity) : undefined} // Disable mouse leave on mobile
       className={cn(
         "mx-auto flex z-[9999] h-[76px] gap-1 items-end rounded-3xl bg-gray-50 px-2 w-fit pb-2",
         className
       )}
     >
       {items.map((item) => (
-        <IconContainer mouseX={mouseX} key={item.title} {...item} />
+        <IconContainer
+          mouseX={mouseX}
+          key={item.title}
+          {...item}
+          isMobile={isMobile}
+        />
       ))}
     </motion.div>
   );
@@ -54,11 +61,13 @@ function IconContainer({
   title,
   icon,
   href,
+  isMobile,
 }: {
   mouseX: MotionValue;
   title: string;
   icon: React.ReactNode;
   href: string;
+  isMobile: boolean; // New prop to determine if it's mobile
 }) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -110,9 +119,11 @@ function IconContainer({
       <motion.div
         ref={ref}
         style={{ width, height }}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        className="aspect-square rounded-full group bg-midgrey flex items-center justify-center relative"
+        onMouseEnter={!isMobile ? () => setHovered(true) : undefined} // Disable hover effect on mobile
+        onMouseLeave={!isMobile ? () => setHovered(false) : undefined} // Disable hover effect on mobile
+        className={`aspect-square rounded-full group bg-midgrey flex items-center justify-center relative ${
+          hovered ? "bg-mainblue" : ""
+        }`} // Keep blue color on active icon
       >
         <AnimatePresence>
           {hovered && (
