@@ -18,7 +18,7 @@ const Tucheze = () => {
         {/* Case Section */}
         <section className="relative flex flex-col gap-6 w-screen bg-fullwhite py-12 items-center justify-center">
           {/* 80% Wrapper */}
-          <div className="`wrapper` w-[80%] max-w-screen-lg mx-auto items-center flex flex-col gap-16 -mb-12">
+          <div className="`wrapper` w-[90%] md:w-[80%] max-w-screen-lg mx-auto items-center flex flex-col gap-16 -mb-12">
             <ProjectInfo
               Overview="Tucheze, an online sports and casino betting platform, needed a visual experience in order to match the excitement of live sports and high-stakes games. With solid user research and foundational UX insights already established, my role was to instil the excitement and immediacy of a game-day atmosphere into the interface through strategic visual design. The core goal was to create a UI that provided immediate excitement and let users easily move between dynamic games, live betting, and real-time score updates."
               Role="Visual Designer"

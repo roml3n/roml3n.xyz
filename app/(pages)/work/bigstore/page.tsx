@@ -21,7 +21,7 @@ const BigStore = () => {
         {/* Case Section */}
         <section className="relative flex flex-col gap-6 w-screen bg-fullwhite py-12 items-center justify-center">
           {/* 80% Wrapper */}
-          <div className="`wrapper` w-[80%] max-w-screen-lg mx-auto flex flex-col gap-16 -mb-12">
+          <div className="`wrapper` w-[90%] md:w-[80%] max-w-screen-lg mx-auto flex flex-col gap-16 -mb-12">
             <ProjectInfo
               Overview="Redesign Bigstore’s web app to streamline the shopping experience,
             fixing any issues and generating more sales."

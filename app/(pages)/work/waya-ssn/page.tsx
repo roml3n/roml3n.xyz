@@ -20,7 +20,7 @@ const WayaSSN = () => {
         {/* Case Section */}
         <section className="relative flex flex-col gap-6 w-screen bg-fullwhite py-12 items-center justify-center">
           {/* 80% Wrapper */}
-          <div className="`wrapper` w-[80%] max-w-screen-lg mx-auto items-center flex flex-col gap-16 -mb-12">
+          <div className="`wrapper` w-[90%] md:w-[80%] max-w-screen-lg mx-auto items-center flex flex-col gap-16 -mb-12">
             <ProjectInfo
               Overview="During the first quarter of 2024, as part of a design sprint, I had the fantastic opportunity to work on a new feature for Waya, a neobank aimed at providing financial inclusivity to new Americans and immigrants to the US."
               Role="Lead Designer"
