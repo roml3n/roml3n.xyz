@@ -5,6 +5,7 @@ import DockSection from "@/app/(homeSections)/DockSection";
 import Header from "@/app/components/Header.jsx";
 import { LinearBlur } from "progressive-blur";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
 
 const ppEditorial = localFont({
   src: [
@@ -62,6 +63,7 @@ export default function RootLayout({
       <body
         className={`${ppEditorial.variable} ${ppNeueMontreal.variable} antialiased w-[90%] md:w-[80%] mx-auto max-w-5xl scroll-smooth`}
       >
+        <Analytics />
         <SpeedInsights />
         <LinearBlur
           side="top"

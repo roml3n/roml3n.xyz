@@ -4,6 +4,32 @@ import Footer from "@/app/components/Footer";
 import BlogPostLink from "@/app/components/BlogPostLink";
 import Divider from "@/app/components/ui/Divider";
 
+const blogPosts = [
+  { title: "On side projects", date: "11.2024", slug: "on-side-projects" },
+  {
+    title: "On supercharging my productivity",
+    date: "10.2024",
+    slug: "on-supercharging-my-productivity",
+  },
+  {
+    title: "On learning to code",
+    date: "10.2024",
+    slug: "on-learning-to-code",
+  },
+  { title: "Is Kenyan design dead?", date: "09.2024", slug: "is-kenyan-dead" },
+  {
+    title: "Bad design is a good thing",
+    date: "07.2024",
+    slug: "bad-design-is-a-good-thing",
+  },
+  {
+    title: "On the AI renaissance",
+    date: "09.2024",
+    slug: "on-the-ai-renaissance",
+  },
+  { title: "On upskilling", date: "03.2024", slug: "on-upskilling" },
+];
+
 const Writing = () => {
   return (
     <section className="m-auto items-center w-full gap-16">
@@ -18,31 +44,14 @@ const Writing = () => {
 
         {/* Blog Posts */}
         <div className="w-full flex flex-col gap-4 pb-32">
-          <BlogPostLink title="On side projects" date="11.2024" url="/" />
-
-          <BlogPostLink
-            title="On supercharging my productivity"
-            date="10.2024"
-            url="/"
-          />
-
-          <BlogPostLink title="On learning to code" date="10.2024" url="/" />
-
-          <BlogPostLink
-            title="On the death of Kenyan design"
-            date="09.2024"
-            url="/"
-          />
-
-          <BlogPostLink
-            title="On bad design actually being a good thing"
-            date="07.2024"
-            url="/"
-          />
-
-          <BlogPostLink title="On the AI renaissance" date="09.2024" url="/" />
-
-          <BlogPostLink title="On upskilling" date="03.2024" url="/" />
+          {blogPosts.map((post, index) => (
+            <BlogPostLink
+              key={index}
+              title={post.title}
+              date={post.date}
+              url={`./writing/${post.slug}/`}
+            />
+          ))}
         </div>
       </main>
       <Divider />
