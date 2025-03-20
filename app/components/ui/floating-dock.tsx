@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+
 // import { IconLayoutNavbarCollapse } from "@tabler/icons-react";
 import {
   AnimatePresence,
@@ -9,7 +10,7 @@ import {
   useTransform,
 } from "framer-motion";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 export const FloatingDock = ({
   items,
@@ -18,9 +19,17 @@ export const FloatingDock = ({
   items: { title: string; icon: React.ReactNode; href: string }[];
   desktopClassName?: string;
 }) => {
+  const [isBrowser, setIsBrowser] = useState(false);
+
+  useEffect(() => {
+    setIsBrowser(typeof window !== "undefined");
+  }, []);
+
   return (
     <>
-      <FloatingDockDesktop items={items} className={desktopClassName} />
+      {isBrowser && (
+        <FloatingDockDesktop items={items} className={desktopClassName} />
+      )}
     </>
   );
 };
