@@ -197,7 +197,7 @@ const page = () => {
           {/* Framer */}
           <div className="w-full flex flex-col gap-4">
             <Link href="https://framer.com" className="flex gap-2">
-              <p className="h4 font-medium">Figma</p>
+              <p className="h4 font-medium">Framer</p>
               <div className="flex items-center justify-center rounded-full border border-solid border-midgrey bg-fullwhite p-1">
                 <Image
                   src="/images/icons/Arrow.svg"
