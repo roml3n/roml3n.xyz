@@ -4,16 +4,26 @@ import Link from "next/link";
 type ButtonLinkProps = {
   Label?: string;
   URL: string;
+  className?: string;
 };
 
-const ButtonLink: React.FC<ButtonLinkProps> = ({ Label = "Link", URL }) => {
+const ButtonLink: React.FC<ButtonLinkProps> = ({
+  Label = "Link",
+  URL,
+  className,
+}) => {
   return (
-    <div className="w-fit flex flex-col relative group">
-      <Link href={URL} className="px-2 z-10 rounded-full h4 relative transition-all duration-300 w-fit group-hover:mt-[4px]">
-        {Label}
-      </Link>
-      <div className="relative h-2 bg-mainblue -mt-2 rounded-full opacity-20 transition-all duration-300 group-hover:h-8 group-hover:-mt-[28px]"></div>
-    </div>
+    <span className="w-fit inline-block relative group">
+      <div className="flex flex-col ">
+        <Link
+          href={URL}
+          className={`px-[2px] group-hover:px-[2px] z-10 rounded-full h4 relative transition-all duration-300 w-fit  ${className}`}
+        >
+          {Label}
+        </Link>
+        <span className="relative h-[3px] bg-mainblue -mt-[5px] rounded-md opacity-20 transition-all duration-300 group-hover:h-[1rem] sm:group-hover:h-[1.1rem] md:group-hover:h-[1.5rem] group-hover:-mt-[18px] sm:group-hover:-mt-[19px] md:group-hover:-mt-[24px]"></span>
+      </div>
+    </span>
   );
 };
 

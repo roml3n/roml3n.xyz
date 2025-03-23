@@ -5,18 +5,17 @@ import BlogPostLink from "@/app/components/BlogPostLink";
 import Divider from "@/app/components/ui/Divider";
 
 const blogPosts = [
-  { title: "On side projects", date: "11.2024", slug: "on-side-projects" },
+  { title: "On side projects", date: "12.2024", slug: "on-side-projects" },
   {
-    title: "On supercharging my productivity",
+    title: "Tools that supercharge my workflow",
     date: "10.2024",
-    slug: "on-supercharging-my-productivity",
+    slug: "tools-that-supercharge-my-workflow",
   },
   {
     title: "On learning to code",
     date: "10.2024",
     slug: "on-learning-to-code",
   },
-  { title: "Is Kenyan design dead?", date: "09.2024", slug: "is-kenyan-dead" },
   {
     title: "Bad design is a good thing",
     date: "07.2024",
