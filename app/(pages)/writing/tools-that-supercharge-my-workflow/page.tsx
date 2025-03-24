@@ -202,7 +202,7 @@ const page = () => {
                 <Image
                   src="/images/icons/Arrow.svg"
                   alt="Arrow"
-                  width={16}
+                width={16}
                   height={16}
                 />
               </div>

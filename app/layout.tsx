@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   openGraph: {
     images: [
       {
-        url: "/images/og-image.png",
+        url: "https://roml3n.xyz/images/og-image.png",
       },
     ],
   },
@@ -76,7 +76,7 @@ export default function RootLayout({
             top: 0,
             inset: 0,
             zIndex: 8998,
-            height: 200,
+            height: 150,
           }}
         />
 
