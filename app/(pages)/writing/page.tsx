@@ -5,6 +5,7 @@ import BlogPostLink from "@/app/components/BlogPostLink";
 import Divider from "@/app/components/ui/Divider";
 
 const blogPosts = [
+  { title: "On upskilling", date: "03.2025", slug: "on-upskilling" },
   { title: "On side projects", date: "12.2024", slug: "on-side-projects" },
   {
     title: "Tools that supercharge my workflow",
@@ -21,12 +22,7 @@ const blogPosts = [
     date: "07.2024",
     slug: "bad-design-is-a-good-thing",
   },
-  {
-    title: "On the AI renaissance",
-    date: "09.2024",
-    slug: "on-the-ai-renaissance",
-  },
-  { title: "On upskilling", date: "03.2024", slug: "on-upskilling" },
+
 ];
 
 const Writing = () => {
