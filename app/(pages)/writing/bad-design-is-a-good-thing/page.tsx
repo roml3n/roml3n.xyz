@@ -43,7 +43,7 @@ const page = () => {
           <br />
 
           <div className="h4 space-y-4">
-            <p className="h3">Coding is a Different Kind of Creative</p>
+            <p className="h3">Bad Design Encourages Adaptability </p>
             <p>
               When we encounter poorly designed objects or interfaces, we’re
               often forced to think creatively and find solutions to overcome
