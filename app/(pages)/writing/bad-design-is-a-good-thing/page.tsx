@@ -10,7 +10,7 @@ const page = () => {
       <main className="flex flex-col mt-10 md:mt-24 gap-16 items-center relative">
         {/* Title and sub */}
         <div className="flex flex-col gap-4 w-full">
-          <h1 className="h2 w-full">Bas Design is Actually a Good Thing</h1>
+          <h1 className="h2 w-full">Bad Design is Actually a Good Thing</h1>
           <h5 className="h5 w-full">July 19, 2024</h5>
         </div>
 
