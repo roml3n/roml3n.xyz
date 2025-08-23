@@ -18,6 +18,7 @@
     "gray-matter": "^4.0.3",
     "lodash.throttle": "^4.1.1",
     "lucide-react": "^0.460.0",
+    "magnetic-grid": "^1.0.2",
     "next": "15.0.3",
     "next-mdx-remote": "^5.0.0",
     "nextra": "^4.2.16",
