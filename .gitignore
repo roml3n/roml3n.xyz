@@ -23,6 +23,7 @@
 # misc
 .DS_Store
 *.pem
+SANITY_SETUP.md
 
 # debug
 npm-debug.log*
@@ -39,13 +40,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Ignore the parent directory's React Lessons folder
-../React Lessons/
-<<<<<<< HEAD
-=======
-React Lessons/
->>>>>>> roman
-
 # Ignore macOS .DS_Store files
 .DS_Store
-
