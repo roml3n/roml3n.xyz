@@ -4,7 +4,8 @@ import { useParams } from "next/navigation";
 import Footer from "@/app/components/Footer";
 import { getCaseStudyBySlug } from "@/lib/sanity";
 import { urlFor } from "@/lib/sanity";
-import PortableText from "@/components/PortableText";
+import Image from "next/image";
+// import PortableText from "@/components/PortableText";
 
 interface CaseStudy {
   _id: string;
@@ -205,9 +206,10 @@ const CaseStudyPage = () => {
             <h2 className="text-2xl font-bold mb-6 text-center">Project Gallery</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {caseStudy.gallery.map((image, index) => (
-                <img
+                <Image
                   key={index}
                   src={urlFor(image).url()}
+                  fill
                   alt={`${caseStudy.title} - Image ${index + 1}`}
                   className="w-full h-auto rounded-lg shadow-lg"
                 />

@@ -182,12 +182,12 @@ const components: PortableTextReactComponents = {
   },
   list: {
     bullet: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-      <ul className="list-disc list-inside mb-4 space-y-1 text-fullgrey">
+      <ul className="h4 list-disc list-inside my-4 space-y-1 text-fullgrey">
         {children}
       </ul>
     ),
     number: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-      <ol className="list-decimal list-inside mb-4 space-y-1 text-fullgrey">
+      <ol className="h4 list-decimal list-inside my-4 space-y-1 text-fullgrey">
         {children}
       </ol>
     ),
