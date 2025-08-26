@@ -37,7 +37,7 @@ const Work = () => {
           <div className="p-0 md:pb-9 flex flex-col gap-4">
             {projects
               .filter((_, index) => index % 2 === 0)
-              .map((project, index) => (
+              .map((project) => (
                 <ProjectCard
                   key={project.name}
                   name={project.name}
@@ -51,7 +51,7 @@ const Work = () => {
           <div className="p-0 md:pt-9 flex flex-col gap-4">
             {projects
               .filter((_, index) => index % 2 !== 0)
-              .map((project, index) => (
+              .map((project) => (
                 <ProjectCard
                   key={project.name}
                   name={project.name}

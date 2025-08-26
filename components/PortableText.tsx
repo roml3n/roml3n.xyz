@@ -52,7 +52,7 @@ interface SanityVideoBlock {
 }
 
 interface PortableTextProps {
-  value: any[];
+  value: PortableTextBlock[];
   className?: string;
 }
 
@@ -122,18 +122,7 @@ const components: PortableTextReactComponents = {
       children,
       value,
     }: PortableTextMarkComponentProps<SanityLinkMark>) => {
-      const rel = !value?.href?.startsWith("/") ? "noreferrer noopener" : "";
-      return (
-        <ButtonLink URL={value?.href ?? ""} Label={String(children)} />
-        // <a
-        //   href={value?.href}
-        //   rel={rel}
-        //   className="text-darkgrey hover:font-medium hover:text-mainblue/80 underline decoration-mainblue/50 hover:decoration-mainblue decoration-2 transition-all duration-300 mt-1 inline-block hover:decoration-3"
-        //   target={!value?.href?.startsWith("/") ? "_blank" : undefined}
-        // >
-        //   {children}
-        // </a>
-      );
+      return <ButtonLink URL={value?.href ?? ""} Label={String(children)} />;
     },
     strong: ({
       children,
@@ -197,11 +186,16 @@ const components: PortableTextReactComponents = {
   ),
   hardBreak: () => <br />,
   // Required unknown handlers
-  unknownType: ({ value }: PortableTextTypeComponentProps<any>) => {
+  unknownType: ({
+    value,
+  }: PortableTextTypeComponentProps<Record<string, any>>) => {
     console.warn("Unknown type encountered:", value);
     return <div>Unknown content type</div>;
   },
-  unknownMark: ({ children, value }: PortableTextMarkComponentProps<any>) => {
+  unknownMark: ({
+    children,
+    value,
+  }: PortableTextMarkComponentProps<PortableTextMarkDefinition>) => {
     console.warn("Unknown mark encountered:", value);
     return <span>{children}</span>;
   },

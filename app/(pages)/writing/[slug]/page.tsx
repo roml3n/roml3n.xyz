@@ -5,6 +5,16 @@ import Footer from "@/app/components/Footer";
 import { getBlogBySlug } from "@/lib/sanity";
 import { urlFor } from "@/lib/sanity";
 import PortableText from "@/components/PortableText";
+import { PortableTextBlock } from "@portabletext/types";
+import Image from "next/image";
+
+interface SanityImageAsset {
+  _type: string;
+  asset: {
+    _ref: string;
+    _type: string;
+  };
+}
 
 interface BlogPost {
   _id: string;
@@ -12,8 +22,8 @@ interface BlogPost {
   slug: { current: string };
   publishedAt: string;
   excerpt?: string;
-  featuredImage?: any;
-  content?: any;
+  featuredImage?: SanityImageAsset;
+  content?: PortableTextBlock[];
   tags?: string[];
 }
 
@@ -59,7 +69,7 @@ const BlogPostPage = () => {
         <main className="flex flex-col mt-10 md:mt-24 gap-16 items-center">
           <div className="text-center py-8">
             <h1 className="h1 mb-4">Blog Post Not Found</h1>
-            <p className="text-gray-600">The blog post you're looking for doesn't exist.</p>
+            <p className="text-gray-600">The blog post you&apos;re looking for doesn&apos;t exist.</p>
           </div>
         </main>
       </section>
@@ -111,9 +121,11 @@ const BlogPostPage = () => {
         {/* Featured Image */}
         {blogPost.featuredImage && (
           <div className="w-full max-w-4xl">
-            <img
+            <Image
               src={urlFor(blogPost.featuredImage).url()}
               alt={blogPost.title}
+              width={1000}
+              height={600}
               className="w-full h-auto rounded-lg shadow-lg"
             />
           </div>
@@ -125,8 +137,6 @@ const BlogPostPage = () => {
             <PortableText value={blogPost.content} />
           </div>
         )}
-
-      
       </main>
 
       <Footer />
