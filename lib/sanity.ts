@@ -38,36 +38,7 @@ export const getBlogBySlugQuery = `*[_type == "blog" && slug.current == $slug &&
   tags
 }`;
 
-// GROQ queries for case studies
-export const getAllCaseStudiesQuery = `*[_type == "caseStudy" && isPublished == true] | order(startDate desc) {
-  _id,
-  title,
-  slug,
-  client,
-  projectType,
-  description,
-  featuredImage,
-  techStack,
-  featured
-}`;
 
-export const getCaseStudyBySlugQuery = `*[_type == "caseStudy" && slug.current == $slug && isPublished == true][0] {
-  _id,
-  title,
-  slug,
-  client,
-  projectType,
-  description,
-  challenge,
-  solution,
-  techStack,
-  featuredImage,
-  gallery,
-  liveUrl,
-  githubUrl,
-  startDate,
-  endDate
-}`;
 
 // Helper functions
 export const getAllBlogs = async () => {
@@ -76,12 +47,4 @@ export const getAllBlogs = async () => {
 
 export const getBlogBySlug = async (slug: string) => {
   return await client.fetch(getBlogBySlugQuery, { slug });
-};
-
-export const getAllCaseStudies = async () => {
-  return await client.fetch(getAllCaseStudiesQuery);
-};
-
-export const getCaseStudyBySlug = async (slug: string) => {
-  return await client.fetch(getCaseStudyBySlugQuery, { slug });
 };
