@@ -9,8 +9,8 @@ import CaseSection from "@/app/(pages)/work/caseSection";
 import InterviewCard from "@/app/components/ui/InterviewCard";
 import WorkProblemsCard from "@/app/components/ui/WorkProblemsCard";
 import Divider from "@/app/components/ui/Divider";
-import Hero from "@/app/(pages)/work/bigstore/Hero";
-import ImagesSection from "@/app/(pages)/work/bigstore/ImagesSection";
+import Hero from "@/app/(pages)/work/bigstore-v1/Hero";
+import ImagesSection from "@/app/(pages)/work/bigstore-v1/ImagesSection";
 
 const BigStore = () => {
   return (
