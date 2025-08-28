@@ -4,8 +4,7 @@ import Link from "next/link";
 
 const AvatarSM = () => {
   return (
-    <Link href="/" passHref legacyBehavior>
-      <a>
+    <Link href="/" passHref>
         <Image
           src="/images/home/rlAvatar.png"
           alt="Avatar Image"
@@ -13,7 +12,6 @@ const AvatarSM = () => {
           height={48}
           className="rounded-full border border-solid border-midgrey"
         />
-      </a>
     </Link>
   );
 };
