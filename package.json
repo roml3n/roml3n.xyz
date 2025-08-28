@@ -28,7 +28,7 @@
     "lodash.throttle": "^4.1.1",
     "lucide-react": "^0.460.0",
     "magnetic-grid": "^1.0.2",
-    "next": "15.0.3",
+    "next": "^15.1.0",
     "next-mdx-remote": "^5.0.0",
     "next-sanity": "^10.0.13",
     "nextra": "^4.2.16",
