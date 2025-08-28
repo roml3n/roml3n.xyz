@@ -9,8 +9,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        montreal: ["PPNeueMontreal", "sans-serif"],
-        editorial: ["PPEditorialNew", "serif"],
+        montreal: ["var(--font-pp-neue-montreal)", "sans-serif"],
+        editorial: ["var(--font-pp-editorial)", "serif"],
       },
 
       fontSize: {
