@@ -10,6 +10,7 @@ import {
 import {
   PortableTextBlock,
   PortableTextMarkDefinition,
+  TypedObject,
 } from "@portabletext/types";
 import { urlFor } from "@/lib/sanity";
 import React from "react";
@@ -186,9 +187,7 @@ const components: PortableTextReactComponents = {
   ),
   hardBreak: () => <br />,
   // Required unknown handlers
-  unknownType: ({
-    value,
-  }: PortableTextTypeComponentProps<Record<string, any>>) => {
+  unknownType: ({ value }: PortableTextTypeComponentProps<TypedObject>) => {
     console.warn("Unknown type encountered:", value);
     return <div>Unknown content type</div>;
   },
