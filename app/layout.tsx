@@ -3,7 +3,6 @@ import localFont from "next/font/local";
 import "./globals.css";
 import DockSection from "@/app/(homeSections)/DockSection";
 import Header from "@/app/components/Header.jsx";
-import { LinearBlur } from "progressive-blur";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 
@@ -65,20 +64,8 @@ export default function RootLayout({
       >
         <Analytics />
         <SpeedInsights />
-        <LinearBlur
-          side="top"
-          steps={10}
-          strength={42}
-          falloffPercentage={100}
-          tint="#ffffff50"
-          style={{
-            position: "fixed",
-            top: 0,
-            inset: 0,
-            zIndex: 8998,
-            height: 150,
-          }}
-        />
+
+        <div className="fixed top-0 inset-0 z-[8998] h-[100px] w-screen  bg-gradient-to-b from-fullwhite via-fullwhite/80 to-transparent" />
 
         <Header />
 

@@ -4,7 +4,7 @@ const CautionMarquee: React.FC<{ direction?: "left" | "right" }> = ({
   direction = "left",
 }) => {
   const marqueeRef = useRef<HTMLDivElement>(null);
-  const animationRef = useRef<number>();
+  const animationRef = useRef<number>(0);
 
   useEffect(() => {
     const marqueeElement = marqueeRef.current;
