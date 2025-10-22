@@ -17,9 +17,10 @@ const Work = () => {
 
             companyName="Pawa IT Solutions"
             companyLogo="/images/icons/Pawa.svg"
+            logoBg="bg-[#262261]"
             companyLogoAlt="Pawa IT Solutions logo"
             period="2024 - present"
-            websiteName="pawait.com"
+            websiteName="pawait.africa"
             websiteLink="https://pawait.africa"
             className="bg-white"
           >
@@ -29,7 +30,7 @@ const Work = () => {
               tag="Product Design"
               image="/images/projectCard/website-img.webp"
               href="/work/konversations"
-              className="col-span-1 bg-[#EAE3F8]"
+              className="col-span-1 bg-[#EAE3F8] "
             />
             <ProjectCard
               name="Brand Refresh"
@@ -54,6 +55,7 @@ const Work = () => {
 
             companyName="Waya"
             companyLogo="/images/icons/Waya.svg"
+            logoBg="bg-gradient-to-br from-[#0BB8E2] to-[#07B7B1]"
             companyLogoAlt="Waya logo"
             period="2023 - 2024"
             websiteName="getwaya.com"
@@ -82,12 +84,14 @@ const Work = () => {
             // CB Group
 
             companyName="The CB Group"
+            logoBg="bg-[#ffffff]"
             companyLogo="/images/icons/CB.svg"
             companyLogoAlt="Creative Brands logo"
             period="2023 - 2024"
             websiteName="thecbgroup.io"
             websiteLink="https://thecbgroup.io"
             className="bg-[#121212]"
+            textColor="light"
           >
             <ProjectCard
               name="Bigstore"

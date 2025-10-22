@@ -10,6 +10,8 @@ interface CompanyWorkProps {
   websiteName: string;
   websiteLink: string;
   className?: string;
+  logoBg: string;
+  textColor?: "light" | "dark";
   children: React.ReactNode;
 }
 
@@ -21,14 +23,20 @@ export const CompanyWork: React.FC<CompanyWorkProps> = ({
   websiteName,
   websiteLink,
   className,
+  logoBg,
+  textColor = "dark",
   children,
 }) => {
   return (
-    <div className={`w-full flex flex-col rounded-[1.75rem] gap-4 p-4 ${className}`}>
+    <div
+      className={`w-full flex flex-col rounded-[1.75rem] gap-4 p-4 ${className}`}
+    >
       <div className="flex justify-between items-start w-full">
         <div className="flex gap-3 items-center">
           {companyLogo && (
-            <div className="flex items-center justify-center bg-[#262261] rounded-xl h-16 w-16">
+            <div
+              className={`flex items-center justify-center rounded-xl h-16 w-16 ${logoBg}`}
+            >
               <Image
                 src={companyLogo}
                 alt={companyLogoAlt}
@@ -37,9 +45,17 @@ export const CompanyWork: React.FC<CompanyWorkProps> = ({
               />
             </div>
           )}
-          <div className="flex flex-col gap-1">
-            <h3 className="h3 font-montreal font-medium">{companyName}</h3>
-            <p className="h5 font-montreal font-normal text-base">{period}</p>
+          <div className="flex flex-col gap-0">
+            <h3
+              className={`h3 font-montreal font-medium ${textColor === "light" ? "!text-white" : "text-black"}`}
+            >
+              {companyName}
+            </h3>
+            <p
+              className={`h6 font-montreal font-normal opacity-60 text-base ${textColor === "light" ? "!text-white" : "!text-fullgrey"}`}
+            >
+              {period}
+            </p>
           </div>
         </div>
 
@@ -47,9 +63,17 @@ export const CompanyWork: React.FC<CompanyWorkProps> = ({
           href={websiteLink}
           target="_blank"
           rel="noreferrer noopener nofollow"
-          className="flex gap-2 bg-fullgrey/10 rounded-full px-3 py-2"
+          className={`flex gap-2 rounded-full px-3 py-2 ${
+            textColor === "light"
+              ? "bg-white/10 hover:bg-white/20"
+              : "bg-fullgrey/10 hover:bg-fullgrey/20"
+          }`}
         >
-          <p className="h5 font-montreal text-normal text-base">
+          <p
+            className={`h6 font-montreal font-normal text-base ${
+              textColor === "light" ? "!text-white" : "!text-black"
+            }`}
+          >
             {websiteName}
           </p>
           <Image
@@ -57,6 +81,7 @@ export const CompanyWork: React.FC<CompanyWorkProps> = ({
             alt="arrow icon"
             width={16}
             height={16}
+            className={textColor === "light" ? "invert" : ""}
           />
         </Link>
       </div>
