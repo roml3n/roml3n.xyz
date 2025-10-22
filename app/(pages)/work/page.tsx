@@ -1,73 +1,111 @@
-"use client"
+"use client";
 import React from "react";
 import Footer from "@/app/components/Footer";
+import { CompanyWork } from "@/app/components/CompanyWork";
 import { ProjectCard } from "@/app/components/ProjectCard";
-import { ComingSoonCard } from "@/app/components/ComingSoonCard";
-
-const projects = [
-  {
-    name: "Waya",
-    description: "Simplifying remittances for the African diaspora",
-    imageSrc: "/images/projectCard/waya-screen.png",
-    href: "/work/waya-ssn",
-    bgColor: "bg-[#F2E7E6]",
-  },
-  {
-    name: "Tucheze",
-    description: "A social gaming platform for trivia lovers",
-    imageSrc: "/images/projectCard/tucheze-screen.png",
-    href: "/work/tucheze",
-    bgColor: "bg-[#E8F2EF]",
-  },
-  {
-    name: "Bigstore",
-    description: "An e-commerce solution for small businesses",
-    imageSrc: "/images/projectCard/bigstore-screen.png",
-    href: "/work/bigstore",
-    bgColor: "bg-[#E8ECF1]",
-  },
-];
 
 const Work = () => {
   return (
-    <section className="m-auto items-center w-full gap-16">
-      <main className="flex flex-col mt-10 md:mt-24 gap-16 items-center">
-        <h1 className="h1 w-full">Work</h1>
-        <div className="relative justify-center self-center w-full flex flex-col md:flex-row gap-4">
-          <div className="p-0 md:pb-9 flex flex-col gap-4">
-            {projects
-              .filter((_, index) => index % 2 === 0)
-              .map((project) => (
-                <ProjectCard
-                  key={project.name}
-                  name={project.name}
-                  description={project.description}
-                  imageSrc={project.imageSrc}
-                  href={project.href}
-                  bgColor={project.bgColor}
-                />
-              ))}
-          </div>
-          <div className="p-0 md:pt-9 flex flex-col gap-4">
-            {projects
-              .filter((_, index) => index % 2 !== 0)
-              .map((project) => (
-                <ProjectCard
-                  key={project.name}
-                  name={project.name}
-                  description={project.description}
-                  imageSrc={project.imageSrc}
-                  href={project.href}
-                  bgColor={project.bgColor}
-                />
-              ))}
-              <div className="flex justify-center">
-                <ComingSoonCard
-                    name="Stockpicha"
-                    description="Branding a creative marketplace"
-                />
-             </div>
-          </div>
+    <section className="m-auto flex flex-col items-center w-full gap-16">
+      <main className="flex flex-col mt-10 md:mt-24 gap-16 items-center ">
+        <h1 className="h1 w-full">Selected Work</h1>
+        <div className="w-full md:w-[110%] relative justify-center self-center flex flex-col gap-12">
+          {/* Company/Client Project Cards */}
+
+          <CompanyWork
+            // Pawa IT
+
+            companyName="Pawa IT Solutions"
+            companyLogo="/images/icons/Pawa.svg"
+            companyLogoAlt="Pawa IT Solutions logo"
+            period="2024 - present"
+            websiteName="pawait.com"
+            websiteLink="https://pawait.africa"
+            className="bg-white"
+          >
+            <ProjectCard
+              name="Marketing Website Redesign"
+              description="Redesigning the marketing website to reflect new focus on artificial intelligence and data."
+              tag="Product Design"
+              image="/images/projectCard/website-img.webp"
+              href="/work/konversations"
+              className="col-span-1 bg-[#EAE3F8]"
+            />
+            <ProjectCard
+              name="Brand Refresh"
+              description="Expanding the Pawa brand to be more consistent across digital communications"
+              tag="Brand Design"
+              image="/images/projectCard/konversations-img-1.webp"
+              href="/"
+              className="col-span-1 bg-[#E2EBEE]"
+            />
+            <ProjectCard
+              name="Konversations"
+              description="Turning everyday customer interactions into detailed, highly actionable AI-enhanced insights"
+              tag="Product Design"
+              image="/images/projectCard/konversations-img-1.webp"
+              href="/"
+              className="col-span-2 bg-[#DCDBEF]"
+            />
+          </CompanyWork>
+
+          <CompanyWork
+            // Waya
+
+            companyName="Waya"
+            companyLogo="/images/icons/Waya.svg"
+            companyLogoAlt="Waya logo"
+            period="2023 - 2024"
+            websiteName="getwaya.com"
+            websiteLink="https://getwaya.com"
+            className="bg-[#D9DEE3]"
+          >
+            <ProjectCard
+              name="Non-SSN sign up"
+              description="Enhancing financial inclusion for immigrants and new Americans"
+              tag="Product Design"
+              image="/images/projectCard/waya-ssn-img.webp"
+              href="/work/waya-ssn"
+              className="col-span-1 bg-gradient-to-b from-[#EFF5FA] to-[#C0C6CC]"
+            />
+            <ProjectCard
+              name="Waya Business for Web"
+              description="Crafting a new financial experience for Waya Business accounts"
+              tag="Product Design"
+              image="/images/projectCard/waya-business-img.webp"
+              href="/"
+              className="col-span-1 bg-gradient-to-b from-[#D7D7D7] to-[#F4F4F4]"
+            />
+          </CompanyWork>
+
+          <CompanyWork
+            // CB Group
+
+            companyName="The CB Group"
+            companyLogo="/images/icons/CB.svg"
+            companyLogoAlt="Creative Brands logo"
+            period="2023 - 2024"
+            websiteName="thecbgroup.io"
+            websiteLink="https://thecbgroup.io"
+            className="bg-[#121212]"
+          >
+            <ProjectCard
+              name="Bigstore"
+              description="Redesigning e-commerce to boost loyalty, sales, and satisfaction"
+              tag="Product Design"
+              image="/images/projectCard/bigstore-img.webp"
+              href="/work/bigstore"
+              className="col-span-1 bg-[#C2D5D3]"
+            />
+            <ProjectCard
+              name="Tucheze"
+              description="Crafting a high-stakes experience for sports betting enthusiasts"
+              tag="Visual Design"
+              image="/images/projectCard/tucheze-img.webp"
+              href="/work/tucheze"
+              className="col-span-1 bg-gradient-to-b from-[#C4CFD8]/40 to-[#C4CFD8]"
+            />
+          </CompanyWork>
         </div>
       </main>
       <Footer />
