@@ -9,7 +9,9 @@
     "lint": "next lint",
     "studio": "sanity dev",
     "studio:build": "sanity build",
-    "studio:deploy": "sanity deploy"
+    "studio:deploy": "sanity deploy",
+    "dev:fast": "next dev --turbo",
+    "dev:minimal": "next dev --experimental-https"
   },
   "dependencies": {
     "@portabletext/react": "^4.0.1",
