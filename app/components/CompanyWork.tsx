@@ -29,13 +29,13 @@ export const CompanyWork: React.FC<CompanyWorkProps> = ({
 }) => {
   return (
     <div
-      className={`w-full flex flex-col rounded-[1.75rem] gap-4 p-4 ${className}`}
+      className={`w-full flex flex-col rounded-[1.5rem] md:rounded-[1.75rem] gap-3 md:gap-4 p-3 md:p-4 ${className}`}
     >
       <div className="flex justify-between items-start w-full">
-        <div className="flex gap-3 items-center">
+        <div className="flex gap-2 md:gap-3 items-center">
           {companyLogo && (
             <div
-              className={`flex items-center justify-center rounded-xl h-16 w-16 ${logoBg}`}
+              className={`flex items-center justify-center rounded-xl p-1 md:p-0 h-10 w-10 md:h-16 md:w-16 ${logoBg}`}
             >
               <Image
                 src={companyLogo}
@@ -47,7 +47,7 @@ export const CompanyWork: React.FC<CompanyWorkProps> = ({
           )}
           <div className="flex flex-col gap-0">
             <h3
-              className={`h3 font-montreal font-medium ${textColor === "light" ? "!text-white" : "text-black"}`}
+              className={`h4 md:h3 font-montreal font-medium ${textColor === "light" ? "!text-white" : "text-black"}`}
             >
               {companyName}
             </h3>
@@ -63,7 +63,7 @@ export const CompanyWork: React.FC<CompanyWorkProps> = ({
           href={websiteLink}
           target="_blank"
           rel="noreferrer noopener nofollow"
-          className={`flex gap-2 rounded-full px-3 py-2 ${
+          className={`flex gap-1 md:gap-2 rounded-full px-3 py-2 ${
             textColor === "light"
               ? "bg-white/10 hover:bg-white/20"
               : "bg-fullgrey/10 hover:bg-fullgrey/20"
@@ -87,7 +87,7 @@ export const CompanyWork: React.FC<CompanyWorkProps> = ({
       </div>
 
       {/* Project Cards Grid */}
-      <div className="flex flex-row md:grid md:grid-cols-2 gap-4">
+      <div className="flex flex-col md:grid md:grid-cols-2 gap-3 md:gap-4">
         {children}
       </div>
     </div>

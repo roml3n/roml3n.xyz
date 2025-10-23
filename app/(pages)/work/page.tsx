@@ -7,7 +7,7 @@ import { ProjectCard } from "@/app/components/ProjectCard";
 const Work = () => {
   return (
     <section className="m-auto flex flex-col items-center w-full gap-16">
-      <main className="flex flex-col mt-10 md:mt-24 gap-16 items-center ">
+      <main className="flex flex-col mt-10 md:mt-24 gap-8 md:gap-16 items-center ">
         <h1 className="h1 w-full">Selected Work</h1>
         <div className="w-full md:w-[110%] relative justify-center self-center flex flex-col gap-12">
           {/* Company/Client Project Cards */}
@@ -15,7 +15,7 @@ const Work = () => {
           <CompanyWork
             // Pawa IT
 
-            companyName="Pawa IT Solutions"
+            companyName="Pawa IT"
             companyLogo="/images/icons/Pawa.svg"
             logoBg="bg-[#262261]"
             companyLogoAlt="Pawa IT Solutions logo"
@@ -29,23 +29,23 @@ const Work = () => {
               description="Redesigning the marketing website to reflect new focus on artificial intelligence and data."
               tag="Product Design"
               image="/images/projectCard/website-img.webp"
-              href="/work/konversations"
+              href="/work/pawa-website"
               className="col-span-1 bg-[#EAE3F8] "
             />
             <ProjectCard
               name="Brand Refresh"
               description="Expanding the Pawa brand to be more consistent across digital communications"
               tag="Brand Design"
-              image="/images/projectCard/konversations-img-1.webp"
-              href="/"
+              image="/images/projectCard/konversations-img.webp"
+              href="/work/pawa-brand"
               className="col-span-1 bg-[#E2EBEE]"
             />
             <ProjectCard
               name="Konversations"
               description="Turning everyday customer interactions into detailed, highly actionable AI-enhanced insights"
               tag="Product Design"
-              image="/images/projectCard/konversations-img-1.webp"
-              href="/"
+              image="/images/projectCard/konversations-group-img.webp"
+              href="/work/konversations"
               className="col-span-2 bg-[#DCDBEF]"
             />
           </CompanyWork>
@@ -75,7 +75,7 @@ const Work = () => {
               description="Crafting a new financial experience for Waya Business accounts"
               tag="Product Design"
               image="/images/projectCard/waya-business-img.webp"
-              href="/"
+              href="/work/waya-business"
               className="col-span-1 bg-gradient-to-b from-[#D7D7D7] to-[#F4F4F4]"
             />
           </CompanyWork>
@@ -105,7 +105,7 @@ const Work = () => {
               name="Tucheze"
               description="Crafting a high-stakes experience for sports betting enthusiasts"
               tag="Visual Design"
-              image="/images/projectCard/tucheze-img.webp"
+              image="/images/projectCard/tucheze-img-1.webp"
               href="/work/tucheze"
               className="col-span-1 bg-gradient-to-b from-[#C4CFD8]/40 to-[#C4CFD8]"
             />
