@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import DockSection from "@/app/(homeSections)/DockSection";
+import DockSection from "@/app/(sections)/DockSection";
 import Header from "@/app/components/Header.jsx";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
