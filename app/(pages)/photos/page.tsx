@@ -1,7 +1,10 @@
 "use client";
-import React from "react";
+import React, { lazy } from "react";
 import Footer from "@/app/components/Footer";
-import { Photo } from "@/app/components/ui/Photo";
+import { LazyWrapper } from "@/app/components/LazyWrapper";
+
+// Lazy load the Photo component - keep original name
+const Photo = lazy(() => import("@/app/components/ui/Photo").then(module => ({ default: module.Photo })));
 
 const photos = [
   { imageSrc: "/images/(photosPage)/photo_1.jpg" },
@@ -38,7 +41,9 @@ const Photos = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 w-screen px-2 sm:px-3 lg:px-[2%]">
           {photos.map((photo, index) => (
-            <Photo key={index} imageSrc={photo.imageSrc} alt="Photo" />
+            <LazyWrapper key={index}>
+              <Photo imageSrc={photo.imageSrc} alt="Photo" />
+            </LazyWrapper>
           ))}
         </div>
       </main>

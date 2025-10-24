@@ -18,30 +18,25 @@ const Experience = ({
   time: string;
 }) => {
   return (
-    <Link href={href} passHref legacyBehavior>
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex w-full items-center justify-between group"
-      >
-        <div className="flex flex-row items-center justify-between w-full">
-          <div className="flex gap-3 items-center ">
-            <div className="justify-center items-center flex relative h-20 w-20 aspect-square rounded-2xl border border-solid border-midgrey bg-fullwhite">
-              <Image
-                src={iconSrc}
-                alt={alt}
-                width={48}
-                height={48}
-              />
-            </div>
-            <div className="flex flex-col">
-              <p className="h4 font-medium">{role}</p>
-              <p className="h4">{company}</p>
-            </div>
+    <Link
+      href={href}
+      passHref
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex w-full items-center justify-between group"
+    >
+      <div className="flex flex-row items-center justify-between w-full">
+        <div className="flex gap-3 items-center ">
+          <div className="justify-center items-center flex relative h-20 w-20 aspect-square rounded-2xl border border-solid border-midgrey bg-fullwhite">
+            <Image src={iconSrc} alt={alt} width={48} height={48} />
           </div>
-          <p className="h4">{time}</p>
+          <div className="flex flex-col">
+            <p className="h4 font-medium">{role}</p>
+            <p className="h4">{company}</p>
+          </div>
         </div>
-      </a>
+        <p className="h4">{time}</p>
+      </div>
     </Link>
   );
 };
