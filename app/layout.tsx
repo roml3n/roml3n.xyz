@@ -59,6 +59,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/* Google tag (gtag.js) */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-Y3VRTMW2YP"
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-Y3VRTMW2YP');
+            `,
+          }}
+        />
+      </head>
       <body
         className={`${ppEditorial.variable} ${ppNeueMontreal.variable} antialiased w-[90%] md:w-[80%] mx-auto max-w-5xl scroll-smooth`}
       >

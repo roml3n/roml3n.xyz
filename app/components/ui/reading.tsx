@@ -16,7 +16,7 @@ const Reading = ({
   author: string;
 }) => {
   return (
-    <Link href={href} passHref legacyBehavior>
+    <Link href={href}>
       <a
         target="_blank"
         rel="noopener noreferrer"
