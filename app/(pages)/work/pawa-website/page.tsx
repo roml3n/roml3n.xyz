@@ -163,18 +163,100 @@ My challenge was to redesign the site's structure and identity to position Pawa 
                 images={[
                   {
                     src: "/images/work/pawa-website/enhance-learning-collab.webp",
-                    alt: "Screenshot of homepage before redesign",
+                    alt: "Screenshot of custom illustrations and icons",
                   },
                   {
                     src: "/images/work/pawa-website/why-work-w-gws.webp",
-                    alt: "Screenshot of homepage after redesign",
+                    alt: "Screenshot of custom illustrations and icons",
                   },
                   {
                     src: "/images/work/pawa-website/how-different.webp",
-                    alt: "Screenshot of homepage after redesign",
+                    alt: "Screenshot of custom illustrations and icons",
+                  },
+                  {
+                    src: "/images/work/pawa-website/bdr.webp",
+                    alt: "Screenshot of custom illustrations and icons",
+                  },
+                  {
+                    src: "/images/work/pawa-website/ai-next-leap.webp",
+                    alt: "Screenshot of custom illustrations and icons",
                   },
                 ]}
-                caption="Homepage (before and after)"
+                caption="Snapshot of custom illustrations in play within the brand system"
+              />
+            </CaseSection>
+            <CaseSection title="Final UI Screenshots">
+              <CaseImageCarousel
+                images={[
+                  {
+                    src: "/images/work/pawa-website/mobile-workforce.webp",
+                    alt: "Screenshot of mobile device management webpage",
+                  },
+                  {
+                    src: "/images/work/pawa-website/gws-for-business.webp",
+                    alt: "Screenshot of Google Workspace for Business webpage",
+                  },
+                  {
+                    src: "/images/work/pawa-website/build-custom-apps.webp",
+                    alt: "Screenshot of Google AppSheet webpage",
+                  },
+                  {
+                    src: "/images/work/pawa-website/chromebooks.webp",
+                    alt: "Screenshot of Google Chromebooks webpage",
+                  },
+                  {
+                    src: "/images/work/pawa-website/chrome-os.webp",
+                    alt: "Screenshot of Google ChromeOS webpage",
+                  },
+                  {
+                    src: "/images/work/pawa-website/android-enterprise.webp",
+                    alt: "Screenshot of Android Enterprise webpage",
+                  },
+                  {
+                    src: "/images/work/pawa-website/about-timeline.webp",
+                    alt: "Screenshot of About page showing the interactive timeline component",
+                  },
+                ]}
+                caption="dynamism and interactivity so that hero sections don't feel “boring”"
+              />
+              <CaseImageCarousel
+                images={[
+                  {
+                    src: "/images/work/pawa-website/solutions-around-your-needs.webp",
+                    alt: "Screenshot of solutions section",
+                  },
+                  {
+                    src: "/images/work/pawa-website/testimonials.webp",
+                    alt: "Screenshot of testimonials section",
+                  },
+                  {
+                    src: "/images/work/pawa-website/footer.webp",
+                    alt: "Screenshot of footer section",
+                  },
+                ]}
+                caption="section highlights"
+              />
+              <CaseImageCarousel
+                images={[
+                  {
+                    src: "/images/work/pawa-website/pricing-1.webp",
+                    alt: "Screenshot of pricing section",
+                  },
+                  {
+                    src: "/images/work/pawa-website/pricing-2.webp",
+                    alt: "Screenshot of pricing section",
+                  },
+                ]}
+                caption="solution and services pricing cards"
+              />
+              <CaseImageCarousel
+                images={[
+                  {
+                    src: "/images/work/pawa-website/404.webp",
+                    alt: "Screenshot of 404 page",
+                  },
+                ]}
+                caption="easily find your way back if lost"
               />
             </CaseSection>
           </div>

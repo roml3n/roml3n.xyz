@@ -96,10 +96,10 @@ const CaseImageCarousel = ({
   return (
     <div className="flex flex-col items-center rounded-md p-12 gap-3 bg-[#EFEFEF]">
       <div
-        className={`overflow-hidden w-full ${images.length > 1 ? "cursor-grab active:cursor-grabbing" : ""}`}
+        className={`overflow-hidden w-full h-fit transition-[height] duration-500 ease-in-out ${images.length > 1 ? "cursor-grab active:cursor-grabbing" : ""}`}
         ref={emblaRef}
       >
-        <div className="flex">
+        <div className="flex items-center w-full">
           {images.map((item, index) => (
             <div key={index} className="flex-[0_0_100%] min-w-0">
               {item.type === "video" ? (
