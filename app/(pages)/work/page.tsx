@@ -35,17 +35,17 @@ const Work = () => {
             <ProjectCard
               name="Brand Refresh"
               description="Expanding the Pawa brand to be more consistent across digital communications"
-              tag="Brand Design"
+              tag="Coming Soon..."
               image="/images/projectCard/konversations-img.webp"
-              href="/work/pawa-brand"
+              href="/"
               className="col-span-1 bg-[#E2EBEE]"
             />
             <ProjectCard
               name="Konversations"
               description="Turning everyday customer interactions into detailed, highly actionable AI-enhanced insights"
-              tag="Product Design"
+              tag="Coming Soon..."
               image="/images/projectCard/konversations-group-img.webp"
-              href="/work/konversations"
+              href="/"
               className="col-span-2 bg-[#DCDBEF]"
             />
           </CompanyWork>
@@ -73,9 +73,9 @@ const Work = () => {
             <ProjectCard
               name="Waya Business for Web"
               description="Crafting a new financial experience for Waya Business accounts"
-              tag="Product Design"
+              tag="Coming Soon..."
               image="/images/projectCard/waya-business-img.webp"
-              href="/work/waya-business"
+              href="/"
               className="col-span-1 bg-gradient-to-b from-[#D7D7D7] to-[#F4F4F4]"
             />
           </CompanyWork>
@@ -105,7 +105,7 @@ const Work = () => {
               name="Tucheze"
               description="Crafting a high-stakes experience for sports betting enthusiasts"
               tag="Visual Design"
-              image="/images/projectCard/tucheze-img-1.webp"
+              image="/images/projectCard/tucheze-img.webp"
               href="/work/tucheze"
               className="col-span-1 bg-gradient-to-b from-[#C4CFD8]/40 to-[#C4CFD8]"
             />
