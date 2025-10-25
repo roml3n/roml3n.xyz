@@ -7,9 +7,7 @@ import CaseImageCarousel from "@/app/components/CaseImageCarousel";
 //sections
 import ProjectInfo from "@/app/(pages)/work/projectInfo";
 import CaseSection from "@/app/(pages)/work/caseSection";
-import Divider from "@/app/components/ui/Divider";
 import Hero from "@/app/(pages)/work/pawa-website/Hero";
-import ImagesSection from "@/app/(pages)/work/pawa-website/ImagesSection";
 
 const BigStore = () => {
   return (
