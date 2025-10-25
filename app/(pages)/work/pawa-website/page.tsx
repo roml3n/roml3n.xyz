@@ -2,6 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import Footer from "@/app/components/Footer";
+import CaseImageCarousel from "@/app/components/CaseImageCarousel";
 
 //sections
 import ProjectInfo from "@/app/(pages)/work/projectInfo";
@@ -143,18 +144,19 @@ My challenge was to redesign the site's structure and identity to position Pawa 
               title="Visual Design & Prototyping"
               description="I translated strategy into polished UI and interactive prototypes: a dynamic hero with a node animation (particles.js, translated to a React component) to capture attention, prioritized bento grids for modular storytelling, a hand-crated technical illustration system built entirely in Figma. I built interactive Framer prototypes for the main user journeys, then prepared a dev-ready handoff (component specs, design tokens, accessibility notes) and a phased implementation plan. Accessibility and responsive behavior (contrast, keyboard navigation for the mega menu, mobile-first IA) were embedded throughout the process."
             >
-              <div className="mt-4 flex flex-col gap-2 w-full">
-                <Image
-                  src="/images/work/pawa-website/heuristic-findings.webp"
-                  alt=""
-                  width={1920}
-                  height={1080}
-                  className="w-full h-auto"
-                />
-                <p className="h5 text-center italic opacity-70">
-                  Heuristic findings
-                </p>
-              </div>
+              <CaseImageCarousel
+                images={[
+                  {
+                    src: "/images/work/pawa-website/homepage-before.webp",
+                    alt: "Screenshot of homepage before redesign",
+                  },
+                  {
+                    src: "/images/work/pawa-website/homepage-after.webp",
+                    alt: "Screenshot of homepage after redesign",
+                  },
+                ]}
+                caption="Homepage (before and after)"
+              />
             </CaseSection>
           </div>
         </section>

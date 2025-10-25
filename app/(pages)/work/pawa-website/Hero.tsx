@@ -37,7 +37,7 @@ const Hero = () => {
               d="M17 7.5L7 17.5M17 7.5H8M17 7.5V16.5"
               stroke="white"
               strokeLinecap="round"
-              stroke-linejoin="round"
+              strokeLinejoin="round"
             />
           </svg>
         </Button>
