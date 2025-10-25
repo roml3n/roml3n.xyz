@@ -1,0 +1,35 @@
+# Roman Lenjo Portfolio
+
+> A product designer's portfolio showcasing case studies, thoughts, and creative work. Designing for humans with a focus on user experience, product strategy, and visual design.
+
+## Main Pages
+- [Home](https://roml3n.xyz/) - Portfolio homepage with featured projects and tool stack
+- [About](https://roml3n.xyz/about) - Personal information, experience, and reading list
+- [Work](https://roml3n.xyz/work) - Portfolio of selected work and case studies
+- [Writing](https://roml3n.xyz/writing) - Blog posts and thoughts on design and product
+- [Photos](https://roml3n.xyz/photos) - Photography gallery
+
+## Case Studies
+- [Bigstore](https://roml3n.xyz/work/bigstore) - E-commerce redesign for The CB Group
+- [Pawa Website](https://roml3n.xyz/work/pawa-website) - Marketing website redesign for Pawa IT
+- [Tucheze](https://roml3n.xyz/work/tucheze) - Sports betting platform design for The CB Group
+- [Waya SSN](https://roml3n.xyz/work/waya-ssn) - Non-SSN signup flow for Waya financial services
+
+## Blog Posts
+Dynamic content from Sanity CMS - includes design thoughts, case study insights, and industry commentary.
+
+## Social Media
+- [LinkedIn](https://linkedin.com/in/roml3n) - Professional network and career updates
+- [Behance](https://behance.net/roml3n) - Design portfolio and creative projects
+- [Dribbble](https://dribbble.com/roml3n) - Design inspiration and community
+- [Medium](https://medium.com/@romlen) - Design thinking and industry insights
+- [X (Twitter)](https://x.com/roml3n) - Quick thoughts and design updates
+- [Threads](https://threads.net/@roml3n) - Casual design discussions
+
+## Technical Information
+- **Framework**: Next.js 15 with TypeScript
+- **Styling**: Tailwind CSS
+- **CMS**: Sanity for blog content
+- **Deployment**: Vercel
+- **Analytics**: Vercel Analytics and Google Analytics
+- **Last Updated**: 2024-12-19
