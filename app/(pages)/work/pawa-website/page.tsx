@@ -20,7 +20,7 @@ const BigStore = () => {
         {/* Case Section */}
         <section className="relative flex flex-col gap-6 w-screen bg-fullwhite py-12 items-center justify-center">
           {/* 80% Wrapper */}
-          <div className="`wrapper` w-[90%] md:w-[80%] max-w-screen-lg mx-auto flex flex-col gap-16 -mb-12">
+          <div className="`wrapper` w-[90%] md:w-[80%] max-w-screen-lg mx-auto flex flex-col gap-16 mb-12">
             <ProjectInfo
               Overview="Redesign Bigstore's web app to streamline the shopping experience,
             fixing any issues and generating more sales."
@@ -259,6 +259,16 @@ My challenge was to redesign the site's structure and identity to position Pawa 
                 caption="easily find your way back if lost"
               />
             </CaseSection>
+            <CaseSection
+              title="🚸 Light Usability Validation"
+              description="Before launch I conducted quick internal usability sessions and stakeholder walkthroughs, focusing on the mega menu, event flow, and hero message clarity. Iterations were small but impactful — simplifying menu labels, tightening CTA copy, and reducing friction in the event forms. Post-launch I monitored analytics to validate assumptions and prioritized follow-up A/B tests."
+            />
+            <CaseSection
+              title="😎 What I'm Most Proud Of"
+              description={`• Delivering a strategic site redesign solo, from brand refresh to implementation-ready specs
+              • Crafting a navigation system that balances breadth with immediacy
+              • Designing reusable modular assets for marketing and sales campaigns`}
+            />
           </div>
         </section>
       </main>
