@@ -17,7 +17,7 @@ const ProjectInfo = ({
 }) => {
   return (
     <div className="w-full flex flex-col gap-6 md:gap-16 md:flex-row p-0 md:px-3">
-      <div className="flex flex-col gap-6 w-full md:w-[70%] shadow-xl shadow-gray-100 mb-6 sm:mb-0 md:-ml-12 rounded-2xl p-3 md:p-6 border border-midgrey">
+      <div className="flex flex-col gap-6 w-full md:w-[80%] shadow-xl shadow-gray-100 mb-6 sm:mb-0 md:-ml-12 rounded-2xl p-3 md:p-6 border border-midgrey">
         <div className="flex-col gap-1 w-full">
           <h2 className="h3">Timeline</h2>
           <p className="h4">{Timeline}</p>

@@ -25,7 +25,9 @@ const WayaSSN = () => {
               Overview="During the first quarter of 2024, as part of a design sprint, I had the fantastic opportunity to work on a new feature for Waya, a neobank aimed at providing financial inclusivity to new Americans and immigrants to the US."
               Role="Lead Designer"
               Timeline="1 week sprint"
-              Team={`Alex (Project Lead)\nMercy\nAdrian`}
+              Team={`1 TPM
+                1 Designer
+                2 SWEs`}
             />
             <Divider />
             <CaseSection
