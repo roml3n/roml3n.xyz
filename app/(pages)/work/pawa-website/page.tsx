@@ -158,6 +158,25 @@ My challenge was to redesign the site's structure and identity to position Pawa 
                 caption="Homepage (before and after)"
               />
             </CaseSection>
+            <CaseSection description="I designed and built comprehensive iconography and illustration systems from scratch that would tie in well to the look and feel we were going for.">
+              <CaseImageCarousel
+                images={[
+                  {
+                    src: "/images/work/pawa-website/enhance-learning-collab.webp",
+                    alt: "Screenshot of homepage before redesign",
+                  },
+                  {
+                    src: "/images/work/pawa-website/why-work-w-gws.webp",
+                    alt: "Screenshot of homepage after redesign",
+                  },
+                  {
+                    src: "/images/work/pawa-website/how-different.webp",
+                    alt: "Screenshot of homepage after redesign",
+                  },
+                ]}
+                caption="Homepage (before and after)"
+              />
+            </CaseSection>
           </div>
         </section>
       </main>

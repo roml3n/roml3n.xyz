@@ -19,7 +19,7 @@ interface CaseImageCarouselProps {
 const CaseImageCarousel = ({
   images,
   caption,
-  autoScrollDelay = 2000,
+  autoScrollDelay = 3000,
 }: CaseImageCarouselProps) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [videoRefs, setVideoRefs] = useState<HTMLVideoElement[]>([]);
@@ -135,13 +135,16 @@ const CaseImageCarousel = ({
       </div>
 
       {/* Indicator dots */}
-      <div className="flex gap-2 mt-2">
+      <div className="flex gap-1 mt-1">
         {images.map((_, index) => (
           <button
             key={index}
-            className={`w-2 h-2 rounded-full transition-all duration-200 ${
-              index === selectedIndex ? "bg-gray-600 scale-110" : "bg-gray-400"
+            className={`transition-all duration-300 ${
+              index === selectedIndex
+                ? "h-2 rounded-full bg-fullgrey"
+                : "w-2 h-2 rounded-full bg-midgrey"
             }`}
+            style={index === selectedIndex ? { width: "20px" } : {}}
             onClick={() => emblaApi?.scrollTo(index)}
             aria-label={`Go to slide ${index + 1}`}
           />
