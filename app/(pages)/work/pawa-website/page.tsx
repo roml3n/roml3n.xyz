@@ -217,7 +217,7 @@ My challenge was to redesign the site's structure and identity to position Pawa 
                     alt: "Screenshot of About page showing the interactive timeline component",
                   },
                 ]}
-                caption="dynamism and interactivity so that hero sections don't feel “boring”"
+                caption="dynamism and interactivity so that hero sections don't feel boring"
               />
               <CaseImageCarousel
                 images={[

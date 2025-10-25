@@ -63,15 +63,15 @@ export const CompanyWork: React.FC<CompanyWorkProps> = ({
           href={websiteLink}
           target="_blank"
           rel="noreferrer noopener nofollow"
-          className={`flex gap-1 md:gap-2 rounded-full px-2 py-1 ${
+          className={`flex group gap-1 md:gap-2 rounded-full px-2 py-1 ${
             textColor === "light"
               ? "bg-white/10 hover:bg-white/20"
               : "bg-fullgrey/10 hover:bg-fullgrey/20"
           }`}
         >
           <p
-            className={`h6 font-montreal font-medium text-sm md:text-base ${
-              textColor === "light" ? "!text-white" : "!text-black"
+            className={`h6 font-montreal font-medium text-sm md:text-base group-hover:!text-mainblue transition-all duration-300 ${
+              textColor === "light" ? "!text-lightgrey" : "!text-fullgrey/80 "
             }`}
           >
             {websiteName}
@@ -81,7 +81,7 @@ export const CompanyWork: React.FC<CompanyWorkProps> = ({
             alt="arrow icon"
             width={16}
             height={16}
-            className={textColor === "light" ? "invert" : ""}
+            className={`group-hover:!text-mainblue ${textColor === "light" ? "invert" : ""}`}
           />
         </Link>
       </div>
