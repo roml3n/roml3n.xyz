@@ -15,7 +15,7 @@ const CaseSection: React.FC<CaseSectionProps> = ({
     <div className="w-full flex flex-col gap-6">
       <div className="flex flex-col gap-1">
         <h2 className="h2">{title}</h2>
-        <p className="h4">{description}</p>
+        <p className="h4 whitespace-pre-line">{description}</p>
       </div>
 
       <div className="flex flex-col gap-4 md:gap-6 w-full">{children}</div>
