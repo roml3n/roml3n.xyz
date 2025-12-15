@@ -1,6 +1,6 @@
 {
   "name": "roml3n.xyz",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -46,7 +46,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.20",
-    "eslint": "^8",
+    "eslint": "^9",
     "eslint-config-next": "16.0.10",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.15",
