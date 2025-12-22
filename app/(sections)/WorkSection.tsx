@@ -3,8 +3,16 @@ import { LazyWrapper } from "@/app/components/LazyWrapper";
 import { useIntersectionObserver } from "@/app/hooks/useIntersectionObserver";
 
 // Lazy load components - keep original names
-const CompanyWork = lazy(() => import("@/app/components/CompanyWork").then(module => ({ default: module.CompanyWork })));
-const ProjectCard = lazy(() => import("@/app/components/ProjectCard").then(module => ({ default: module.ProjectCard })));
+const CompanyWork = lazy(() =>
+  import("@/app/components/CompanyWork").then((module) => ({
+    default: module.CompanyWork,
+  }))
+);
+const ProjectCard = lazy(() =>
+  import("@/app/components/ProjectCard").then((module) => ({
+    default: module.ProjectCard,
+  }))
+);
 
 const WorkSection = () => {
   const { ref, hasIntersected } = useIntersectionObserver({
@@ -41,20 +49,12 @@ const WorkSection = () => {
                 className="col-span-1 bg-[#EAE3F8] "
               />
               <ProjectCard
-                name="Brand Refresh"
-                description="Expanding the Pawa brand to be more consistent across digital communications"
-                tag="Brand Design"
-                image="/images/projectCard/konversations-img.webp"
-                href="/work/pawa-brand"
-                className="col-span-1 bg-[#E2EBEE]"
-              />
-              <ProjectCard
                 name="Konversations"
                 description="Turning everyday customer interactions into detailed, highly actionable AI-enhanced insights"
                 tag="Product Design"
-                image="/images/projectCard/konversations-group-img.webp"
+                image="/images/projectCard/konversations-img.webp"
                 href="/work/konversations"
-                className="col-span-2 bg-[#DCDBEF]"
+                className="col-span-1 bg-[#DCDBEF]"
               />
             </CompanyWork>
           </LazyWrapper>
