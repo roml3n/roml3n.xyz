@@ -16,7 +16,7 @@
 - [Waya SSN](https://roml3n.xyz/work/waya-ssn) - Non-SSN signup flow for Waya financial services
 
 ## Blog Posts
-Dynamic content from Sanity CMS - includes design thoughts, case study insights, and industry commentary.
+Static blog posts and thoughts on design and product.
 
 ## Social Media
 - [LinkedIn](https://linkedin.com/in/roml3n) - Professional network and career updates
@@ -29,7 +29,6 @@ Dynamic content from Sanity CMS - includes design thoughts, case study insights,
 ## Technical Information
 - **Framework**: Next.js 15 with TypeScript
 - **Styling**: Tailwind CSS
-- **CMS**: Sanity for blog content
 - **Deployment**: Vercel
 - **Analytics**: Vercel Analytics and Google Analytics
 - **Last Updated**: 2024-12-19

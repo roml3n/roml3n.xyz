@@ -1,11 +1,12 @@
 import type { Config } from "tailwindcss";
+import typographyPlugin from "@tailwindcss/typography";
 
 const config = {
   darkMode: ["class"],
   content: [
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
-    "./app/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx,mdx}",
     "./src/**/*.{ts,tsx}",
   ],
   prefix: "",
@@ -25,6 +26,36 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        montreal: ["var(--font-pp-neue-montreal)", "sans-serif"],
+        editorial: ["var(--font-pp-editorial)", "serif"],
+      },
+      fontSize: {
+        h1: "2.25rem",
+        h2: "1.75rem",
+        h3: "1.375rem",
+        h4: "1.125rem",
+        h5: "1rem",
+        h6: "0.875rem",
+      },
+      colors: {
+        mainblue: "#0D85DB",
+        fullgrey: "#49505D",
+        darkgrey: "#6C727C",
+        almostwhite: "#F8F8F9",
+        midgrey: "#DDDDDD",
+        lightgrey: "#F5F5F5",
+        fullwhite: "#FFFFFF",
+      },
+      typography: {
+        DEFAULT: {
+          css: {
+            a: {
+              textDecoration: "none",
+            },
+          },
+        },
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -34,14 +65,33 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        marquee: {
+          "0%": { transform: "translateX(100%)" },
+          "100%": { transform: "translateX(-100%)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        marquee: "marquee 10s linear infinite",
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    typographyPlugin,
+    function ({ addUtilities }: any) {
+      addUtilities({
+        ".scrollbar-hide": {
+          "-ms-overflow-style": "none",
+          "scrollbar-width": "none",
+          "&::-webkit-scrollbar": {
+            display: "none",
+          },
+        },
+      });
+    },
+  ],
 } satisfies Config;
 
 export default config;
