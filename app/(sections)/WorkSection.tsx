@@ -115,7 +115,7 @@ const WorkSection = () => {
                 name="Tucheze"
                 description="Crafting a high-stakes experience for sports betting enthusiasts"
                 tag="Visual Design"
-                image="/images/projectCard/tucheze-img-1.webp"
+                image="/images/projectCard/tucheze-img.webp"
                 href="/work/tucheze"
                 className="col-span-1 bg-gradient-to-b from-[#C4CFD8]/40 to-[#C4CFD8]"
               />

@@ -33,7 +33,6 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/components/ui/TransitionPanel.tsx",
     ".next/dev/types/**/*.ts"
   ],
   "exclude": [
