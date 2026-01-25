@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import DockSection from "@/app/(sections)/DockSection";
 import Header from "@/app/components/Header.jsx";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
@@ -77,19 +76,13 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${ppEditorial.variable} ${ppNeueMontreal.variable} antialiased w-[90%] md:w-[80%] mx-auto max-w-5xl scroll-smooth`}
+        className={`${ppEditorial.variable} ${ppNeueMontreal.variable} antialiased  scroll-smooth`}
       >
         <Analytics />
         <SpeedInsights />
 
-        <div className="fixed top-0 inset-0 z-[8998] h-[100px] w-screen  bg-gradient-to-b from-fullwhite via-fullwhite/80 to-transparent" />
-
         <Header />
-
-        {children}
-        <DockSection className="flex hover-target self-center mx-auto justify-center w-fit !z-[9999]" />
-
-        <div className="z-99999 fixed bottom-0 left-0 right-0 h-[150px] w-screen bg-gradient-to-t from-fullwhite to-transparent" />
+        <main className="w-[90%] md:w-[80%] mx-auto max-w-5xl">{children}</main>
       </body>
     </html>
   );
