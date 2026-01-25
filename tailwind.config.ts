@@ -28,16 +28,8 @@ const config = {
     extend: {
       fontFamily: {
         montreal: ["var(--font-pp-neue-montreal)", "sans-serif"],
-        editorial: ["var(--font-pp-editorial)", "serif"],
       },
-      fontSize: {
-        h1: "2.25rem",
-        h2: "1.75rem",
-        h3: "1.375rem",
-        h4: "1.125rem",
-        h5: "1rem",
-        h6: "0.875rem",
-      },
+
       colors: {
         mainblue: "#0D85DB",
         fullgrey: "#49505D",
@@ -46,6 +38,7 @@ const config = {
         midgrey: "#DDDDDD",
         lightgrey: "#F5F5F5",
         fullwhite: "#FFFFFF",
+        hoverbg: "#F0F2F3",
       },
       typography: {
         DEFAULT: {
@@ -73,7 +66,6 @@ const config = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        marquee: "marquee 10s linear infinite",
       },
     },
   },

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  background: #f5f5f5;
+  background: #fff;
   overflow: auto;
   overflow-x: hidden;
   box-sizing: border-box;
@@ -42,11 +42,11 @@ body {
 }
 
 .h1 {
-  @apply text-4xl md:text-[2.5rem] lg:text-5xl font-editorial text-fullgrey leading-[120%];
+  @apply text-4xl md:text-[2.5rem] lg:text-5xl font-montreal text-fullgrey leading-[120%];
 }
 
 .h2 {
-  @apply text-[1.75rem] md:text-3xl lg:text-[2rem] font-editorial text-fullgrey leading-[120%];
+  @apply text-[1.75rem] md:text-3xl lg:text-4xl font-montreal font-medium text-fullgrey leading-[120%];
 }
 
 .h3 {
@@ -54,11 +54,11 @@ body {
 }
 
 .h4 {
-  @apply text-lg md:text-xl lg:text-[1.375rem] font-montreal text-darkgrey leading-[120%];
+  @apply text-lg md:text-xl font-medium font-montreal text-darkgrey leading-[90%];
 }
 
 .h5 {
-  @apply text-base lg:text-lg font-montreal text-darkgrey leading-none;
+  @apply text-base lg:text-lg font-montreal text-darkgrey leading-[10px];
 }
 
 .h6 {

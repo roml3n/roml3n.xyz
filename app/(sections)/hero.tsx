@@ -6,7 +6,7 @@ export const Hero = () => {
   return (
     <section className="w-screen justify-center h-screen bg-[#121212] flex flex-col self-center items-center pt-32 pb-12">
       {/* Me */}
-      <div className="w-[90%] md:w-[80%] max-w-5xl h-full grid grid-cols-12 grid-rows-[auto_auto_1fr] gap-8 ">
+      <div className="w-[90%] md:w-[80%] max-w-7xl h-full grid grid-cols-12 grid-rows-[auto_auto_1fr] gap-8 ">
         <p className="col-start-1 row-start-1 row-span-1 col-span-4 h1 !font-montreal !text-[105px] text-left font-bold !text-fullwhite">
           roman
         </p>

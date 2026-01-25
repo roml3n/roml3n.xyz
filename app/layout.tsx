@@ -82,7 +82,7 @@ export default function RootLayout({
         <SpeedInsights />
 
         <Header />
-        <main className="w-[90%] md:w-[80%] mx-auto max-w-5xl">{children}</main>
+        <main className="w-[90%] md:w-[80%] mx-auto max-w-7xl">{children}</main>
       </body>
     </html>
   );
