@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/app/components/Header.jsx";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
+import Footer from "./components/Footer";
 
 const ppEditorial = localFont({
   src: [
@@ -82,7 +83,11 @@ export default function RootLayout({
         <SpeedInsights />
 
         <Header />
-        <main className="w-[90%] md:w-[80%] mx-auto max-w-7xl">{children}</main>
+        <main className="w-[90%] md:w-[80%] mx-auto max-w-7xl">
+          {children}
+
+          <Footer />
+        </main>
       </body>
     </html>
   );
