@@ -3,8 +3,8 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <div className="w-full grid grid-cols-12 grid-rows-1 gap-x-6 gap-y-16 py-16">
-      <div className="flex flex-col gap-3 col-span-6">
+    <div className="w-full grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 grid-rows-1 gap-x-6 gap-y-16 py-16">
+      <div className="flex flex-col gap-3 col-span-4">
         <Link href="/" className="h6 font-medium hover:underline">
           Home
         </Link>
@@ -21,7 +21,7 @@ const Footer = () => {
           Photos
         </Link>
       </div>
-      <div className="flex flex-col gap-3 col-span-3">
+      <div className="flex flex-col gap-3 col-span-2 md:col-span-2 lg:col-span-4">
         <Link
           rel="noopenner noreferrer"
           target="blank"
@@ -39,7 +39,7 @@ const Footer = () => {
           +254 742 524 417
         </Link>
       </div>
-      <div className="flex flex-col gap-3 col-span-3">
+      <div className="flex flex-col gap-3 col-span-2 md:col-span-2 lg:col-span-4">
         <Link
           rel="noopenner noreferrer"
           target="blank"
