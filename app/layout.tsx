@@ -5,6 +5,8 @@ import Header from "@/app/components/Header.jsx";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 import Footer from "./components/Footer";
+import { workProjects } from "./data/workProjects";
+import { writingPosts } from "./data/writingPosts";
 
 const ppEditorial = localFont({
   src: [
@@ -82,7 +84,12 @@ export default function RootLayout({
         <Analytics />
         <SpeedInsights />
 
-        <Header />
+        <Header
+          menuCounts={{
+            work: workProjects.length,
+            writing: writingPosts.length,
+          }}
+        />
         <main className="w-[90%] md:w-[80%] mx-auto max-w-7xl">
           {children}
 
