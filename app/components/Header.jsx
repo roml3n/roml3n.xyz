@@ -90,13 +90,13 @@ const Header = ({ menuCounts }) => {
 
         {/* page content  */}
         <div className="menu-overlay-content h-full w-full px-6 py-6 md:px-10 md:py-10">
-          <div className="w-full h-full -mt-6 grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 grid-rows-[auto_1fr_auto] gap-x-4 md:gap-x-6 gap-y-9 md:gap-y-16 relative justify-center self-center">
-            <div className="flex flex-col items-start justify-start text-right col-start-11 col-span-2 uppercase tracking-[0.2em] h6 !text-sm text-darkgrey">
+          <div className="w-full h-full -mt-6 grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 md:grid-rows-[auto_auto_auto_1fr] lg:grid-rows-[auto_1fr_auto] gap-x-4 md:gap-x-6 gap-y-9 md:gap-y-16 relative justify-center self-center">
+            <div className="flex flex-col items-start justify-start text-right md:col-start-7 lg:col-start-11 col-span-2 uppercase tracking-[0.2em] h6 !text-sm text-darkgrey">
               <h6>Nairobi, Kenya</h6>
               <h6>0255H EAT [GMT+3]</h6>
             </div>
 
-            <div className="menu-overlay-image fixed top-6 left-6 bottom-6 w-[33vw] max-w-[560px] max-h-[2048px] rounded-[28px] overflow-hidden shadow-sm">
+            <div className="menu-overlay-image md:relative lg:fixed md:col-span-8 md:col-start-1 md:w-full md:row-span-1 md:row-start-4 md:-m-6 lg:top-6 lg:left-6 lg:bottom-6 lg:w-[33vw] lg:max-w-[560px] lg:max-h-[2048px] rounded-[28px] overflow-hidden">
               <Image
                 src="/images/(photosPage)/photo_1.jpg"
                 alt="Menu visual"
@@ -106,7 +106,7 @@ const Header = ({ menuCounts }) => {
               />
             </div>
 
-            <nav className="menu-overlay-list col-start-6 col-span-4 self-center row-start-2 flex flex-col gap-1 md:gap-3">
+            <nav className="menu-overlay-list md:col-start-1 lg:col-start-6 col-span-4 self-center md:row-span-2 lg:row-span-1 md:row-start-2 flex flex-col gap-1 md:gap-3">
               {menuItems.map((item) => (
                 <Link
                   key={item.label}
@@ -126,7 +126,7 @@ const Header = ({ menuCounts }) => {
               ))}
             </nav>
 
-            <div className="flex flex-col gap-6 col-start-6 col-span-3 row-start-3">
+            <div className="flex flex-col gap-6 md:col-start-5 md:col-span-4 md:row-start-2 md:row-span-2 lg:col-start-6 lg:col-span-3 row-start-3">
               <div>
                 <p className="h6 opacity-60 text-midgrey">[ email ]</p>
                 <p className="h5 !font-medium text-darkgrey">yo@roml3n.xyz</p>
@@ -139,7 +139,7 @@ const Header = ({ menuCounts }) => {
               </div>
             </div>
 
-            <div className="flex flex-col gap-6 col-start-9 col-span-3 row-start-3">
+            <div className="flex flex-col gap-6 md:col-start-5 md:col-span-4 md:row-start-3 md:row-span-2 lg:col-start-6 lg:col-span-3 row-start-3">
               <div>
                 <p className="h6 opacity-60 text-midgrey">[ linkedin ]</p>
                 <p className="h5 !font-medium text-darkgrey">in/roml3n</p>
