@@ -4,7 +4,9 @@ import Footer from "@/app/components/Footer";
 import { LazyWrapper } from "@/app/components/LazyWrapper";
 
 // Lazy load the Photo component - keep original name
-const Photo = lazy(() => import("@/app/components/ui/Photo").then(module => ({ default: module.Photo })));
+const Photo = lazy(() =>
+  import("@/app/components/Photo").then((module) => ({ default: module.Photo }))
+);
 
 const photos = [
   { imageSrc: "/images/(photosPage)/photo_1.jpg" },

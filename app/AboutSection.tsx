@@ -1,12 +1,14 @@
 import React from "react";
 import Image from "next/image";
-import SocialLink from "../components/SocialLink";
+import SocialLink from "./components/SocialLink";
 
 export const AboutSection = () => {
   return (
     <section className="mt-[4rem] w-screen justify-center flex py-16 bg-hoverbg">
-      <div className="w-[90%] md:w-[80%] max-w-7xl grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 grid-rows-[auto_auto_auto_auto_auto_1fr_1fr_1fr_1fr]
- md:grid-rows-9 auto-rows-min gap-4 md:gap-2">
+      <div
+        className="w-[90%] md:w-[80%] max-w-7xl grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 grid-rows-[auto_auto_auto_auto_auto_1fr_1fr_1fr_1fr]
+ md:grid-rows-9 auto-rows-min gap-4 md:gap-2"
+      >
         <div
           className="flex flex-col gap-6 md:gap-16 lg:gap-48
          col-span-4 lg:col-span-5 md:row-span-8 lg:row-span-9 col-start-1 row-start-1 h-fit mr-6"

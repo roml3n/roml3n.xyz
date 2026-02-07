@@ -3,6 +3,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import SocialLink from "../components/SocialLink";
 
 const Header = ({ menuCounts }) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -126,27 +127,33 @@ const Header = ({ menuCounts }) => {
             </nav>
 
             <div className="flex flex-col gap-6 col-start-1 col-span-2 md:col-start-5 md:col-span-4 md:row-span-2 lg:col-start-6 lg:col-span-3 row-start-3 md:row-start-2 lg:row-start-3">
-              <div>
-                <p className="h6 opacity-60 text-midgrey">[ email ]</p>
-                <p className="h5 !font-medium text-darkgrey">yo@roml3n.xyz</p>
-              </div>
-              <div>
-                <p className="h6 opacity-60 text-midgrey">[ phone ]</p>
-                <p className="h5 !font-medium text-darkgrey">
-                  +254 742 524 417
-                </p>
-              </div>
+              <SocialLink
+                channel="email"
+                title="yo@roml3n.xyz"
+                url="mailto:yo@roml3n.xyz"
+                className="col-start-1 md:col-start-5 lg:col-start-7 row-start-7 md:row-start-7 lg:row-start-8"
+              />
+              <SocialLink
+                channel="phone"
+                title="+254 742 524 417"
+                url="tel:+254742524417"
+                className="col-start-1 md:col-start-5 lg:col-start-7 row-start-8 md:row-start-8 lg:row-start-9"
+              />
             </div>
 
             <div className="flex flex-col gap-6 col-start-3 col-span-2 md:col-start-5 lg:col-start-9 md:col-span-4  md:row-span-2  lg:col-span-3 row-start-3 md:row-start-3 lg:row-start-3">
-              <div>
-                <p className="h6 opacity-60 text-midgrey">[ linkedin ]</p>
-                <p className="h5 !font-medium text-darkgrey">in/roml3n</p>
-              </div>
-              <div>
-                <p className="h6 opacity-60 text-midgrey">[ x ]</p>
-                <p className="h5 !font-medium text-darkgrey">@roml3n</p>
-              </div>
+              <SocialLink
+                channel="linkedin"
+                title="in/roml3n"
+                url="https://linkedin.com/in/roml3n"
+                className="col-start-3 md:col-start-7 lg:col-start-9 row-start-8 md:row-start-7 lg:row-start-8"
+              />
+              <SocialLink
+                channel="x"
+                title="@roml3n.xyz"
+                url="https://x.com/roml3n"
+                className="col-start-3 md:col-start-7 lg:col-start-9 row-start-9 md:row-start-8 lg:row-start-9"
+              />
             </div>
           </div>
         </div>

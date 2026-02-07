@@ -2,9 +2,9 @@
 import React from "react";
 import "./globals.css";
 
-import { Hero } from "./(sections)/hero";
-import { AboutSection } from "./(sections)/AboutSection";
-import WorkSection from "./(sections)/WorkSection";
+import { Hero } from "./hero";
+import { AboutSection } from "./AboutSection";
+import WorkSection from "./WorkSection";
 import Footer from "@/app/components/Footer";
 import ButtonLink from "@/app/components/ButtonLink";
 
@@ -18,7 +18,6 @@ function App() {
         <WorkSection />
         <AboutSection />
       </main>
-      <Footer />
     </section>
   );
 }

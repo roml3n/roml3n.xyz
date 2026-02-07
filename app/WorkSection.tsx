@@ -1,6 +1,6 @@
 import React from "react";
-import WorkCard from "../components/ui/WorkCard";
-import { workProjects } from "../data/workProjects";
+import WorkCard from "./components/WorkCard";
+import { workProjects } from "./data/workProjects";
 
 const WorkSection = () => {
   return (
