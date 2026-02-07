@@ -24,7 +24,6 @@ const Header = ({ menuCounts }) => {
         href: "/writing",
         meta: formatCount(menuCounts?.writing),
       },
-      { label: "Playground", href: "/playground" },
       { label: "Photos", href: "/photos", meta: "72" },
     ],
     [menuCounts]
@@ -90,13 +89,13 @@ const Header = ({ menuCounts }) => {
 
         {/* page content  */}
         <div className="menu-overlay-content h-full w-full px-6 py-6 md:px-10 md:py-10">
-          <div className="w-full h-full -mt-6 grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 md:grid-rows-[auto_auto_auto_1fr] lg:grid-rows-[auto_1fr_auto] gap-x-4 md:gap-x-6 gap-y-9 md:gap-y-16 relative justify-center self-center">
-            <div className="flex flex-col items-start justify-start text-right md:col-start-7 lg:col-start-11 col-span-2 uppercase tracking-[0.2em] h6 !text-sm text-darkgrey">
+          <div className="w-full h-full -mt-6 grid grid-cols-4 grid-rows-[auto_auto_auto_1fr] md:grid-cols-8 lg:grid-cols-12 md:grid-rows-[auto_auto_auto_1fr] lg:grid-rows-[auto_1fr_auto] gap-x-4 md:gap-x-6 gap-y-9 md:gap-y-16 relative justify-center self-center">
+            <div className="md:flex flex-col items-start justify-start text-right hidden md:col-start-7 lg:col-start-11 col-span-2 uppercase tracking-[0.2em] h6 !text-sm text-darkgrey">
               <h6>Nairobi, Kenya</h6>
               <h6>0255H EAT [GMT+3]</h6>
             </div>
 
-            <div className="menu-overlay-image md:relative lg:fixed md:col-span-8 md:col-start-1 md:w-full md:row-span-1 md:row-start-4 md:-m-6 lg:top-6 lg:left-6 lg:bottom-6 lg:w-[33vw] lg:max-w-[560px] lg:max-h-[2048px] rounded-[28px] overflow-hidden">
+            <div className="menu-overlay-image relative lg:fixed col-span-4 col-start-1 row-start-4 md:col-span-8 md:col-start-1 md:w-full md:row-span-1 md:row-start-4 md:-m-6 lg:m-0 lg:top-6 lg:left-6 lg:bottom-6 lg:w-[33vw] lg:max-w-[560px] lg:max-h-[2048px] rounded-xl overflow-hidden mt-12 sm:mt-8 md:mt-6 lg:mt-0">
               <Image
                 src="/images/(photosPage)/photo_1.jpg"
                 alt="Menu visual"
@@ -106,7 +105,7 @@ const Header = ({ menuCounts }) => {
               />
             </div>
 
-            <nav className="menu-overlay-list md:col-start-1 lg:col-start-6 col-span-4 self-center md:row-span-2 lg:row-span-1 md:row-start-2 flex flex-col gap-1 md:gap-3">
+            <nav className="menu-overlay-list mt-12 md:mt-0 col-start-1 lg:col-start-6 col-span-4 self-start md:self-center md:row-span-2 lg:row-span-1 row-start-2 flex flex-col gap-1 md:gap-3">
               {menuItems.map((item) => (
                 <Link
                   key={item.label}
@@ -126,7 +125,7 @@ const Header = ({ menuCounts }) => {
               ))}
             </nav>
 
-            <div className="flex flex-col gap-6 md:col-start-5 md:col-span-4 md:row-start-2 md:row-span-2 lg:col-start-6 lg:col-span-3 row-start-3">
+            <div className="flex flex-col gap-6 col-start-1 col-span-2 md:col-start-5 md:col-span-4 md:row-span-2 lg:col-start-6 lg:col-span-3 row-start-3 md:row-start-2 lg:row-start-3">
               <div>
                 <p className="h6 opacity-60 text-midgrey">[ email ]</p>
                 <p className="h5 !font-medium text-darkgrey">yo@roml3n.xyz</p>
@@ -139,7 +138,7 @@ const Header = ({ menuCounts }) => {
               </div>
             </div>
 
-            <div className="flex flex-col gap-6 md:col-start-5 md:col-span-4 md:row-start-3 md:row-span-2 lg:col-start-6 lg:col-span-3 row-start-3">
+            <div className="flex flex-col gap-6 col-start-3 col-span-2 md:col-start-5 lg:col-start-9 md:col-span-4  md:row-span-2  lg:col-span-3 row-start-3 md:row-start-3 lg:row-start-3">
               <div>
                 <p className="h6 opacity-60 text-midgrey">[ linkedin ]</p>
                 <p className="h5 !font-medium text-darkgrey">in/roml3n</p>
