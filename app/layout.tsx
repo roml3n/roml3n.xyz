@@ -8,23 +8,6 @@ import Footer from "./components/Footer";
 import { workProjects } from "./data/workProjects";
 import { writingPosts } from "./data/writingPosts";
 
-const ppEditorial = localFont({
-  src: [
-    {
-      path: "./fonts/PPEditorialNew-Ultralight.otf",
-      weight: "200",
-      style: "normal",
-    },
-    {
-      path: "./fonts/PPEditorialNew-UltralightItalic.otf",
-      weight: "200",
-      style: "italic",
-    },
-  ],
-  variable: "--font-pp-editorial",
-  display: "swap",
-});
-
 const ppNeueMontreal = localFont({
   src: [
     {
@@ -78,9 +61,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body
-        className={`${ppEditorial.variable} ${ppNeueMontreal.variable} antialiased  scroll-smooth`}
-      >
+      <body className={`${ppNeueMontreal.variable} antialiased  scroll-smooth`}>
         <Analytics />
         <SpeedInsights />
 

@@ -3,10 +3,41 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import SocialLink from "../components/SocialLink";
 
 const Header = ({ menuCounts }) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
+  const menuCloseDelayMs = 320;
+
+  const handleMenuItemClick = (event, href) => {
+    const isHashLink = href.startsWith("/#");
+    if (!isHashLink) {
+      setMenuOpen(false);
+      return;
+    }
+
+    event.preventDefault();
+    const targetId = href.slice(2);
+    setMenuOpen(false);
+
+    if (pathname !== "/") {
+      window.setTimeout(() => {
+        router.push(href);
+      }, menuCloseDelayMs);
+      return;
+    }
+
+    window.setTimeout(() => {
+      const target = document.getElementById(targetId);
+      if (!target) return;
+      window.history.replaceState(null, "", href);
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, menuCloseDelayMs);
+  };
+
   const formatCount = (value) => {
     if (typeof value !== "number") return undefined;
     return String(value).padStart(2, "0");
@@ -14,10 +45,10 @@ const Header = ({ menuCounts }) => {
   const menuItems = useMemo(
     () => [
       { label: "Home", href: "/" },
-      { label: "About", href: "/about" },
+      { label: "About", href: "/#about" },
       {
         label: "Work",
-        href: "/work",
+        href: "/#work",
         meta: formatCount(menuCounts?.work),
       },
       {
@@ -111,7 +142,7 @@ const Header = ({ menuCounts }) => {
                 <Link
                   key={item.label}
                   href={item.href}
-                  onClick={() => setMenuOpen(false)}
+                  onClick={(event) => handleMenuItemClick(event, item.href)}
                   className="group inline-flex py- items-start gap-2 text-4xl md:text-5xl font-montreal font-medium text-fullgrey transition-all duration-300 hover:bg-hoverbg hover:px-4 hover:border-r-4 hover:border-midgrey rounded-sm"
                 >
                   <span className="relative">
