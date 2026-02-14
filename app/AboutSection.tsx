@@ -39,16 +39,14 @@ export const AboutSection = () => {
               height={1080}
               width={675}
               alt="screenshot"
-              object-cover
-              className="overflow-clip w-full"
+              className="overflow-clip w-full object-cover"
             />
             <Image
               src="/images/about/about-bike.webp"
               height={1080}
               width={675}
               alt="screenshot"
-              object-cover
-              className="overflow-clip w-full"
+              className="overflow-clip w-full object-cover"
             />
           </div>
           <div className="flex flex-col gap-2 md:gap-3 lg:gap-4 w-full">
@@ -57,16 +55,14 @@ export const AboutSection = () => {
               height={1080}
               width={675}
               alt="screenshot"
-              object-cover
-              className="overflow-clip w-full"
+              className="overflow-clip w-full object-cover"
             />
             <Image
               src="/images/about/about-apollo.webp"
               height={1080}
               width={675}
               alt="screenshot"
-              object-cover
-              className="overflow-clip w-full"
+              className="overflow-clip w-full object-cover"
             />
           </div>
         </div>
