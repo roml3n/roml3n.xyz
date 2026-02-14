@@ -3,8 +3,8 @@ import React from "react";
 import Footer from "@/app/components/Footer";
 
 import Hero from "@/app/(pages)/work/tucheze/Hero";
-// import ProjectInfo from "@/app/(pages)/work/projectInfo";
-// import CaseSection from "@/app/(pages)/work/caseSection";
+import ProjectInfo from "@/app/(pages)/work/projectInfo";
+import CaseSection from "@/app/(pages)/work/caseSection";
 import TuchezeCard from "@/app/(pages)/work/tucheze/TuchezeCard";
 import Divider from "@/app/components/Divider";
 import ImagesSection from "@/app/(pages)/work/tucheze/ImagesSection";

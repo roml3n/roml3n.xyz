@@ -5,8 +5,8 @@ import Footer from "@/app/components/Footer";
 
 //sections
 import ProjectInfo from "@/app/(pages)/work/projectInfo";
-// import CaseSection from "@/app/(pages)/work/caseSection";
-// import InterviewCard from "@/app/(pages)/work/bigstore/InterviewCard";
+import CaseSection from "@/app/(pages)/work/caseSection";
+import InterviewCard from "@/app/(pages)/work/bigstore/InterviewCard";
 import WorkProblemsCard from "@/app/(pages)/work/bigstore/WorkProblemsCard";
 import Divider from "@/app/components/Divider";
 import Hero from "@/app/(pages)/work/bigstore/Hero";

@@ -1,6 +1,4 @@
 import React from "react";
-import Image from "next/image";
-import AvatarLG from "@/app/components/AvatarLG";
 
 export const Hero = () => {
   return (

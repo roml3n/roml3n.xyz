@@ -3,7 +3,8 @@ import React from "react";
 import Footer from "@/app/components/Footer";
 
 import Hero from "@/app/(pages)/work/waya-ssn/Hero";
-// import CaseSection from "@/app/(pages)/work/caseSection";
+import ProjectInfo from "@/app/(pages)/work/projectInfo";
+import CaseSection from "@/app/(pages)/work/caseSection";
 // import InterviewCard from "@/app/(pages)/work/bigstore/InterviewCard";
 import WayaInterviewCard from "@/app/(pages)/work/waya-ssn/WayaInterviewCard";
 import AnalysisCard from "@/app/(pages)/work/waya-ssn/AnalysisCard";

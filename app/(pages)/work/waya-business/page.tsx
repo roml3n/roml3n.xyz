@@ -73,7 +73,6 @@ const BigStore = () => {
               ]}
               caption="The first few pages you interact with as an account holder, with a nice overview of all your accounts, transactions and cards."
             />
-
             <CaseSection
               description={`The card flow had to be nailed perfectly, as this was a huge success metric identified in our initial discovery sessions. We added support for both physical and virtual cards, secured through one of our banking partners, Mastercard™.\n
 Ordering a card should feel frictionless and next to natural. As such, we decided to keep the active cards in the same page so they can be viewed on the go, with the associated user shown to the right.\n

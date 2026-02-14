@@ -5,8 +5,8 @@ import Footer from "@/app/components/Footer";
 import CaseImageCarousel from "@/app/components/CaseImageCarousel";
 
 //sections
-// import ProjectInfo from "@/app/(pages)/work/projectInfo";
-// import CaseSection from "@/app/(pages)/work/caseSection";
+import ProjectInfo from "@/app/(pages)/work/projectInfo";
+import CaseSection from "@/app/(pages)/work/caseSection";
 import Hero from "@/app/(pages)/work/pawa-website/Hero";
 
 const BigStore = () => {

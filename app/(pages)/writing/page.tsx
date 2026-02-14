@@ -1,7 +1,7 @@
 import WritingClient from "./WritingClient";
 import { getWritingPosts } from "@/lib/getWritingPosts";
 
-export const revalidate = 60 * 30;
+export const revalidate = 1800;
 
 export default async function WritingPage() {
   const posts = await getWritingPosts(20);
