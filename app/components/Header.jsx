@@ -8,6 +8,7 @@ import TransitionLink from "./transitions/TransitionLink";
 
 const Header = ({ menuCounts }) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [nairobiTime, setNairobiTime] = useState("");
   const pathname = usePathname();
   const router = useRouter();
   const menuCloseDelayMs = 320;
@@ -77,6 +78,25 @@ const Header = ({ menuCounts }) => {
     };
   }, [menuOpen]);
 
+  useEffect(() => {
+    const formatter = new Intl.DateTimeFormat("en-GB", {
+      timeZone: "Africa/Nairobi",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    });
+
+    const updateTime = () => {
+      const formatted = formatter.format(new Date()).replace(":", "");
+      setNairobiTime(`${formatted}H`);
+    };
+
+    updateTime();
+    const intervalId = window.setInterval(updateTime, 1000);
+
+    return () => window.clearInterval(intervalId);
+  }, []);
+
   return (
     <>
       <header className="z-[9999] fixed top-3 left-1/2 -translate-x-1/2 p-1 flex items-center w-fit gap-1 rounded-2xl bg-midgrey shadow-sm">
@@ -135,7 +155,7 @@ const Header = ({ menuCounts }) => {
           <div className="w-full h-full -mt-6 grid grid-cols-4 grid-rows-[auto_auto_auto_1fr] md:grid-cols-8 lg:grid-cols-12 md:grid-rows-[auto_auto_auto_1fr] lg:grid-rows-[auto_1fr_auto] gap-x-4 md:gap-x-6 gap-y-9 md:gap-y-16 relative justify-center self-center">
             <div className="md:flex flex-col items-start justify-start text-right hidden md:col-start-7 lg:col-start-11 col-span-2 uppercase tracking-[0.2em] h6 !text-sm text-darkgrey">
               <h6>Nairobi, Kenya</h6>
-              <h6>0255H EAT [GMT+3]</h6>
+              <h6>{nairobiTime || "----H"} EAT [GMT+3]</h6>
             </div>
 
             <div className="menu-overlay-image relative lg:fixed col-span-4 col-start-1 row-start-4 md:col-span-8 md:col-start-1 md:w-full md:row-span-1 md:row-start-4 md:-m-6 lg:m-0 lg:top-6 lg:left-6 lg:bottom-6 lg:w-[33vw] lg:max-w-[560px] lg:max-h-[2048px] rounded-xl overflow-hidden mt-12 sm:mt-8 md:mt-6 lg:mt-0">

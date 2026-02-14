@@ -5,6 +5,7 @@ export const workProjects = [
     date: "08.2024",
     className: "md:row-start-2",
     coverImage: "/images/work/pawa-website-cover.webp",
+    href: "/work/pawa-website",
   },
   {
     title: "Crafting a high-stakes experience for sports betting enthusiasts",
@@ -12,6 +13,7 @@ export const workProjects = [
     date: "05.2024",
     className: "md:row-start-2",
     coverImage: "/images/work/tucheze-cover.webp",
+    href: "/work/tucheze",
   },
   {
     title: "Enhancing financial inclusion for new Americans and immigrants",
@@ -19,6 +21,7 @@ export const workProjects = [
     date: "03.2024",
     className: "md:row-start-3",
     coverImage: "/images/work/waya-ssn-cover.webp",
+    href: "/work/waya-ssn",
   },
   {
     title: "Helping Waya empower immigrant founders to bank, build, and grow",
@@ -26,6 +29,7 @@ export const workProjects = [
     date: "07.2023",
     className: "md:row-start-3",
     coverImage: "/images/work/waya-business-cover.webp",
+    href: "/work/waya-business",
   },
   {
     title: "Redesigning e-commerce to boost loyalty, sales, and satisfaction",
@@ -33,5 +37,6 @@ export const workProjects = [
     date: "04.2023",
     className: "md:row-start-4",
     coverImage: "/images/work/bigstore-cover.webp",
+    href: "/work/bigstore",
   },
 ];

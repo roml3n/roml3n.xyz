@@ -1,5 +1,6 @@
 import React from "react";
 import WorkCard from "./components/WorkCard";
+import TransitionLink from "./components/transitions/TransitionLink";
 import { workProjects } from "./data/workProjects";
 
 const WorkSection = () => {
@@ -14,14 +15,19 @@ const WorkSection = () => {
       </div>
 
       {workProjects.map((project) => (
-        <WorkCard
+        <TransitionLink
           key={`${project.title}-${project.date}`}
-          title={project.title}
-          company={project.company}
-          date={project.date}
-          className={project.className}
-          coverImage={project.coverImage}
-        />
+          href={project.href}
+          className="contents"
+        >
+          <WorkCard
+            title={project.title}
+            company={project.company}
+            date={project.date}
+            className={project.className}
+            coverImage={project.coverImage}
+          />
+        </TransitionLink>
       ))}
     </section>
   );
