@@ -18,29 +18,13 @@ const Hero = () => {
 
       <div className="flex flex-col sm:flex-row gap-2 justify-start">
         <Button
+          variant="ghost"
           target-blank
           url="https://pawait.africa"
           className="!bg-mainblue flex gap-2 group"
           newTab
-        >
-          <p className="h4 !text-fullwhite  group-hover:mx-2 transition-all duration-300">
-            See Live
-          </p>
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M17 7.5L7 17.5M17 7.5H8M17 7.5V16.5"
-              stroke="white"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </Button>
+          label="See Live"
+        />
       </div>
 
       <div className="relative w-full overflow-hidden transform scale-[1.4] mt-28">

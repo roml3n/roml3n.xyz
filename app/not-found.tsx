@@ -98,9 +98,7 @@ export default function NotFound() {
                     >
                       <p className="h4">Retry</p>
                     </button>
-                    <Button url="/">
-                      <p className="h4">Go Home</p>
-                    </Button>
+                    <Button variant="ghost" url="/" label="Go Home" />
                   </div>
                 </div>
               ) : gameState === "victory" ? (
@@ -131,9 +129,7 @@ export default function NotFound() {
                     >
                       <p className="h4">Next Level</p>
                     </button>
-                    <Button url="/">
-                      <p className="h4">Go Home</p>
-                    </Button>
+                    <Button variant="ghost" url="/" label="Go Home" />
                   </div>
                 </div>
               ) : (
@@ -153,9 +149,7 @@ export default function NotFound() {
                     >
                       <p className="h4">Start</p>
                     </button>
-                    <Button url="/">
-                      <p className="h4">Go Home</p>
-                    </Button>
+                    <Button variant="ghost" url="/" label="Go Home" />
                   </div>
                 </div>
               )}
