@@ -31,7 +31,7 @@ const WorkCard = ({
           height={1080}
           width={675}
           alt="screenshot of project"
-          object-contain
+          className="object-contain"
         />
       </div>
     </div>
