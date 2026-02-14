@@ -20,6 +20,7 @@ const WorkSection = () => {
           company={project.company}
           date={project.date}
           className={project.className}
+          coverImage={project.coverImage}
         />
       ))}
     </section>

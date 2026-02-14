@@ -58,7 +58,7 @@ const Header = ({ menuCounts }) => {
       },
       { label: "Photos", href: "/photos", meta: "72" },
     ],
-    [menuCounts]
+    [menuCounts],
   );
 
   useEffect(() => {
@@ -129,7 +129,7 @@ const Header = ({ menuCounts }) => {
 
             <div className="menu-overlay-image relative lg:fixed col-span-4 col-start-1 row-start-4 md:col-span-8 md:col-start-1 md:w-full md:row-span-1 md:row-start-4 md:-m-6 lg:m-0 lg:top-6 lg:left-6 lg:bottom-6 lg:w-[33vw] lg:max-w-[560px] lg:max-h-[2048px] rounded-xl overflow-hidden mt-12 sm:mt-8 md:mt-6 lg:mt-0">
               <Image
-                src="/images/(photosPage)/photo_1.jpg"
+                src="/images/me/a-field-of-rome.png"
                 alt="Menu visual"
                 fill
                 className="object-cover"
