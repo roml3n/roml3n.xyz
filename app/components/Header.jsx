@@ -56,7 +56,7 @@ const Header = ({ menuCounts }) => {
         href: "/writing",
         meta: formatCount(menuCounts?.writing),
       },
-      { label: "Photos", href: "/photos", meta: "72" },
+      { label: "Photos", href: "/photos", meta: formatCount(menuCounts?.photos) },
     ],
     [menuCounts],
   );
@@ -79,7 +79,7 @@ const Header = ({ menuCounts }) => {
 
   return (
     <>
-      <header className="z-[9999] fixed top-3 left-1/2 -translate-x-1/2 p-1 flex items-center w-fit gap-2 rounded-2xl bg-midgrey shadow-sm">
+      <header className="z-[9999] fixed top-3 left-1/2 -translate-x-1/2 p-1 flex items-center w-fit gap-1 rounded-2xl bg-midgrey shadow-sm">
         {/* Logo Container */}
         <div className="px-4 py-2 bg-fullwhite rounded-xl flex items-center justify-center shadow-sm w-fit">
           <div className="h-6 w-auto flex">
@@ -93,15 +93,26 @@ const Header = ({ menuCounts }) => {
           </div>
         </div>
 
-        {/* Menu Button */}
+        {/* Morphing Menu Toggle */}
         <button
           type="button"
           onClick={() => setMenuOpen((prev) => !prev)}
-          className="flex h-6 px-3 items-center justify-center rounded-lg transition-colors hover:bg-hoverbg"
+          className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-mainblue transition-opacity hover:opacity-90"
           aria-expanded={menuOpen}
           aria-label={menuOpen ? "Close menu" : "Open menu"}
         >
-          <span className="h4 !font-medium">{menuOpen ? "close" : "menu"}</span>
+          <span
+            className={`absolute h-[1.5px] w-6 rounded-full bg-fullwhite transition-all duration-300 ease-in-out ${
+              menuOpen ? "translate-y-0 rotate-45" : "-translate-y-1 rotate-0"
+            }`}
+            aria-hidden="true"
+          />
+          <span
+            className={`absolute h-[1.5px] w-6 rounded-full bg-fullwhite transition-all duration-300 ease-in-out ${
+              menuOpen ? "translate-y-0 -rotate-45" : "translate-y-1 rotate-0"
+            }`}
+            aria-hidden="true"
+          />
         </button>
       </header>
 

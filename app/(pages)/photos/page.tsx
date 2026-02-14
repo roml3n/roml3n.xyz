@@ -4,6 +4,7 @@ import React, { lazy, useCallback, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion, useAnimationControls } from "framer-motion";
 import { LazyWrapper } from "@/app/components/LazyWrapper";
+import { photos } from "@/app/data/photos";
 
 // Lazy load the Photo component - keep original name
 const Photo = lazy(() =>
@@ -11,26 +12,6 @@ const Photo = lazy(() =>
     default: module.Photo,
   })),
 );
-
-const photos = [
-  { imageSrc: "/images/(photosPage)/photo_1.jpg" },
-  { imageSrc: "/images/(photosPage)/photo_2.jpg" },
-  { imageSrc: "/images/(photosPage)/photo_3.jpg" },
-  { imageSrc: "/images/(photosPage)/photo_4.jpg" },
-  { imageSrc: "/images/(photosPage)/photo_5.jpg" },
-  { imageSrc: "/images/(photosPage)/photo_6.jpg" },
-  { imageSrc: "/images/(photosPage)/photo_7.jpg" },
-  { imageSrc: "/images/(photosPage)/photo_8.jpg" },
-  { imageSrc: "/images/(photosPage)/photo_9.jpg" },
-  { imageSrc: "/images/(photosPage)/photo_10.jpg" },
-  { imageSrc: "/images/(photosPage)/photo_11.jpg" },
-  { imageSrc: "/images/(photosPage)/photo_12.jpg" },
-  { imageSrc: "/images/(photosPage)/photo_13.jpg" },
-  { imageSrc: "/images/(photosPage)/photo_14.jpg" },
-  { imageSrc: "/images/(photosPage)/photo_15.jpg" },
-  { imageSrc: "/images/(photosPage)/photo_16.jpg" },
-  { imageSrc: "/images/(photosPage)/photo_17.jpg" },
-];
 
 const slideVariants = {
   enter: (direction: number) => ({

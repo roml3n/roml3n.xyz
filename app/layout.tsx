@@ -6,7 +6,8 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 import Footer from "./components/Footer";
 import { workProjects } from "./data/workProjects";
-import { writingPosts } from "./data/writingPosts";
+import { photos } from "./data/photos";
+import { getWritingPosts } from "@/lib/getWritingPosts";
 import PageTransitionProvider, {
   PageTransitionContent,
 } from "./components/transitions/PageTransitionProvider";
@@ -40,11 +41,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const writingMenuPosts = await getWritingPosts(20);
+
   return (
     <html lang="en">
       <head>
@@ -72,7 +75,8 @@ export default function RootLayout({
           <Header
             menuCounts={{
               work: workProjects.length,
-              writing: writingPosts.length,
+              writing: writingMenuPosts.length,
+              photos: photos.length,
             }}
           />
           <main className="w-[90%] md:w-[80%] mx-auto max-w-7xl">
