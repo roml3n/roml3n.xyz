@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import Link from "next/link";
 import { writingPosts } from "@/app/data/writingPosts";
+import TransitionLink from "@/app/components/transitions/TransitionLink";
 
 const Writing = () => {
   return (
@@ -13,9 +13,9 @@ const Writing = () => {
 
       {/* posts */}
       <div className="flex flex-col gap-2 row-start-2 lg:col-start-5 col-span-4 md:col-span-8">
-        {writingPosts.map((post) => (
-          <Link
-            key={`${post.title}-${post.date}`}
+        {writingPosts.map((post, index) => (
+          <TransitionLink
+            key={`${post.href}-${post.date}-${index}`}
             href={post.href}
             className="h3 py-2 hover:bg-hoverbg hover:px-4 hover:border-r-4 hover:border-midgrey rounded-sm transition-all duration-300"
           >
@@ -28,7 +28,7 @@ const Writing = () => {
               </div>
               <p className="h6 font-medium opacity-60">{post.date}</p>
             </div>
-          </Link>
+          </TransitionLink>
         ))}
       </div>
     </section>

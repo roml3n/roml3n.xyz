@@ -7,6 +7,9 @@ import { Analytics } from "@vercel/analytics/react";
 import Footer from "./components/Footer";
 import { workProjects } from "./data/workProjects";
 import { writingPosts } from "./data/writingPosts";
+import PageTransitionProvider, {
+  PageTransitionContent,
+} from "./components/transitions/PageTransitionProvider";
 
 const ppNeueMontreal = localFont({
   src: [
@@ -65,17 +68,19 @@ export default function RootLayout({
         <Analytics />
         <SpeedInsights />
 
-        <Header
-          menuCounts={{
-            work: workProjects.length,
-            writing: writingPosts.length,
-          }}
-        />
-        <main className="w-[90%] md:w-[80%] mx-auto max-w-7xl">
-          {children}
+        <PageTransitionProvider>
+          <Header
+            menuCounts={{
+              work: workProjects.length,
+              writing: writingPosts.length,
+            }}
+          />
+          <main className="w-[90%] md:w-[80%] mx-auto max-w-7xl">
+            <PageTransitionContent>{children}</PageTransitionContent>
 
-          <Footer />
-        </main>
+            <Footer />
+          </main>
+        </PageTransitionProvider>
       </body>
     </html>
   );

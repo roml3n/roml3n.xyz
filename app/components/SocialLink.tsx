@@ -1,5 +1,5 @@
-import Link from "next/link";
 import React from "react";
+import TransitionLink from "./transitions/TransitionLink";
 
 const SocialLink = ({
   channel,
@@ -21,14 +21,14 @@ const SocialLink = ({
         </span>{" "}
         ]
       </h6>
-      <Link
+      <TransitionLink
         rel="noopenner noreferrer"
         target="blank"
         href={url}
         className="h4 group-hover:underline group-hover:!text-mainblue transition-all duration-300"
       >
         {title}
-      </Link>
+      </TransitionLink>
     </div>
   );
 };

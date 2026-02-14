@@ -1,25 +1,26 @@
-import Link from "next/link";
 import React from "react";
+import Link from "next/link";
+import TransitionLink from "./transitions/TransitionLink";
 
 const Footer = () => {
   return (
     <div className="w-full grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 grid-rows-1 gap-x-6 gap-y-16 py-16">
       <div className="flex flex-col gap-3 col-span-4">
-        <Link href="/" className="h6 font-medium hover:underline">
+        <TransitionLink href="/" className="h6 font-medium hover:underline">
           Home
-        </Link>
-        <Link href="/" className="h6 font-medium hover:underline">
+        </TransitionLink>
+        <TransitionLink href="/#about" className="h6 font-medium hover:underline">
           About
-        </Link>
-        <Link href="/" className="h6 font-medium hover:underline">
+        </TransitionLink>
+        <TransitionLink href="/#work" className="h6 font-medium hover:underline">
           Work
-        </Link>
-        <Link href="/writing" className="h6 font-medium hover:underline">
+        </TransitionLink>
+        <TransitionLink href="/writing" className="h6 font-medium hover:underline">
           Writing
-        </Link>
-        <Link href="/photos" className="h6 font-medium hover:underline">
+        </TransitionLink>
+        <TransitionLink href="/photos" className="h6 font-medium hover:underline">
           Photos
-        </Link>
+        </TransitionLink>
       </div>
       <div className="flex flex-col gap-3 col-span-2 md:col-span-2 lg:col-span-4">
         <Link

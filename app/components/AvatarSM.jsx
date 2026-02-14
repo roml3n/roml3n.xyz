@@ -1,10 +1,10 @@
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
+import TransitionLink from "./transitions/TransitionLink";
 
 const AvatarSM = () => {
   return (
-    <Link href="/" passHref>
+    <TransitionLink href="/">
         <Image
           src="/images/home/rlAvatar.png"
           alt="Avatar Image"
@@ -12,7 +12,7 @@ const AvatarSM = () => {
           height={48}
           className="rounded-full border border-solid border-midgrey"
         />
-    </Link>
+    </TransitionLink>
   );
 };
 

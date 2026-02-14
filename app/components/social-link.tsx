@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
+import TransitionLink from "./transitions/TransitionLink";
 
 const SocialLink = ({
   iconSrc,
@@ -14,7 +14,7 @@ const SocialLink = ({
   href: string;
 }) => {
   return (
-    <Link
+    <TransitionLink
       href={href}
       target="_blank"
       rel="noopener noreferrer"
@@ -37,7 +37,7 @@ const SocialLink = ({
           height={16}
         />
       </div>
-    </Link>
+    </TransitionLink>
   );
 };
 

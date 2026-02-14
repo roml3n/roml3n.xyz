@@ -9,8 +9,8 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
-import Link from "next/link";
 import { useRef, useState, useEffect } from "react";
+import TransitionLink from "./transitions/TransitionLink";
 
 export const FloatingDock = ({
   items,
@@ -124,7 +124,7 @@ function IconContainer({
   const [hovered, setHovered] = useState(false);
 
   return (
-    <Link href={href}>
+    <TransitionLink href={href}>
       <motion.div
         ref={ref}
         style={{ width, height }}
@@ -153,6 +153,6 @@ function IconContainer({
           {icon}
         </motion.div>
       </motion.div>
-    </Link>
+    </TransitionLink>
   );
 }

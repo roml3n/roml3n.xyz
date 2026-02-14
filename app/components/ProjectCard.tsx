@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
+import TransitionLink from "./transitions/TransitionLink";
 
 export const ProjectCard: React.FC<{
   name: string;
@@ -11,7 +11,7 @@ export const ProjectCard: React.FC<{
   className?: string;
 }> = ({ name, description, tag, image, href, className }) => {
   return (
-    <Link
+    <TransitionLink
       className={`relative flex flex-col w-full rounded-xl overflow-clip ${className}`}
       href={href}
     >
@@ -36,6 +36,6 @@ export const ProjectCard: React.FC<{
           {tag}
         </div>
       </div>
-    </Link>
+    </TransitionLink>
   );
 };

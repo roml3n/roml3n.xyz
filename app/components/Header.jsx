@@ -2,9 +2,9 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import SocialLink from "../components/SocialLink";
+import TransitionLink from "./transitions/TransitionLink";
 
 const Header = ({ menuCounts }) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -139,7 +139,7 @@ const Header = ({ menuCounts }) => {
 
             <nav className="menu-overlay-list mt-12 md:mt-0 col-start-1 lg:col-start-6 col-span-4 self-start md:self-center md:row-span-2 lg:row-span-1 row-start-2 flex flex-col gap-1 md:gap-3">
               {menuItems.map((item) => (
-                <Link
+                <TransitionLink
                   key={item.label}
                   href={item.href}
                   onClick={(event) => handleMenuItemClick(event, item.href)}
@@ -153,7 +153,7 @@ const Header = ({ menuCounts }) => {
                       [{item.meta}]
                     </span>
                   )}
-                </Link>
+                </TransitionLink>
               ))}
             </nav>
 

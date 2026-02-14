@@ -1,5 +1,5 @@
 import React from "react";
-import Link from "next/link";
+import TransitionLink from "./transitions/TransitionLink";
 
 const Button = ({ 
   url = "#", 
@@ -9,14 +9,14 @@ const Button = ({
   newTab = false 
 }) => {
   return (
-    <Link 
+    <TransitionLink 
       href={url} 
       target={newTab ? "_blank" : "_self"} 
       rel={newTab ? "noopener noreferrer" : undefined} 
       className={`flex z-10 gap-1 w-fit items-center justify-end sm:justify-start py-2 px-4 box-border border border-solid border-midgrey !bg-fullwhite rounded-full ${className}`}
     >
       {children || <p className="h4">{label}</p>}
-    </Link>
+    </TransitionLink>
   );
 };
 

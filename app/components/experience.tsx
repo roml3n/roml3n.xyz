@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
+import TransitionLink from "./transitions/TransitionLink";
 
 const Experience = ({
   iconSrc,
@@ -18,9 +18,8 @@ const Experience = ({
   time: string;
 }) => {
   return (
-    <Link
+    <TransitionLink
       href={href}
-      passHref
       target="_blank"
       rel="noopener noreferrer"
       className="flex w-full items-center justify-between group"
@@ -37,7 +36,7 @@ const Experience = ({
         </div>
         <p className="h4">{time}</p>
       </div>
-    </Link>
+    </TransitionLink>
   );
 };
 
