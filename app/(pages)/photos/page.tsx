@@ -1,11 +1,12 @@
 "use client";
 import React, { lazy } from "react";
-import Footer from "@/app/components/Footer";
 import { LazyWrapper } from "@/app/components/LazyWrapper";
 
 // Lazy load the Photo component - keep original name
 const Photo = lazy(() =>
-  import("@/app/components/Photo").then((module) => ({ default: module.Photo }))
+  import("@/app/components/Photo").then((module) => ({
+    default: module.Photo,
+  })),
 );
 
 const photos = [
@@ -30,27 +31,19 @@ const photos = [
 
 const Photos = () => {
   return (
-    <section className="m-auto items-center w-full gap-16">
-      <main className="flex flex-col mt-10 md:mt-24 gap-16 items-center relative">
-        <div className="flex flex-col gap-8">
-          <h1 className="h1 w-full">Photos</h1>
-          <p className="w-full h4">
-            Every now and then there are moments in which I step behind (or in
-            front of) some sort of camera, a DSLR, mirrorless, film, or the most
-            popular one–the smartphone. These are some results of those moments.
-          </p>
-        </div>
+    <section className="content-start w-full min-h-[calc(100dvh-20rem)] md:min-h-[calc(100dvh-23rem)] mt-24 grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 grid-rows-auto gap-x-4 md:gap-x-6 gap-y-9 md:gap-y-16 relative justify-center self-center">
+      <div className="row-span-1 col-span-2 flex flex-col gap-1">
+        <h2 className="h2"> Photos </h2>
+        <h2 className="h2 opacity-40"> [{photos.length}] </h2>
+      </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 w-screen px-2 sm:px-3 lg:px-[2%]">
-          {photos.map((photo, index) => (
-            <LazyWrapper key={index}>
-              <Photo imageSrc={photo.imageSrc} alt="Photo" />
-            </LazyWrapper>
-          ))}
-        </div>
-      </main>
-
-      <Footer />
+      <div className="row-start-2 col-span-4 md:col-span-8 lg:col-span-12 w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+        {photos.map((photo, index) => (
+          <LazyWrapper key={index}>
+            <Photo imageSrc={photo.imageSrc} alt="Photo" />
+          </LazyWrapper>
+        ))}
+      </div>
     </section>
   );
 };
