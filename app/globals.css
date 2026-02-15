@@ -19,60 +19,28 @@ body {
   box-sizing: border-box;
 }
 
-/* @font-face {
-  font-family: "PPNeueMontreal";
-  src: url("./fonts/ppneuemontreal-book.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "PPNeueMontreal";
-  src: url("./fonts/ppneuemontreal-medium.otf") format("opentype");
-  font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "PPEditorialNew";
-  src: url("./fonts/PPEditorialNew-Ultralight.otf") format("opentype");
-  font-weight: 200;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "PPEditorialNew";
-  src: url("./fonts/PPEditorialNew-UltralightItalic.otf") format("opentype");
-  font-weight: 200;
-  font-style: italic;
-} */
-
-.cursor {
-  transition: transform 0.01s linear;
-}
-
 .h1 {
-  @apply text-4xl md:text-[2.5rem] lg:text-5xl font-montreal text-fullgrey leading-[120%];
+  @apply text-4xl md:text-[2.5rem] lg:text-5xl font-montreal text-fullgrey;
 }
 
 .h2 {
-  @apply text-[1.75rem] md:text-3xl lg:text-4xl font-montreal font-medium text-fullgrey leading-[120%];
+  @apply text-[1.75rem] md:text-3xl lg:text-4xl font-montreal font-medium text-fullgrey;
 }
 
 .h3 {
-  @apply text-[1.375rem] md:text-2xl font-medium font-montreal text-fullgrey leading-[120%];
+  @apply text-[1.375rem] md:text-2xl font-medium font-montreal text-fullgrey;
 }
 
 .h4 {
-  @apply text-lg md:text-xl font-medium font-montreal text-darkgrey leading-[90%];
+  @apply text-lg md:text-xl font-medium font-montreal text-darkgrey;
 }
 
 .h5 {
-  @apply text-base lg:text-lg font-montreal text-darkgrey leading-[10px];
+  @apply text-base lg:text-lg font-montreal text-darkgrey;
 }
 
 .h6 {
-  @apply text-sm md:text-base font-montreal text-darkgrey leading-none;
+  @apply text-base font-montreal text-darkgrey;
 }
 
 @keyframes marquee {

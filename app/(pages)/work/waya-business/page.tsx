@@ -8,6 +8,7 @@ import CaseImageCarousel from "@/app/components/CaseImageCarousel";
 import ProjectInfo from "@/app/(pages)/work/projectInfo";
 import CaseSection from "@/app/(pages)/work/caseSection";
 import Hero from "@/app/(pages)/work/waya-business/Hero";
+import MoreProjectsSection from "@/app/(pages)/work/MoreProjectsSection";
 
 const BigStore = () => {
   return (
@@ -186,6 +187,7 @@ The entry point for ordering a new card was neatly tucked away in the top right,
         </section>
       </main>
 
+      <MoreProjectsSection currentHref="/work/waya-business" />
       <Footer />
     </section>
   );

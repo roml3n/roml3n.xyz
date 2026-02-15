@@ -11,6 +11,7 @@ import AnalysisCard from "@/app/(pages)/work/waya-ssn/AnalysisCard";
 import Divider from "@/app/components/Divider";
 import ImagesSection from "@/app/(pages)/work/waya-ssn/ImagesSection";
 import MarqueeSection from "@/app/(pages)/work/waya-ssn/MarqueeSection";
+import MoreProjectsSection from "@/app/(pages)/work/MoreProjectsSection";
 
 const WayaSSN = () => {
   return (
@@ -246,6 +247,7 @@ const WayaSSN = () => {
         </section>
       </main>
 
+      <MoreProjectsSection currentHref="/work/waya-ssn" />
       <Footer />
     </section>
   );

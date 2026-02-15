@@ -8,6 +8,7 @@ import CaseImageCarousel from "@/app/components/CaseImageCarousel";
 import ProjectInfo from "@/app/(pages)/work/projectInfo";
 import CaseSection from "@/app/(pages)/work/caseSection";
 import Hero from "@/app/(pages)/work/pawa-website/Hero";
+import MoreProjectsSection from "@/app/(pages)/work/MoreProjectsSection";
 
 const BigStore = () => {
   return (
@@ -271,6 +272,7 @@ My challenge was to redesign the site's structure and identity to position Pawa 
         </section>
       </main>
 
+      <MoreProjectsSection currentHref="/work/pawa-website" />
       <Footer />
     </section>
   );

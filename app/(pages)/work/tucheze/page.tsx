@@ -8,6 +8,7 @@ import CaseSection from "@/app/(pages)/work/caseSection";
 import TuchezeCard from "@/app/(pages)/work/tucheze/TuchezeCard";
 import Divider from "@/app/components/Divider";
 import ImagesSection from "@/app/(pages)/work/tucheze/ImagesSection";
+import MoreProjectsSection from "@/app/(pages)/work/MoreProjectsSection";
 
 const Tucheze = () => {
   return (
@@ -63,6 +64,7 @@ const Tucheze = () => {
         </section>
       </main>
 
+      <MoreProjectsSection currentHref="/work/tucheze" />
       <Footer />
     </section>
   );
