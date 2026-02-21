@@ -25,11 +25,11 @@ const BigStore = () => {
           height={720}
           className="w-full mb-4"
         />
-        <h5 className="h5 font-medium opacity-40 whitespace-pre-line">
+        <h6 className="h6 font-medium opacity-40 whitespace-pre-line">
           {" "}
           {`The CB Group
 [ 07.2023 ]`}{" "}
-        </h5>
+        </h6>
       </div>
 
       {/* Intro  */}
@@ -46,19 +46,19 @@ const BigStore = () => {
         />
       </div>
 
-      <h5 className="h5 lg:col-start-5 col-span-4 md:col-span-8">
+      <h6 className="h6 lg:col-start-5 col-span-4 md:col-span-8">
         In the increasingly competitive landscape of e-commerce, Bigstore
         recognized the need to revamp its digital presence to stand out and
         drive higher conversion rates. I undertook the challenge of redesigning
         Bigstore's platform with the dual objectives of delivering a visually
         stunning experience while enhancing usability to boost customer
         engagement and sales. The redesign saw an alkd;lmkadmsasa/.....
-      </h5>
+      </h6>
 
       {/* Interviews  */}
       <div className="flex flex-col lg:col-start-5 col-span-4 md:col-span-8 gap-4">
         <h3 className="h3 opacity-60">Ask and ye shall be answered...</h3>
-        <p className="h5">
+        <p className="h6">
           I conducted four interviews, with respondents answering more than 10
           open ended questions. This process helped unmask users’ pain points
           and frustrations with the existing website, unlocking invaluable
@@ -193,7 +193,7 @@ const BigStore = () => {
         <h3 className="h3 opacity-60">
           Modern problems require modern solutions
         </h3>
-        <p className="h5">
+        <p className="h6">
           To address these challenges, I devised a few key solutions...
         </p>
         <div className="flex flex-col bg-[radial-gradient(circle_at_center,_#FFF0E8_20%,_#fff_50%)] md:grid md:grid-cols-2 grid-rows-2 gap-4 w-full">
