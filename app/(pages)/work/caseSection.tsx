@@ -8,10 +8,10 @@ type CaseSectionProps = {
 
 const CaseSection = ({ title, description, children }: CaseSectionProps) => {
   return (
-    <section className="w-full flex flex-col gap-4">
-      {title ? <h2 className="h2">{title}</h2> : null}
+    <section className="w-full flex flex-col gap-4 col-span-4 md:col-span-8 lg:col-span-12">
+      {title ? <h3 className="h3 opacity-70">{title}</h3> : null}
       {description ? (
-        <p className="h4 !font-normal whitespace-pre-line">{description}</p>
+        <h5 className="h5 !font-normal whitespace-pre-line">{description}</h5>
       ) : null}
       {children ? <div className="flex flex-col gap-6">{children}</div> : null}
     </section>
