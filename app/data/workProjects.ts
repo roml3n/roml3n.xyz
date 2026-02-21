@@ -24,7 +24,7 @@ export const workProjects = [
     href: "/work/waya-ssn",
   },
   {
-    title: "Helping Waya empower immigrant founders to bank, build, and grow",
+    title: "Eempowering immigrant founders to bank, build, and grow",
     company: "Waya",
     date: "07.2023",
     className: "md:row-start-3",
