@@ -5,6 +5,7 @@ import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import SocialLink from "../components/SocialLink";
 import TransitionLink from "./transitions/TransitionLink";
+import Link from "next/link";
 
 const Header = ({ menuCounts }) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -101,23 +102,33 @@ const Header = ({ menuCounts }) => {
     <>
       <header className="z-[9999] fixed top-3 left-1/2 -translate-x-1/2 p-1 flex items-center w-fit gap-1 rounded-2xl bg-midgrey shadow-sm">
         {/* Logo Container */}
-        <div className="px-4 py-2 bg-fullwhite rounded-xl flex items-center justify-center shadow-sm w-fit">
-          <div className="h-6 w-auto flex">
-            <Image
-              src="/images/roml3n-logo.svg"
-              height={24}
-              width={73}
-              alt="roml3n logo"
-              className="object-contain"
-            />
+        <Link href="/" className="group block">
+          <div className="px-4 py-2 bg-fullwhite rounded-xl flex items-center justify-center shadow-sm w-fit">
+            <div className="h-6 w-auto flex">
+              <span
+                aria-hidden="true"
+                className="block h-6 w-[73px] bg-fullgrey transition-colors duration-300 ease-in-out group-hover:bg-mainblue"
+                style={{
+                  WebkitMaskImage: "url('/images/roml3n-logo.svg')",
+                  WebkitMaskRepeat: "no-repeat",
+                  WebkitMaskPosition: "center",
+                  WebkitMaskSize: "contain",
+                  maskImage: "url('/images/roml3n-logo.svg')",
+                  maskRepeat: "no-repeat",
+                  maskPosition: "center",
+                  maskSize: "contain",
+                }}
+              />
+              <span className="sr-only">roml3n logo</span>
+            </div>
           </div>
-        </div>
+        </Link>
 
         {/* Morphing Menu Toggle */}
         <button
           type="button"
           onClick={() => setMenuOpen((prev) => !prev)}
-          className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-mainblue transition-opacity hover:opacity-90"
+          className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-mainblue hover:bg-[#0A65A6] transition-opacity hover:opacity-90"
           aria-expanded={menuOpen}
           aria-label={menuOpen ? "Close menu" : "Open menu"}
         >
