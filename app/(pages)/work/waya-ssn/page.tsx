@@ -34,7 +34,7 @@ const WayaSSN = () => {
       <div className="flex flex-col gap-4 col-span-3">
         <Button
           variant="primary"
-          label="Download on Play Store"
+          label="Get on Play Store"
           url="https://play.google.com/store/apps/details?id=com.wayapay.neo.app&hl=en"
         />
         <Button
