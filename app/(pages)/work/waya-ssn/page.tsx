@@ -1,5 +1,4 @@
 import Image from "next/image";
-
 import WayaInterviewCard from "@/app/(pages)/work/waya-ssn/WayaInterviewCard";
 import AnalysisCard from "@/app/(pages)/work/waya-ssn/AnalysisCard";
 import MoreProjectsSection from "@/app/(pages)/work/MoreProjectsSection";
@@ -231,20 +230,20 @@ const WayaSSN = () => {
               What went well
             </p>
             <div className="flex gap-2 md:gap-4 flex-col md:flex-row">
-              <div className="h5 rounded-md bg-gradient-to-b from-[#CEDDE7] to-transparent items-center p-4 md:p-6 h4 w-full justify-center">
+              <h5 className="h5 rounded-md bg-gradient-to-b from-[#CEDDE7] to-transparent items-center p-4 md:p-6 h4 w-full justify-center">
                 This project successfully employed a user-centric design
                 approach, gathering insights from user interviews to understand
                 the needs and pain points of users, which informed the
                 development of solutions tailored to address their specific
                 challenges.
-              </div>
-              <div className="h5 rounded-md bg-gradient-to-b from-[#CEDDE7] to-transparent items-center p-4 md:p-6 h4 w-full justify-center">
+              </h5>
+              <h5 className="h5 rounded-md bg-gradient-to-b from-[#CEDDE7] to-transparent items-center p-4 md:p-6 h4 w-full justify-center">
                 The solution successfully navigated regulatory requirements,
                 including tax compliance and ID verification, by incorporating
                 the W-8BEN form into the account opening process, demonstrating
                 a commitment to legal and regulatory compliance while also
                 prioritizing user needs and accessibility.
-              </div>
+              </h5>
             </div>
           </div>
 
@@ -253,16 +252,16 @@ const WayaSSN = () => {
               What didn’t go so well
             </p>
             <div className="flex gap-2 md:gap-4 flex-col md:flex-row">
-              <div className="h5 rounded-md bg-gradient-to-b from-[#CEDDE7] to-transparent items-center p-4 md:p-6 h4 w-full justify-center">
+              <h5 className="h5 rounded-md bg-gradient-to-b from-[#CEDDE7] to-transparent items-center p-4 md:p-6 h4 w-full justify-center">
                 The implementation of these advanced verification methods
                 presented technical challenges and complexities. This resulted
                 in delays during the development and rollout of the feature.
-              </div>
-              <div className="h5 rounded-md bg-gradient-to-b from-[#CEDDE7] to-transparent items-center p-4 md:p-6 h4 w-full justify-center">
+              </h5>
+              <h5 className="h5 rounded-md bg-gradient-to-b from-[#CEDDE7] to-transparent items-center p-4 md:p-6 h4 w-full justify-center">
                 There was a significant time constraint for the ideation and
                 implementation of the feature, which may have cause us to
                 overlook a few key areas.
-              </div>
+              </h5>
             </div>
           </div>
         </div>
@@ -276,53 +275,37 @@ const WayaSSN = () => {
         <div className="flex flex-col md:flex-row gap-4">
           <div className="bg-[#B0ECC8] pt-6 rounded-3xl h-full flex flex-col items-start justify-end w-full border border-black border-opacity-10 overflow-hidden">
             <p className="h4 font-medium px-6 pb-4">User-centric design 🔑</p>
-            <div className="h4 flex bg-almostwhite p-6 rounded-2xl">
+            <h5 className="h5 flex bg-almostwhite p-6 rounded-2xl">
               Prioritizing a user-centric design approach is crucial for
               developing solutions that effectively address the needs and
               challenges of the target audience. By empathizing with users and
               understanding their unique circumstances, we can create more
               impactful and inclusive products.
-            </div>
+            </h5>
           </div>
           <div className="bg-[#B0ECC8] pt-6 rounded-3xl h-full flex flex-col items-start justify-end w-full border border-black border-opacity-10 overflow-hidden">
             <p className="h4 font-medium px-6 pb-4">Regulatory compliance 💯</p>
-            <div className="h4 flex bg-almostwhite p-6 rounded-2xl">
+            <h5 className="h5 flex bg-almostwhite p-6 rounded-2xl">
               Compliance with legal and regulatory requirements is essential,
               particularly in highly regulated industries such as fintech.
               Prioritizing compliance from the start of the project ensures that
               innovative solutions are developed within the boundaries of
               applicable laws and regulations.
-            </div>
+            </h5>
           </div>
           <div className="bg-[#B0ECC8] pt-6 rounded-3xl h-full flex flex-col items-start justify-end w-full border border-black border-opacity-10 overflow-hidden">
             <p className="h4 font-medium px-6 pb-4">
               Innovation 🤝 Collaboration
             </p>
-            <div className="h4 flex bg-almostwhite p-6 rounded-2xl">
+            <h5 className="h5 flex bg-almostwhite p-6 rounded-2xl">
               Innovation thrives on cross-functional collaboration and diverse
               perspectives. By fostering collaboration between design,
               engineering, compliance, and other teams, we can leverage a wide
               range of expertise to develop innovative solutions.
-            </div>
+            </h5>
           </div>
         </div>
       </div>
-      {/* 
-
-            <CaseSection title="Looking back...">
-              
-            </CaseSection>
-
-            <Divider />
-
-            <CaseSection title="">
-              
-            </CaseSection>
-
-            <div className="gradient w-screen h-16 bg-gradient-to-b from-transparent to-almostwhite"></div>
-          </div>
-        </section>
-      </main> */}
 
       <MoreProjectsSection currentHref="/work/waya-ssn" />
     </section>

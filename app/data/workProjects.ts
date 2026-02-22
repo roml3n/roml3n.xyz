@@ -16,7 +16,7 @@ export const workProjects = [
     href: "/work/tucheze",
   },
   {
-    title: "Enhancing financial inclusion for new Americans and immigrants",
+    title: "Enhancing financial inclusion for American immigrants",
     company: "Waya",
     date: "03.2024",
     className: "md:row-start-3",
@@ -24,7 +24,7 @@ export const workProjects = [
     href: "/work/waya-ssn",
   },
   {
-    title: "Eempowering immigrant founders to bank, build, and grow",
+    title: "Empowering immigrant founders to bank, build, and grow",
     company: "Waya",
     date: "07.2023",
     className: "md:row-start-3",
