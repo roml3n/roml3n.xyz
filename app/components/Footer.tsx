@@ -4,9 +4,13 @@ import Image from "next/image";
 
 const Footer = () => {
   return (
-    <footer className="w-full overflow-hidden grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 py-10 md:py-12">
-      <div className="col-span-4 md:col-span-8 lg:col-span-12 gap-x-6 flex flex-col h-full">
-        <div className="z-20 flex items-center justify-between gap-4 col-span-4 md:col-span-8 lg:col-span-12">
+    <footer
+      id="about"
+      className="w-screen place-self-center justify-center flex py-8 md:py-16 bg-[radial-gradient(150%_80%_at_bottom,_#B3E2EF_0%,_#FFFFFF_50%)]"
+    >
+      <div className="w-[90%] md:w-[80%] max-w-7xl flex flex-col">
+        {/* Logo and Links  */}
+        <div className="z-20 flex items-start md:items-center justify-between gap-4 col-span-4 md:col-span-8 lg:col-span-12">
           {/* Logo  */}
           <TransitionLink
             href="/"
@@ -32,7 +36,7 @@ const Footer = () => {
           </TransitionLink>
 
           {/* Links */}
-          <div className="flex flex-col md:flex-row items-start gap-4 md:gap-8 lg:gap-16">
+          <div className="flex flex-col md:flex-row items-start gap-2 md:gap-8 lg:gap-16">
             <TransitionLink
               href="mailto:yo@roml3n.xyz"
               className="h5 font-medium hover:text-mainblue transition-all duration-300"
@@ -54,7 +58,8 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="relative flex w-[90%] md:w-[60%] lg:w-1/2 h-auto items-center justify-center place-self-center -mt-20 md:-mt-6 lg:-mt-10">
+        {/* Image  */}
+        <div className="relative flex w-[90%] md:w-[60%] lg:w-1/2 h-auto items-center justify-center place-self-center -mt-12 md:-mt-6 lg:-mt-10">
           <Image
             src="/images/footer-img.webp"
             alt="watercolored image of roman sat in a chair listening to music"
@@ -64,8 +69,6 @@ const Footer = () => {
           />
         </div>
       </div>
-      {/* glow effect */}
-      <div className="pointer-events-none absolute left-1/2 -bottom-[18rem] h-[40rem] w-[200vw] max-w-none -translate-x-1/2 bg-[#33B0D5] rounded-[999px] blur-[100px] z-0" />
     </footer>
   );
 };
