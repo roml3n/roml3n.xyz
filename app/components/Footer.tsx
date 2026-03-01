@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <footer className="w-full overflow-hidden grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 py-10 md:py-12">
       <div className="col-span-4 md:col-span-8 lg:col-span-12 gap-x-6 flex flex-col h-full">
-        <div className="z-20 flex items-start justify-between gap-4 col-span-4 md:col-span-8 lg:col-span-12">
+        <div className="z-20 flex items-center justify-between gap-4 col-span-4 md:col-span-8 lg:col-span-12">
           {/* Logo  */}
           <TransitionLink
             href="/"
@@ -35,19 +35,19 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row items-start gap-4 md:gap-8 lg:gap-16">
             <TransitionLink
               href="mailto:yo@roml3n.xyz"
-              className="h6 font-medium hover:text-mainblue transition-all duration-300"
+              className="h5 font-medium hover:text-mainblue transition-all duration-300"
             >
               Email{" "}
             </TransitionLink>
             <TransitionLink
               href="https://linkedin.com/in/roml3n"
-              className="h6 font-medium hover:text-mainblue transition-all duration-300"
+              className="h5 font-medium hover:text-mainblue transition-all duration-300"
             >
               LinkedIn
             </TransitionLink>
             <TransitionLink
               href="https://x.com/roml3n"
-              className="h6 font-medium hover:text-mainblue transition-all duration-300"
+              className="h5 font-medium hover:text-mainblue transition-all duration-300"
             >
               X/Twitter
             </TransitionLink>
@@ -65,7 +65,7 @@ const Footer = () => {
         </div>
       </div>
       {/* glow effect */}
-      {/* <div className="pointer-events-none absolute left-1/2 bottom-0 h-[18rem] w-[180vw] max-w-none -translate-x-1/2 translate-y-1/2 bg-[#33B0D5] rounded-[999px] blur-[100px] z-0" /> */}
+      <div className="pointer-events-none absolute left-1/2 -bottom-[18rem] h-[40rem] w-[200vw] max-w-none -translate-x-1/2 bg-[#33B0D5] rounded-[999px] blur-[100px] z-0" />
     </footer>
   );
 };
