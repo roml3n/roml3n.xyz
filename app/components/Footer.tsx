@@ -5,7 +5,7 @@ import Image from "next/image";
 const Footer = () => {
   return (
     <footer className="w-full overflow-hidden grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 py-10 md:py-12">
-      <div className="col-span-4 md:col-span-8 lg:col-span-12 gap-x-6 flex flex-col -gap-6 h-full">
+      <div className="col-span-4 md:col-span-8 lg:col-span-12 gap-x-6 flex flex-col h-full">
         <div className="z-20 flex items-start justify-between gap-4 col-span-4 md:col-span-8 lg:col-span-12">
           {/* Logo  */}
           <TransitionLink
@@ -54,7 +54,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="relative flex w-[90%] md:w-[60%] lg:w-1/2 h-auto items-center justify-center place-self-center">
+        <div className="relative flex w-[90%] md:w-[60%] lg:w-1/2 h-auto items-center justify-center place-self-center -mt-20 md:-mt-6 lg:-mt-10">
           <Image
             src="/images/footer-img.webp"
             alt="watercolored image of roman sat in a chair listening to music"
