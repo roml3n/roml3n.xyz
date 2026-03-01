@@ -22,7 +22,6 @@ function App() {
 
     // To-do
     // [ ] design and build hero section on landing page
-    // [ ] design footer
   );
 }
 
