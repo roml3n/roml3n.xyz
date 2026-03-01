@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const Footer = () => {
   return (
-    <footer className="w-full min-h-[34rem] md:min-h-[38rem] overflow-hidden grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 py-10 md:py-12">
+    <footer className="w-full overflow-hidden grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 py-10 md:py-12">
       <div className="col-span-4 md:col-span-8 lg:col-span-12 gap-x-6 flex flex-col -gap-6 h-full">
         <div className="z-20 flex items-start justify-between gap-4 col-span-4 md:col-span-8 lg:col-span-12">
           {/* Logo  */}
