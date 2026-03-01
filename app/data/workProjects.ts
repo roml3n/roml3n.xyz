@@ -1,6 +1,6 @@
 export const workProjects = [
   {
-    title: "Improving visits by 28% through a marketing website redesign",
+    title: "Repositioning Pawa IT for the AI era",
     company: "PawaIT",
     date: "08.2024",
     className: "md:row-start-2",
@@ -8,20 +8,20 @@ export const workProjects = [
     href: "/work/pawa-website",
   },
   {
-    title: "Crafting a high-stakes experience for sports betting enthusiasts",
-    company: "The CB Group",
-    date: "05.2024",
-    className: "md:row-start-2",
-    coverImage: "/images/work/tucheze-cover.webp",
-    href: "/work/tucheze",
-  },
-  {
-    title: "Enhancing financial inclusion for American immigrants",
+    title: "Designing U.S. banking for people without an SSN",
     company: "Waya",
     date: "03.2024",
-    className: "md:row-start-3",
+    className: "md:row-start-2",
     coverImage: "/images/work/waya-ssn-cover.webp",
     href: "/work/waya-ssn",
+  },
+  {
+    title: "Redesigning e-commerce to boost loyalty, sales, and satisfaction",
+    company: "PawaIT",
+    date: "04.2023",
+    className: "md:row-start-3",
+    coverImage: "/images/work/bigstore-cover.webp",
+    href: "/work/bigstore",
   },
   {
     title: "Empowering immigrant founders to bank, build, and grow",
@@ -32,11 +32,11 @@ export const workProjects = [
     href: "/work/waya-business",
   },
   {
-    title: "Redesigning e-commerce to boost loyalty, sales, and satisfaction",
-    company: "PawaIT",
-    date: "04.2023",
+    title: "Crafting a high-stakes experience for sports betting enthusiasts",
+    company: "The CB Group",
+    date: "05.2024",
     className: "md:row-start-4",
-    coverImage: "/images/work/bigstore-cover.webp",
-    href: "/work/bigstore",
+    coverImage: "/images/work/tucheze-cover.webp",
+    href: "/work/tucheze",
   },
 ];

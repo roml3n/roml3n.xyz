@@ -10,7 +10,7 @@ const WayaSSN = () => {
       <div className="row-span-1 col-span-4 md:col-span-8 lg:col-span-6  flex flex-col gap-1">
         <h2 className="h2">
           {" "}
-          Enhancing financial inclusion for new Americans and immigrants{" "}
+          Designing U.S. banking for people without an SSN{" "}
         </h2>
         <h2 className="h2 opacity-40"> [ product design ] </h2>
       </div>
@@ -30,38 +30,63 @@ const WayaSSN = () => {
         </h5>
       </div>
 
-      {/* Intro  */}
-      <div className="flex flex-col gap-4 col-span-3">
-        <Button
-          variant="primary"
-          label="Get on Play Store"
-          url="https://play.google.com/store/apps/details?id=com.wayapay.neo.app&hl=en"
-        />
-        <Button
-          variant="secondary"
-          label="Get on App Store"
-          url="https://apps.apple.com/app/waya-mobile-banking/id6445921373"
-        />
+      {/* Intro  – Left */}
+      <div className="flex flex-col gap-16 col-span-3">
+        <div className="flex flex-col gap-4 col-span-3">
+          <Button
+            variant="primary"
+            label="Get on Play Store"
+            url="https://play.google.com/store/apps/details?id=com.wayapay.neo.app&hl=en"
+          />
+          <Button
+            variant="secondary"
+            label="Get on App Store"
+            url="https://apps.apple.com/app/waya-mobile-banking/id6445921373"
+          />
+        </div>
+        <div className="flex flex-col gap-1 w-full">
+          <h3 className="h3 ">Role</h3>
+          <h5 className="h5 whitespace-preline">
+            Solo Designer
+            <br /> Design System
+            <br /> Documentation
+          </h5>
+        </div>
+        <div className="flex flex-col gap-1 w-full">
+          <h3 className="h3 ">Team</h3>
+          <h5 className="h5">Solo</h5>
+        </div>
       </div>
 
+      {/* Intro  – Right */}
       <div className="flex flex-col gap-6 md:col-start-5 col-span-4 md:col-span-8">
         <div className="flex flex-col gap-1 w-full">
           <h3 className="h3 opacity-60">Overview</h3>
           <h5 className="h5 ">
-            During the first quarter of 2024, as part of a design sprint, I had
-            the fantastic opportunity to work on a new feature for Waya, a
-            neobank aimed at providing financial inclusivity to new Americans
-            and immigrants to the US.
+            In Q1 2024, during a design sprint at Waya, I worked on a feature
+            aimed at one clear goal: helping new Americans and immigrants access
+            financial services without a Social Security Number. <br /> <br />
+            For many, arriving in the U.S. means starting over. No credit
+            history, established records, and often, no SSN. Traditional banks
+            treat that as a hard stop. We saw it as a design problem worth
+            solving.
           </h5>
         </div>
         <div className="flex flex-col gap-1 w-full">
           <h3 className="h3 opacity-60">Challenge</h3>
           <h5 className="h5">
-            Despite the increasing demand for financial services among new
-            Americans and immigrants, many are unable to access traditional
-            banking due to the requirement of SSNs. This practice limits tons of
-            people's ability to save, invest, and participate fully in the
-            economy.
+            New Americans and immigrants face a frustrating barrier: most banks
+            require an SSN to open an account. Without it, people are locked out
+            of saving, investing, or even receiving payments securely.
+            <br />
+            <br />
+            The result? Many rely on expensive alternatives with high fees and
+            limited functionality. Financial exclusion becomes the default, not
+            the exception.
+            <br />
+            <br />
+            Our challenge was to rethink onboarding in a way that maintained
+            compliance and security, while expanding access.
           </h5>
         </div>
       </div>
@@ -69,13 +94,11 @@ const WayaSSN = () => {
       {/* Interview  */}
 
       <div className="w-full flex flex-col gap-4 col-span-4 md:col-span-8 lg:col-start-5">
-        <h3 className="h3 opacity-70">
-          What are users actually going through?
-        </h3>
-        <h5 className="h5 !font-normal whitespace-pre-line">
-          I conducted three interviews with key stakeholders between the ages of
-          25-45. Going in, I had a few things I wanted to accomplish by this
-          stage:
+        <h3 className="h3 opacity-70">What are users actually experiencing?</h3>
+        <h5 className="h5 !font-normal">
+          I conducted three interviews with stakeholders aged 25–45 to
+          understand what this barrier felt like in real life. <br /> <br />
+          My focus going in was:
         </h5>
         <div className="flex flex-col md:flex-row w-full gap-4">
           <WayaInterviewCard
@@ -94,11 +117,14 @@ const WayaSSN = () => {
             description="Validate user needs through direct feedback, ensuring the solution tackles real challenges effectively."
           />
         </div>
+        <h5 className="h5 !font-normal">
+          What surfaced was deeper than just paperwork.
+        </h5>
       </div>
 
       {/* Analysis of Results  */}
       <div className="w-full flex flex-col gap-4 col-span-4 md:col-span-8 lg:col-start-5">
-        <h3 className="h3 opacity-70">Analysis of the research findings</h3>
+        <h3 className="h3 opacity-70">What the research revealed</h3>
         <h5 className="h5 !font-normal whitespace-pre-line">
           The feedback collected from the research phase brought to light a few
           key findings.
@@ -106,20 +132,20 @@ const WayaSSN = () => {
         <div className="flex flex-col gap-4">
           <AnalysisCard
             imgSrc="/images/work/waya-ssn/icons/documentation.svg"
-            title="Documentation Challenges"
-            desc="Users face significant barriers in accessing traditional banking services due to stringent documentation requirements, particularly the need for Social Security Numbers. This limitation restricts their ability to open accounts."
+            title="Documentation Barriers"
+            desc="The requirement for an SSN was the primary blocker. Without it, users simply couldn’t open accounts, even when they had valid government IDs from their home countries."
             className="bg-[#EAEBF7]"
           />
           <AnalysisCard
             imgSrc="/images/work/waya-ssn/icons/exclusion.svg"
             title="Financial Exclusion"
-            desc="The inability to open bank accounts leaves immigrants financially excluded, forcing them to rely on alternative financial services with high fees and limited functionality. Some express frustration over the lack of accessible and affordable banking options tailored to their needs."
+            desc="Without access to traditional banking, users turned to high-fee alternatives. This limited their ability to build savings, send money efficiently, or participate fully in the economy."
             className="bg-[#EEEBF3]"
           />
           <AnalysisCard
             imgSrc="/images/work/waya-ssn/icons/trust.svg"
-            title="Trust and Rapport"
-            desc="Establishing trust and rapport with users is essential for engagement and adoption. Demonstrating empathy and actively listening to their  concerns fosters a sense of ownership and investment in the solution."
+            title="Trust and Security Concerns"
+            desc="Users were cautious about sharing sensitive personal information. Fear of identity theft and data misuse made digital onboarding feel risky. Trust wasn’t assumed. It had to be earned."
             className="bg-[#EDF2F6]"
           />
         </div>
@@ -127,29 +153,30 @@ const WayaSSN = () => {
 
       {/* Problem & Goal */}
       <div className="w-full flex flex-col gap-4 col-span-4 md:col-span-8 lg:col-start-5">
-        <h3 className="h3 opacity-70">The problem</h3>
+        <h3 className="h3 opacity-70">Defining the core problem</h3>
         <h5 className="h5 !font-normal whitespace-pre-line">
-          Immigrants and new Americans have trouble accessing financial services
-          as bank require them to provide SSNs. <br />
-          <br /> Users express concerns about the security and privacy
-          implications of providing personal information for account
-          verification purposes. Fear of identity theft or misuse of personal
-          data undermines trust in financial institutions and digital platforms.
+          New Americans and immigrants struggle to access financial services
+          because onboarding systems are built around SSN-based verification.
+          <br />
+          <br />
+          At the same time, users are understandably wary about sharing personal
+          information without clear safeguards.
+          <br />
+          <br />
+          We needed to create an onboarding experience that expanded access,
+          preserved security, and built trust from the first interaction.
         </h5>
       </div>
       <h2 className="h2 !font-normal italic opacity-60 gap-4 col-span-4 md:col-span-8 lg:col-start-5 ">
-        The goal was to simplify the onboarding process for new Waya users,
-        implementing a way to open an account without needing a social security
-        number, so they can get to save, send and spend money as fast as
-        possible.
+        Goal: Simplify onboarding so users can open an account without an SSN
+        and start saving, sending, and spending as quickly as possible.
       </h2>
 
       {/* Solution Framework  */}
       <div className="w-full flex flex-col gap-4 col-span-4 md:col-span-8 lg:col-start-5">
-        <h3 className="h3 opacity-70">How might we solve for this problem</h3>
-        <h5 className="h5 !font-normal whitespace-pre-line">
-          Crafting a solution framework based around the research findings.
-        </h5>
+        <h3 className="h3 opacity-70">
+          How might we design for access and trust?
+        </h3>
         <div className="grid grid-cols-1 md:grid-cols-5 grid-rows-3 gap-0 md:gap-2">
           <p className="p-4 flex items-center col-span-2 bg-[#D5E3FF] h4 rounded-t-2xl md:rounded-lg">
             How might we simplify the account opening process for users who lack
@@ -231,36 +258,35 @@ const WayaSSN = () => {
             </p>
             <div className="flex gap-2 md:gap-4 flex-col md:flex-row">
               <h5 className="h5 rounded-md bg-gradient-to-b from-[#CEDDE7] to-transparent items-center p-4 md:p-6 h4 w-full justify-center">
-                This project successfully employed a user-centric design
-                approach, gathering insights from user interviews to understand
-                the needs and pain points of users, which informed the
-                development of solutions tailored to address their specific
-                challenges.
+                A genuinely user-centered approach grounded in real interviews
+                shaped the direction of the feature.
               </h5>
               <h5 className="h5 rounded-md bg-gradient-to-b from-[#CEDDE7] to-transparent items-center p-4 md:p-6 h4 w-full justify-center">
-                The solution successfully navigated regulatory requirements,
-                including tax compliance and ID verification, by incorporating
-                the W-8BEN form into the account opening process, demonstrating
-                a commitment to legal and regulatory compliance while also
-                prioritizing user needs and accessibility.
+                We successfully incorporated regulatory requirements, including
+                the W-8BEN form, into the flow without making it feel
+                intimidating. <br /> <br />
+                The solution balanced compliance with accessibility, expanding
+                who could realistically open an account.
               </h5>
             </div>
           </div>
 
           <div className="flex flex-col items-start gap-4 w-full bg-[#EEF4F8] p-3 md:p-4 rounded-xl">
             <p className="h4 font-medium !text-fullgrey !opacity-100">
-              What didn’t go so well
+              What was challenging
             </p>
             <div className="flex gap-2 md:gap-4 flex-col md:flex-row">
               <h5 className="h5 rounded-md bg-gradient-to-b from-[#CEDDE7] to-transparent items-center p-4 md:p-6 h4 w-full justify-center">
-                The implementation of these advanced verification methods
-                presented technical challenges and complexities. This resulted
-                in delays during the development and rollout of the feature.
+                Integrating advanced verification methods introduced technical
+                complexity, which slowed development.
+                <br />
+                <br />
+                The sprint timeline was tight, limiting deeper exploration and
+                iteration in certain areas.
               </h5>
               <h5 className="h5 rounded-md bg-gradient-to-b from-[#CEDDE7] to-transparent items-center p-4 md:p-6 h4 w-full justify-center">
-                There was a significant time constraint for the ideation and
-                implementation of the feature, which may have cause us to
-                overlook a few key areas.
+                If given more time, I would have tested additional variations of
+                the onboarding flow to further simplify edge cases.
               </h5>
             </div>
           </div>

@@ -8,10 +8,7 @@ const BigStore = () => {
   return (
     <section className="content-start w-full min-h-[calc(100dvh-23rem)] mt-24 grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 grid-rows-auto gap-x-4 md:gap-x-6 gap-y-9 md:gap-y-16 relative justify-center self-center">
       <div className="row-span-1 col-span-4 md:col-span-8 lg:col-span-6  flex flex-col gap-1">
-        <h2 className="h2">
-          {" "}
-          Improving web visits by 28% through a marketing website redesign{" "}
-        </h2>
+        <h2 className="h2"> Repositioning Pawa IT for the AI era </h2>
         <h2 className="h2 opacity-40"> [ product design ] </h2>
       </div>
 
@@ -51,7 +48,7 @@ const BigStore = () => {
         </div>
         <div className="flex flex-col gap-1 w-full">
           <h3 className="h3 ">Timeline</h3>
-          <h5 className="h5">Aug – Nov ‘24 (3 months)</h5>
+          <h5 className="h5">Aug &mdash; Nov 24 (3 months)</h5>
         </div>
       </div>
 
@@ -60,54 +57,70 @@ const BigStore = () => {
         <div className="flex flex-col">
           <h3 className="h3 ">Overview</h3>
           <h5 className="h5 whitespace-preline">
-            Pawa IT, a leading Google Cloud Partner, was expanding into AI and
-            machine learning solutions. The company needed a site that reflected
-            this evolution and spoke directly to C-level decision-makers driving
-            digital transformation.
+            As Pawa IT expanded beyond cloud services into AI and machine
+            learning, the website no longer reflected the company&apos;s
+            direction. The messaging felt dated, navigation buried high-value
+            solutions, and the experience didn&apos;t speak to the C-level
+            decision-makers driving digital transformation.
+            <br />
+            <br />
+            The goal wasn&apos;t just a visual refresh. It was a strategic
+            repositioning, aligning the digital presence with the company&apos;s
+            evolution into an AI-first cloud partner.
           </h5>
         </div>
         <div className="flex flex-col gap-1">
           <h3 className="h3 ">Challenge</h3>
           <h5 className="h5 whitespace-preline">
-            The old site didn’t reflect Pawa IT’s shift toward AI and expanded
-            cloud offerings. Content was scattered, visuals outdated, and
-            navigation failed to guide execs to key solutions. My challenge was
-            to redesign the site’s structure and identity to position Pawa IT as
-            a forward-looking cloud and AI partner while driving engagement
-            through demos and events.{" "}
+            The existing site didn&apos;t communicate Pawa IT&apos;s shift
+            toward AI. Content was scattered, visuals felt outdated, and
+            navigation failed to guide executives toward demos, events, and core
+            solutions.
+            <br />
+            <br />
+            My challenge was to restructure the site architecture, modernize the
+            brand system, and create a digital experience that positioned Pawa
+            IT as a forward-looking AI and cloud partner, while increasing
+            engagement across demos and events.
           </h5>
         </div>
         <div className="flex flex-col gap-1 ">
           <h3 className="h3 ">Impact</h3>
           <div className="ul list-disc list-inside">
             <li className="h5 whitespace-preline">
-              +28% weekly visits within 2 months
+              +28% weekly visits within two months
             </li>
             <li className="h5 whitespace-preline">
-              4 AI-focused events generated, plus more demo requests and AI
-              project initiations
+              4 AI-focused events generated, alongside increased demo requests
+              and AI project inquiries
             </li>
             <li className="h5 whitespace-preline">
-              Positive stakeholder and enterprise feedback on clarity and
+              Positive enterprise and stakeholder feedback on clarity and
               professionalism
             </li>
             <li className="h5 whitespace-preline">
-              Improved product discoverability through redesigned mega menu and
-              bento grids
+              Improved product discoverability through a redesigned mega menu
+              and modular bento grid system
             </li>
           </div>
         </div>
       </div>
 
       <CaseSection
-        title="Responsibility"
-        description="I was brought into the team to lead the project end-to-end. I oversaw discovery, stakeholder analysis, competitive review, information architecture, brand system refresh, wireframing, high-fidelity design, prototyping, dev handoff and QA support."
+        title="My role"
+        description="I led the redesign end-to-end. This included discovery, stakeholder alignment, competitive analysis, information architecture, brand system refresh, wireframing, high-fidelity UI, prototyping, developer handoff, and QA support."
       />
 
       {/* Discovery and Alignment */}
       <CaseSection
-        title="Discovery and alignment"
-        description="I started by aligning product and business goals with the stakeholders, defining target personas and priority AI offerings. I paired a quick audit of site analytics with a stakeholder interview to identify high-value pages, traffic drop-off points, and immediate business KPIs. This phase set the north star metrics and boundaries for the redesign."
+        title="Aligning business and product direction"
+        description={`I began by aligning product and marketing leadership around clear goals, priority AI offerings, and target personas.\n
+I paired stakeholder interviews with a lightweight analytics audit to identify:
+• High-value pages
+• Traffic drop-off points
+• Conversion bottlenecks
+• Core KPIs for demos and events \n
+This phase established clear north star metrics and defined the boundaries for the redesign.`}
       >
         <div className="mt-4 flex flex-col gap-2 w-full">
           <Image
@@ -125,8 +138,13 @@ const BigStore = () => {
 
       {/* Competitive Analysis and Heuristic Eval */}
       <CaseSection
-        title="Competitive & Heuristic Analysis"
-        description="I reviewed 6–8 market leaders in cloud and AI and mapped common UX patterns: hero value propositions for execs, product demo flows, event funnels, and mega-menu architectures. I then ran a short heuristic review on our site to catalogue usability gaps (discoverability, CTA hierarchy, trust signals). Insights from this informed copy, IA, and the hero strategy."
+        title="Learning from the market"
+        description={`I analyzed 6–8 leading cloud and AI companies to identify common patterns: \n
+• Executive-focused value propositions in hero sections
+• Clear demo pathways
+• Event-driven acquisition funnels
+• Scalable mega-menu architectures \n
+I then conducted a heuristic review of the existing site, cataloguing gaps in discoverability, CTA hierarchy, and trust signals. These findings directly informed the new IA, hero strategy, and content hierarchy.`}
       >
         <div className="mt-4 flex flex-col gap-2 w-full">
           <Image
@@ -142,8 +160,13 @@ const BigStore = () => {
 
       {/* Information Architecture */}
       <CaseSection
-        title="Information architecture and Content Strategy"
-        description="After noting the current IA and figuring out where to place the additional solution offerings, I reorganized the site into three primary pillars — Products, Solutions, Resources — to reduce cognitive load for  visitors and surface demos quickly. I designed a mega menu that exposes product pages, demo CTAs, and event funnels at a glance. I also developed the bento-grid approach for modular content blocks that marketing can reuse for campaigns."
+        title="Restructuring the information architecture"
+        description={`The old structure buried solutions and scattered resources. I reorganized the site into three clear pillars:\n
+• Products
+• Solutions
+• Resources
+This reduced cognitive load and surfaced demos and events more prominently. \n
+I then designed a scalable mega menu that exposed key offerings and CTAs at a glance, and introduced a modular bento grid system that marketing could reuse for campaigns and landing pages. The goal was clarity at scale.`}
       >
         <div className="mt-4 flex flex-col gap-2 w-full">
           <Image
@@ -201,8 +224,13 @@ const BigStore = () => {
       </CaseSection>
 
       <CaseSection
-        title="Visual Design & Prototyping"
-        description="I translated strategy into polished UI and interactive prototypes: a dynamic hero with a node animation (particles.js, translated to a React component) to capture attention, prioritized bento grids for modular storytelling, a hand-crated technical illustration system built entirely in Figma. I built interactive Framer prototypes for the main user journeys, then prepared a dev-ready handoff (component specs, design tokens, accessibility notes) and a phased implementation plan. Accessibility and responsive behavior (contrast, keyboard navigation for the mega menu, mobile-first IA) were embedded throughout the process."
+        title="Visual system & prototyping"
+        description={`I translated strategy into a modern, implementation-ready UI:
+• A dynamic hero featuring node animation to visually reinforce AI positioning
+• A custom illustration and iconography system built entirely in Figma
+• Modular bento components for storytelling and campaign flexibility \n
+Interactive prototypes were built to validate user journeys before handoff. I delivered component specs, design tokens, accessibility documentation, and a phased rollout plan to engineering. \n
+Accessibility and responsiveness were embedded throughout, including contrast compliance, keyboard navigation for the mega menu, and mobile-first behavior.`}
       >
         <CaseImageCarousel
           images={[
@@ -321,13 +349,17 @@ const BigStore = () => {
       </CaseSection>
       <CaseSection
         title="🚸 Light Usability Validation"
-        description="Before launch I conducted quick internal usability sessions and stakeholder walkthroughs, focusing on the mega menu, event flow, and hero message clarity. Iterations were small but impactful — simplifying menu labels, tightening CTA copy, and reducing friction in the event forms. Post-launch I monitored analytics to validate assumptions and prioritized follow-up A/B tests."
+        description={`Before launch, I ran quick internal usability sessions and stakeholder walkthroughs focused on:\n
+• Mega menu clarity
+• Event funnel friction
+• Hero messaging effectiveness\n
+Small refinements had outsized impact: simplified labels, tighter CTA copy, and reduced form friction. Post-launch, I monitored analytics and defined follow-up A/B tests to validate assumptions.`}
       />
       <CaseSection
         title="😎 What I'm Most Proud Of"
-        description={`• Delivering a strategic site redesign solo, from brand refresh to implementation-ready specs
-              • Crafting a navigation system that balances breadth with immediacy
-              • Designing reusable modular assets for marketing and sales campaigns`}
+        description={`• Delivering a strategic repositioning project solo, from brand refresh to implementation-ready system
+• Designing a navigation system that balances breadth with immediacy
+• Creating reusable modular assets that empower marketing and sales beyond the core site`}
       />
 
       <MoreProjectsSection currentHref="/work/pawa-website" />

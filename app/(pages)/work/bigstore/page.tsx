@@ -46,22 +46,23 @@ const BigStore = () => {
       </div>
 
       <h5 className="h5 lg:col-start-5 col-span-4 md:col-span-8">
-        In the increasingly competitive landscape of e-commerce, Bigstore
-        recognized the need to revamp its digital presence to stand out and
-        drive higher conversion rates. I undertook the challenge of redesigning
-        Bigstore's platform with the dual objectives of delivering a visually
-        stunning experience while enhancing usability to boost customer
-        engagement and sales. The redesign saw an alkd;lmkadmsasa/.....
+        Shoppers were dropping off before completing purchases because key
+        information was hidden, forms were confusing, and payment options were
+        limited. Bigstore’s digital experience was losing customers, and the
+        team needed a redesign that actually made buying easy and enjoyable. I
+        took on the challenge to rethink the platform from the ground up,
+        balancing usability with a fresh, modern look that could drive
+        engagement and sales.
       </h5>
 
       {/* Interviews  */}
       <div className="flex flex-col lg:col-start-5 col-span-4 md:col-span-8 gap-4">
-        <h3 className="h3 opacity-60">Ask and ye shall be answered...</h3>
+        <h3 className="h3 opacity-60">Listening to users</h3>
         <p className="h5">
-          I conducted four interviews, with respondents answering more than 10
-          open ended questions. This process helped unmask users’ pain points
-          and frustrations with the existing website, unlocking invaluable
-          insights that would be the driving force of the design journey.{" "}
+          To understand the real frustrations, I interviewed four users, asking
+          open-ended questions about their shopping habits, pain points, and
+          expectations. These conversations revealed patterns that would guide
+          every design decision.{" "}
         </p>
         <div className="flex gap-4 w-full">
           <div className="flex flex-col rounded-sm gap-4 p-4 justify-start bg-[#f5f5f5]">
@@ -72,13 +73,12 @@ const BigStore = () => {
                 height={32}
                 width={32}
               />
-              <h4 className="h4">Respondent #1</h4>
+              <h4 className="h4">User insight #1</h4>
             </div>
             <h5 className="h5 w-full opacity-70">
               "The scarcity of payment options was a major inconvenience! I had
-              to scramble and find another payment method, which slowed down the
-              process. Offering more payment options...would definitely improve
-              my experience."
+              to scramble and find another method, which slowed everything down.
+              More options would make shopping easier."
             </h5>
           </div>
           <div className="flex flex-col rounded-sm gap-4 p-4 justify-start bg-[#f5f5f5]">
@@ -89,13 +89,11 @@ const BigStore = () => {
                 height={32}
                 width={32}
               />
-              <h4 className="h4">Respondent #2</h4>
+              <h4 className="h4">User insight #2</h4>
             </div>
             <h5 className="h5 w-full opacity-70">
-              "It's frustrating that I can't see item reviews. Seeing other
-              people's experiences and opinions help me build trust and makes me
-              feel more confident about spending my money. Without reviews, I'd
-              be hesitant to buy."
+              "I can’t see item reviews easily. Knowing what others think builds
+              trust. Without that, I hesitate to buy."
             </h5>
           </div>
         </div>
@@ -117,13 +115,12 @@ const BigStore = () => {
                 height={48}
                 width={48}
               />
-              <h4 className="h4 ">Product descriptions</h4>
+              <h4 className="h4 ">Product details</h4>
             </div>
             <h5 className="h5 w-full opacity-70">
-              Users struggled to find product features and specifications
-              leading to confusion and hesitation to purchase. Low-quality or
-              inadequate product images make it difficult to assess item details
-              and features accurately.
+              Users couldn’t find specifications or key features. Low-quality
+              images and unclear descriptions made it hard to decide whether to
+              buy.
             </h5>
           </div>
           <div className="col-span-1 flex flex-col rounded-lg gap-4 p-4 justify-start bg-fullwhite">
@@ -137,10 +134,8 @@ const BigStore = () => {
               <h4 className="h4 ">Product reviews</h4>
             </div>
             <h5 className="h5 w-full opacity-70">
-              Users struggled to find product features and specifications
-              leading to confusion and hesitation to purchase. Low-quality or
-              inadequate product images make it difficult to assess item details
-              and features accurately.
+              Lack of visible and verified reviews left users unsure about the
+              quality of products, reducing confidence in their purchases.
             </h5>
           </div>
           <div className="col-span-1 flex flex-col rounded-lg gap-4 p-4 justify-start bg-fullwhite">
@@ -154,10 +149,9 @@ const BigStore = () => {
               <h4 className="h4 ">Checkout & payments</h4>
             </div>
             <h5 className="h5 w-full opacity-70">
-              Confusing forms and unnecessary information requests created a
-              frustrating and time-consuming experience. Users felt restricted
-              and inconvenienced if their preferred payment methods were
-              unavailable.
+              Confusing forms, missing payment options, and hidden fees
+              frustrated users and slowed the process, leading to abandoned
+              carts.
             </h5>
           </div>
           <div className="col-span-1 flex flex-col rounded-lg gap-4 p-4 justify-start border border-transparent bg-fff md:[background:linear-gradient(#fff,#fff)_padding-box,linear-gradient(135deg,#ccc,#fff_35%)_border-box]">
@@ -171,9 +165,8 @@ const BigStore = () => {
               <h4 className="h4 ">Order tracking</h4>
             </div>
             <h5 className="h5 w-full opacity-70">
-              Lack of real-time updates or detailed information leaves users
-              anxious and unsure about their orders. Unclear return processes
-              discourage purchases and create negative brand perception.
+              Without real-time updates or clear return policies, users felt
+              anxious about orders and unsure if they could trust Bigstore.
             </h5>
           </div>
         </div>
@@ -190,10 +183,11 @@ const BigStore = () => {
       {/* Solutions  */}
       <div className="flex flex-col lg:col-start-5 col-span-4 md:col-span-8 gap-4">
         <h3 className="h3 opacity-60">
-          Modern problems require modern solutions
+          Designing solutions that actually work
         </h3>
         <p className="h5">
-          To address these challenges, I devised a few key solutions...
+          Based on the insights, I focused on fixes that would reduce friction,
+          increase confidence, and make shopping smoother:
         </p>
         <div className="flex flex-col bg-[radial-gradient(circle_at_center,_#FFF0E8_20%,_#fff_50%)] md:grid md:grid-cols-2 grid-rows-2 gap-4 w-full">
           <div className="col-span-1 flex flex-col rounded-lg gap-4 p-4 justify-start border border-transparent bg-fff md:[background:linear-gradient(#fff,#fff)_padding-box,linear-gradient(135deg,#ffffff_65%,#ccc)_border-box]">
@@ -204,16 +198,16 @@ const BigStore = () => {
                 height={48}
                 width={48}
               />
-              <h4 className="h4 ">Product descriptions</h4>
+              <h4 className="h4 ">Product details</h4>
             </div>
             <ul className="w-full list-disc list-outside pl-5 opacity-70 space-y-1">
               <li className="h5">
-                Craft clear and concise product descriptions with key features,
-                benefits and specifications for easy scanning.
+                Clear, scannable product descriptions highlighting key features
+                and benefits.
               </li>
               <li className="h5">
-                Utilise high-quality visuals to showcase products with zoom
-                functionality and multiple angles.
+                High-quality images with zoom and multiple angles to help users
+                assess products.
               </li>
             </ul>
           </div>
@@ -229,12 +223,11 @@ const BigStore = () => {
             </div>
             <ul className="w-full list-disc list-outside pl-5 opacity-70 space-y-1">
               <li className="h5">
-                Integrate user ratings with ability to filter to show only
-                specific ratings.
+                Integrated user ratings with filters for specific scores.
               </li>
               <li className="h5">
-                Encourage user reviews with photos or videos and display
-                verified reviews prominently alongside products.
+                Prominent verified reviews, including photos and videos, to
+                build trust.
               </li>
             </ul>
           </div>
@@ -250,15 +243,14 @@ const BigStore = () => {
             </div>
             <ul className="w-full list-disc list-outside pl-5 opacity-70 space-y-1">
               <li className="h5">
-                Eliminate unnecessary steps and consolidate requests into
-                logical stages.
+                Streamlined forms that remove unnecessary steps.
               </li>
               <li className="h5">
-                Display all fees upfront to avoid surprises at checkout.
+                Display of all fees upfront to avoid surprises.
               </li>
               <li className="h5">
-                Expand payment options integrating alternative payment methods
-                for greater convenience.
+                Expanded payment options, including alternative methods for
+                convenience.
               </li>
             </ul>
           </div>
@@ -274,13 +266,11 @@ const BigStore = () => {
             </div>
             <ul className="w-full list-disc list-outside pl-5 opacity-70 space-y-1">
               <li className="h5">
-                Implement real-time order tracking by offering detailed updates
-                with map tracking and estimated delivery dates to keep users
-                informed.
+                Real-time order tracking with maps and estimated delivery dates.
               </li>
               <li className="h5">
-                Simplify return policies by making them clear, user-friendly,
-                and transparent to build trust and encourage purchases.
+                Simplified, transparent return policies to build confidence and
+                trust.
               </li>
             </ul>
           </div>

@@ -36,18 +36,28 @@ const Tucheze = () => {
       </div>
 
       <h5 className="h5 lg:col-start-5 col-span-4 md:col-span-8">
-        As online sports betting surged, Tucheze (Swahili for ‘Let&apos;s Play’)
-        needed a UI that captured game-day excitement while staying
-        user-friendly for all levels of bettors. This design focused on creating
-        an intuitive, immersive experience that guided users through interactive
-        games, offering quick thrills and even quicker wins—boosting engagement
-        and building loyalty among sports enthusiasts.
+        Tucheze is an online sports and casino betting platform, and the
+        existing interface wasn’t matching the adrenaline of live games. Users
+        wanted the immediacy and energy of a stadium, but the interface felt
+        flat and static.
+        <br />
+        <br />
+        My role was to translate that excitement into visuals, making each
+        interaction feel like game day. The challenge was balancing thrill with
+        usability: users needed to move seamlessly between live games, dynamic
+        bets, and real-time scores without getting lost in flashy chaos
       </h5>
-      <CaseSection title="To be considered a success, the design needed to:">
+      <CaseSection title="Goals for the design">
         <div className="flex flex-col md:flex-row w-full gap-4">
-          <TuchezeCard description="Establish a visually compelling interface that could captivate users and make the betting experience feel dynamic and immersive." />
-          <TuchezeCard description="Create intuitive pathways for users to jump quickly between various betting options and interactive games, reducing friction and enhancing enjoyment." />
-          <TuchezeCard description="Balance the interface between usability and thrill, making it visually exciting without compromising clarity or ease of navigation." />
+          <TuchezeCard
+            description="Make it feel alive:
+Create a visually dynamic interface that captures the excitement of high-stakes betting."
+          />
+          <TuchezeCard
+            description="Navigate without friction:
+Enable users to jump instantly between live games, bets, and scores."
+          />
+          <TuchezeCard description="Thrill meets clarity: Balance high-energy visuals with usability, so the interface excites without confusing." />
         </div>
       </CaseSection>
 
