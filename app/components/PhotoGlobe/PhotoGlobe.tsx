@@ -34,12 +34,13 @@ export function PhotoGlobe({
         <Globe>
           {photos.map((photo, index) => (
             <GlobeCard
-              key={photo.id}
-              imageSrc={photo.imageSrc}
-              x={layout[index].x}
-              y={layout[index].y}
-              z={layout[index].z}
-            />
+            key={photo.id}
+            imageSrc={photo.imageSrc}
+            x={layout[index].x}
+            y={layout[index].y}
+            z={layout[index].z}
+            roll={layout[index].roll}
+        />
           ))}
         </Globe>
       </div>
