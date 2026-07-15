@@ -4,10 +4,14 @@ import Image from "next/image";
 
 interface GlobeCardProps {
   imageSrc: string;
+
   x: number;
   y: number;
   z: number;
+
   roll: number;
+
+  depth: number;
 }
 
 export function GlobeCard({
@@ -16,29 +20,21 @@ export function GlobeCard({
   y,
   z,
   roll,
+  depth,
 }: GlobeCardProps) {
-  /**
-   * depth
-   *
-   * Front:
-   * z = +300
-   *
-   * Back:
-   * z = -300
-   */
-  const radius = 300;
+  const scale = 0.72 + depth * 0.38;
 
-  const depth = (z + radius) / (radius * 2);
+  const brightness = 0.82 + depth * 0.18;
 
-  const scale = 0.72 + depth * 0.42;
+  const blur = (1 - depth) * 0.35;
 
-  const opacity = 0.2 + depth * 0.8;
+  const shadowOpacity = 0.06 + depth * 0.12;
 
-  const brightness = 0.55 + depth * 0.45;
+  const shadowY = 8 + depth * 10;
 
-  const blur = (1 - depth) * 1.6;
+  const shadowBlur = 20 + depth * 12;
 
-  const shadow = depth * 32;
+  const clickable = depth > 0.35;
 
   return (
     <div
@@ -46,12 +42,11 @@ export function GlobeCard({
       style={{
         transform: `
           translate3d(${x}px, ${y}px, ${z}px)
+          translate(-50%, -50%)
           rotateZ(${roll}deg)
           scale(${scale})
         `,
         transformStyle: "preserve-3d",
-
-        opacity,
 
         zIndex: Math.round(depth * 1000),
 
@@ -60,19 +55,15 @@ export function GlobeCard({
           blur(${blur}px)
         `,
 
-        pointerEvents: depth > 0.45 ? "auto" : "none",
+        pointerEvents: clickable ? "auto" : "none",
+
+        willChange: "transform, filter",
       }}
     >
       <div
-        className="relative h-[104px] w-[104px]
-                   -translate-x-1/2 -translate-y-1/2
-                   overflow-hidden
-                   rounded-[2px]
-                   border-[4px]
-                   border-white
-                   bg-white"
+        className="relative h-[104px] w-[104px] overflow-hidden rounded-[2px] border-[4px] border-white bg-white"
         style={{
-          boxShadow: `0 ${shadow}px ${shadow * 1.5}px rgba(0,0,0,.16)`,
+          boxShadow: `0 ${shadowY}px ${shadowBlur}px rgba(0,0,0,${shadowOpacity})`,
         }}
       >
         <Image
@@ -80,7 +71,7 @@ export function GlobeCard({
           alt=""
           fill
           draggable={false}
-          className="pointer-events-none object-cover select-none"
+          className="pointer-events-none select-none object-cover"
         />
       </div>
     </div>
