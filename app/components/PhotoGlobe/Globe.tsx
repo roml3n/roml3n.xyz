@@ -2,33 +2,52 @@
 
 import { useEffect, useRef } from "react";
 
-export function Globe({
-  children,
-}: {
+interface GlobeProps {
   children: React.ReactNode;
-}) {
+}
+
+export function Globe({ children }: GlobeProps) {
   const globeRef = useRef<HTMLDivElement>(null);
 
+  // current rotation
+  const rotation = useRef({
+    x: -18,
+    y: 0,
+  });
+
+  // target rotation
+  const target = useRef({
+    x: -18,
+    y: 360,
+  });
+
+  const frame = useRef<number>(0);
+
   useEffect(() => {
-    let frame = 0;
-
-    let rotX = -18;
-    let rotY = 0;
-
     const animate = () => {
-      rotY += 0.12;
+      // keep adding to our desired rotation
+      target.current.y += 0.12;
+
+      // smooth interpolation
+      rotation.current.x +=
+        (target.current.x - rotation.current.x) * 0.08;
+
+      rotation.current.y +=
+        (target.current.y - rotation.current.y) * 0.08;
 
       if (globeRef.current) {
-        globeRef.current.style.transform =
-          `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+        globeRef.current.style.transform = `
+          rotateX(${rotation.current.x}deg)
+          rotateY(${rotation.current.y}deg)
+        `;
       }
 
-      frame = requestAnimationFrame(animate);
+      frame.current = requestAnimationFrame(animate);
     };
 
     animate();
 
-    return () => cancelAnimationFrame(frame);
+    return () => cancelAnimationFrame(frame.current);
   }, []);
 
   return (
@@ -37,6 +56,7 @@ export function Globe({
       className="absolute inset-0"
       style={{
         transformStyle: "preserve-3d",
+        willChange: "transform",
       }}
     >
       {children}
