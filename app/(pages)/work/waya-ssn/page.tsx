@@ -3,6 +3,8 @@ import WayaInterviewCard from "@/app/(pages)/work/waya-ssn/WayaInterviewCard";
 import AnalysisCard from "@/app/(pages)/work/waya-ssn/AnalysisCard";
 import MoreProjectsSection from "@/app/(pages)/work/MoreProjectsSection";
 import Button from "@/app/components/Button";
+import CaseImageCarousel from "@/app/components/CaseImageCarousel";
+import CaseSection from "../caseSection";
 
 const WayaSSN = () => {
   return (
@@ -24,15 +26,12 @@ const WayaSSN = () => {
           height={720}
           className="w-full mb-4"
         />
+        <div className="flex justify-between">
         <h5 className="h5 font-medium opacity-40 whitespace-pre-line">
           {" "}
           {`Waya \n [ 03.2024 ]`}{" "}
         </h5>
-      </div>
-
-      {/* Intro  – Left */}
-      <div className="flex flex-col gap-16 col-span-3">
-        <div className="flex flex-col gap-4 col-span-3">
+        <div className="flex w-fit gap-4">
           <Button
             variant="primary"
             label="Get on Play Store"
@@ -44,7 +43,14 @@ const WayaSSN = () => {
             url="https://apps.apple.com/app/waya-mobile-banking/id6445921373"
           />
         </div>
-        <div className="flex flex-col gap-1 w-full">
+        </div>
+       
+      </div>
+
+      {/* Metadata */}
+        
+      <div className="flex justify-between w-full col-span-4 md:col-span-6 lg:col-span-8 md:col-start-2 lg:col-start-3">
+        <div className="flex flex-col gap-1">
           <h3 className="h3 ">Role</h3>
           <h5 className="h5 whitespace-preline">
             Solo Designer
@@ -52,14 +58,14 @@ const WayaSSN = () => {
             <br /> Documentation
           </h5>
         </div>
-        <div className="flex flex-col gap-1 w-full">
+        <div className="flex flex-col gap-1">
           <h3 className="h3 ">Team</h3>
           <h5 className="h5">Solo</h5>
         </div>
       </div>
 
-      {/* Intro  – Right */}
-      <div className="flex flex-col gap-6 md:col-start-5 col-span-4 md:col-span-8">
+      {/* Intro  */}
+      <div className="flex flex-col gap-6 col-span-4 md:col-span-6 lg:col-span-8 md:col-start-2 lg:col-start-3">
         <div className="flex flex-col gap-1 w-full">
           <h3 className="h3 opacity-60">Overview</h3>
           <h5 className="h5 ">
@@ -93,7 +99,7 @@ const WayaSSN = () => {
 
       {/* Interview  */}
 
-      <div className="w-full flex flex-col gap-4 col-span-4 md:col-span-8 lg:col-start-5">
+      <div className="w-full flex flex-col col-span-4 md:col-span-6 lg:col-span-8 md:col-start-2 lg:col-start-3">
         <h3 className="h3 opacity-70">What are users actually experiencing?</h3>
         <h5 className="h5 !font-normal">
           I conducted three interviews with stakeholders aged 25–45 to
@@ -123,7 +129,7 @@ const WayaSSN = () => {
       </div>
 
       {/* Analysis of Results  */}
-      <div className="w-full flex flex-col gap-4 col-span-4 md:col-span-8 lg:col-start-5">
+      <div className="w-full flex flex-col gap-4 col-span-4 md:col-span-6 lg:col-span-8 md:col-start-2 lg:col-start-3">
         <h3 className="h3 opacity-70">What the research revealed</h3>
         <h5 className="h5 !font-normal whitespace-pre-line">
           The feedback collected from the research phase brought to light a few
@@ -152,7 +158,7 @@ const WayaSSN = () => {
       </div>
 
       {/* Problem & Goal */}
-      <div className="w-full flex flex-col gap-4 col-span-4 md:col-span-8 lg:col-start-5">
+      <div className="w-full flex flex-col gap-4 col-span-4 md:col-span-6 lg:col-span-8 md:col-start-2 lg:col-start-3">
         <h3 className="h3 opacity-70">Defining the core problem</h3>
         <h5 className="h5 !font-normal whitespace-pre-line">
           New Americans and immigrants struggle to access financial services
@@ -167,13 +173,13 @@ const WayaSSN = () => {
           preserved security, and built trust from the first interaction.
         </h5>
       </div>
-      <h2 className="h2 !font-normal italic opacity-60 gap-4 col-span-4 md:col-span-8 lg:col-start-5 ">
+      <h2 className="h2 !font-normal italic opacity-60 gap-4 col-span-4 md:col-span-6 lg:col-span-8 md:col-start-2 lg:col-start-3 ">
         Goal: Simplify onboarding so users can open an account without an SSN
         and start saving, sending, and spending as quickly as possible.
       </h2>
 
       {/* Solution Framework  */}
-      <div className="w-full flex flex-col gap-4 col-span-4 md:col-span-8 lg:col-start-5">
+      <div className="w-full flex flex-col gap-4 col-span-4 md:col-span-6 lg:col-span-8 md:col-start-2 lg:col-start-3">
         <h3 className="h3 opacity-70">
           How might we design for access and trust?
         </h3>
@@ -216,38 +222,32 @@ const WayaSSN = () => {
         </div>
       </div>
 
-      {/* Gallery  */}
-      <div className="col-span-4 md:col-span-8 lg:col-span-12 grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 grid-rows-auto gap-2">
-        <Image
-          src="/images/work/waya-ssn/waya-ssn-img-01.webp"
-          alt="screenshot of the finished product"
-          width={1280}
-          height={720}
-          className="col-span-4 md:col-span-8 lg:col-span-12 rounded-md border border-black/10"
+      <CaseSection>
+        {/* Gallery  */}
+        <CaseImageCarousel
+          images={[
+            {
+              src: "/images/work/waya-ssn/waya-ssn-img-02.webp",
+              alt: "screenshot of the finished product",
+            },
+            {
+              src: "/images/work/waya-ssn/waya-ssn-img-01.webp",
+              alt: "screenshot of the finished product",
+            },
+            {
+              src: "/images/work/waya-ssn/waya-ssn-img-03.webp",
+              alt: "screenshot of the finished product",
+            },
+            {
+              src: "/images/work/waya-ssn/waya-ssn-img-04.webp",
+              alt: "screenshot of the finished product",
+            },
+          ]}
         />
-        <Image
-          src="/images/work/waya-ssn/waya-ssn-img-02.webp"
-          alt="screenshot of the finished product"
-          width={1280}
-          height={720}
-          className="col-span-4 md:col-span-8 lg:col-span-12 rounded-md border border-black/10"
-        />
-        <Image
-          src="/images/work/waya-ssn/waya-ssn-img-03.webp"
-          alt="screenshot of the finished product"
-          width={1280}
-          height={720}
-          className="col-span-4 md:col-span-8 lg:col-span-12 rounded-md border border-black/10"
-        />
-        <Image
-          src="/images/work/waya-ssn/waya-ssn-img-04.webp"
-          alt="screenshot of the finished product"
-          width={1280}
-          height={720}
-          className="col-span-4 md:col-span-8 lg:col-span-12 rounded-md border border-black/10"
-        />
-      </div>
+      
+      </CaseSection>
 
+    
       {/* Looking back  */}
       <div className="w-full flex flex-col gap-6 col-span-4 md:col-span-8 lg:col-span-12">
         <h3 className="h3 opacity-70">Looking back...</h3>

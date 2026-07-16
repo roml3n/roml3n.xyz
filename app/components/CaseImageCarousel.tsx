@@ -62,7 +62,7 @@ const CaseImageCarousel = ({ images, caption }: CaseImageCarouselProps) => {
   return (
     <>
       <div className="flex flex-col items-center rounded-2xl p-3 gap-3 bg-[#EFEFEF] w-full">
-        <div className={`grid w-full gap-3 ${isSingle ? "grid-cols-1" : "grid-cols-2"}`}>
+        <div className={`grid w-full gap-3 ${isSingle ? "grid-cols-1" : "md:grid-cols-2"}`}>
           {images.map((item, index) => (
             <div
               key={index}
