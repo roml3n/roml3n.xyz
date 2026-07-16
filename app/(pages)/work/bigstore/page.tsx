@@ -25,15 +25,12 @@ const BigStore = () => {
           height={720}
           className="w-full mb-4"
         />
+        <div className="flex justify-between w-full">
         <h5 className="h5 font-medium opacity-40 whitespace-pre-line">
           {" "}
           {`The CB Group \n [ 07.2023 ]`}{" "}
-        </h5>
-      </div>
-
-      {/* Intro  */}
-      <div className="flex flex-col gap-4 col-span-2">
-        <Button
+        </h5> <div className="flex flex-col gap-4 col-span-2">
+        <div className="flex gap-4"><Button
           variant="primary"
           label="Visit live site"
           url="https://bigstore.africa/"
@@ -42,10 +39,13 @@ const BigStore = () => {
           variant="secondary"
           label="View in Figma"
           url="https://www.figma.com/design/sfeDE3gipPzbHZU4fUUZwq/%F0%9F%9F%A2-bigstore---bigstore-website--deprecated-?node-id=0-1&t=0LF9XFvv1wJVYFzy-1"
-        />
+        /></div></div>
+      </div>
       </div>
 
-      <h5 className="h5 lg:col-start-5 col-span-4 md:col-span-8">
+      {/* Intro  */}
+
+      <h5 className="h5 col-span-4 md:col-span-6 lg:col-span-8 md:col-start-2 lg:col-start-3">
         Shoppers were dropping off before completing purchases because key
         information was hidden, forms were confusing, and payment options were
         limited. Bigstore’s digital experience was losing customers, and the
@@ -56,7 +56,7 @@ const BigStore = () => {
       </h5>
 
       {/* Interviews  */}
-      <div className="flex flex-col lg:col-start-5 col-span-4 md:col-span-8 gap-4">
+      <div className="flex flex-col col-span-4 md:col-span-6 lg:col-span-8 md:col-start-2 lg:col-start-3">
         <h3 className="h3 opacity-60">Listening to users</h3>
         <p className="h5">
           To understand the real frustrations, I interviewed four users, asking
@@ -100,7 +100,7 @@ const BigStore = () => {
       </div>
 
       {/* Problems  */}
-      <div className="flex flex-col lg:col-start-5 col-span-4 md:col-span-8 gap-4">
+      <div className="flex flex-col col-span-4 md:col-span-6 lg:col-span-8 md:col-start-2 lg:col-start-3">
         <h3 className="h3 opacity-60">A few problems became clear</h3>
         <p className="h5">
           The feedback collected from the research phase brought to light
@@ -177,11 +177,11 @@ const BigStore = () => {
         alt="screenshot of the finished product"
         width={1280}
         height={720}
-        className="lg:col-start-5 col-span-4 md:col-span-8"
+        className="col-span-4 md:col-span-6 lg:col-span-8 md:col-start-2 lg:col-start-3"
       />
 
       {/* Solutions  */}
-      <div className="flex flex-col lg:col-start-5 col-span-4 md:col-span-8 gap-4">
+      <div className="flex flex-col col-span-4 md:col-span-6 lg:col-span-8 md:col-start-2 lg:col-start-3">
         <h3 className="h3 opacity-60">
           Designing solutions that actually work
         </h3>
