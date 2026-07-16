@@ -7,7 +7,7 @@ import CaseImageCarousel from "@/app/components/CaseImageCarousel";
 import CaseSection from "@/app/(pages)/work/caseSection";
 import MoreProjectsSection from "@/app/(pages)/work/MoreProjectsSection";
 
-const BigStore = () => {
+const WayaBusiness = () => {
   return (
     <section className="content-start w-full min-h-[calc(100dvh-23rem)] mt-24 grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 grid-rows-auto gap-x-4 md:gap-x-6 gap-y-9 md:gap-y-16 relative justify-center self-center">
       <div className="row-span-1 col-span-4 md:col-span-8 lg:col-span-6  flex flex-col gap-1">
@@ -34,7 +34,7 @@ const BigStore = () => {
       </div>
 
       {/* Intro  */}
-      <div className="flex flex-col gap-6 lg:col-start-5 col-span-4 md:col-span-8">
+      <div className="flex flex-col gap-6 col-span-4 md:col-span-6 lg:col-span-8 md:col-start-2 lg:col-start-3">
         <div className="flex flex-col gap-1 w-full">
           <h3 className="h3 opacity-60">Overview</h3>
           <h5 className="h5 ">
@@ -56,40 +56,25 @@ const BigStore = () => {
       </div>
 
       <div className="flex flex-col gap-12 w-full col-span-4 md:col-span-8 lg:col-span-12">
-        <div className="flex flex-col items-center rounded-md p-12 gap-3 bg-[#EFEFEF]">
-          <div className="overflow-hidden w-full h-fit transition-[height] duration-500 ease-in-out">
-            <div className="flex flex-col gap-4 items-center w-full">
-              <Image
-                src="/images/work/waya-business/log-in.webp"
-                alt="Screenshot of log in page"
-                width={1920}
-                height={1080}
-                className="w-full h-auto"
-              />
-              <Image
-                src="/images/work/waya-business/2fa-waya-app.webp"
-                alt="Screenshot of 2fa page"
-                width={1920}
-                height={1080}
-                className="w-full h-auto"
-              />
-              <p className="h5 text-center italic opacity-70">
-                Logging in using your Waya Mobile App as the secondary auth
-                method kept the flow simple and intuitive
-              </p>
-            </div>
-          </div>
-        </div>
-
+        <CaseImageCarousel
+          images={[
+            {
+              src: "/images/work/waya-business/log-in.webp",
+              alt: "Screenshot of log in page",
+            },
+            {
+              src: "/images/work/waya-business/2fa-waya-app.webp",
+              alt: "Screenshot of 2fa page",
+            },
+          ]}
+          caption=" Logging in using your Waya Mobile App as the secondary auth
+                method kept the flow simple and intuitive"
+        />
         <CaseImageCarousel
           images={[
             {
               src: "/images/work/waya-business/home-view.webp",
               alt: "Screenshot of home view page",
-            },
-            {
-              src: "/images/work/waya-business/transactions.webp",
-              alt: "Screenshot of transactions page",
             },
             {
               src: "/images/work/waya-business/transaction-details.webp",
@@ -113,10 +98,6 @@ The entry point for ordering a new card was neatly tucked away in the top right,
                 src: "/images/work/waya-business/cards-detail.webp",
                 alt: "Screenshot of card details page",
               },
-              {
-                src: "/images/work/waya-business/use-card-before-it-gets-there.webp",
-                alt: "Screenshot of cards page",
-              },
             ]}
             caption="To keep the user in flow, we added a way to use your Waya card even *before* it gets delivered to you."
           />
@@ -132,10 +113,6 @@ The entry point for ordering a new card was neatly tucked away in the top right,
                 src: "/images/work/waya-business/order-card-you.webp",
                 alt: "Screenshot of order card for yourself page",
               },
-              {
-                src: "/images/work/waya-business/order-card-team-member.webp",
-                alt: "Screenshot of order card for team member page",
-              },
             ]}
             caption="You could order a physical card for yourself or any member of your team"
           />
@@ -145,10 +122,10 @@ The entry point for ordering a new card was neatly tucked away in the top right,
                 src: "/images/work/waya-business/add-funds.webp",
                 alt: "Screenshot of deposit options",
               },
-              {
-                src: "/images/work/waya-business/add-funds-account.webp",
-                alt: "Screenshot of add funds to account page",
-              },
+              // {
+              //   src: "/images/work/waya-business/add-funds-account.webp",
+              //   alt: "Screenshot of add funds to account page",
+              // },
               {
                 src: "/images/work/waya-business/add-funds-done.webp",
                 alt: "Screenshot of success state",
@@ -192,10 +169,6 @@ The entry point for ordering a new card was neatly tucked away in the top right,
                 alt: "Screenshot showing Waya uses Plaid to securely connect bank accounts",
               },
               {
-                src: "/images/work/waya-business/download-statement.webp",
-                alt: "Screenshot of statement export page",
-              },
-              {
                 src: "/images/work/waya-business/team-roles.webp",
                 alt: "Screenshot of team roles page",
               },
@@ -205,9 +178,8 @@ The entry point for ordering a new card was neatly tucked away in the top right,
         </CaseSection>
       </div>
       <MoreProjectsSection currentHref="/work/waya-business" />
-      <Footer />
     </section>
   );
 };
 
-export default BigStore;
+export default WayaBusiness;
