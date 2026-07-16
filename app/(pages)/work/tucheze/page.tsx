@@ -50,8 +50,9 @@ const Tucheze = () => {
       </h5>
 
 
-      <CaseSection title="Goals for the design">
-        <div className="flex flex-col md:flex-row w-full gap-4 -mt-10">
+      <div className="flex flex-col gap-4 col-span-4 md:col-span-6 lg:col-span-8 md:col-start-2 lg:col-start-3">
+      <h3 className="h3 opacity-70">Goals of the design</h3>
+        <div className="flex flex-col md:flex-row w-full gap-4">
           <TuchezeCard
             description="Make it feel alive:
 Create a visually dynamic interface that captures the excitement of high-stakes betting."
@@ -62,7 +63,7 @@ Enable users to jump instantly between live games, bets, and scores."
           />
           <TuchezeCard description="Thrill meets clarity: Balance high-energy visuals with usability, so the interface excites without confusing." />
         </div>
-      </CaseSection>
+      </div>
 
       {/* Gallery  */}
       <div className="col-span-4 md:col-span-8 lg:col-span-12 grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 grid-rows-auto gap-2">
