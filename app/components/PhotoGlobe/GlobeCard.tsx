@@ -13,7 +13,8 @@ interface GlobeCardProps {
   y: number;
   z: number;
 
-  roll: number;
+  latitude: number;
+  longitude: number;
 
   depth: number;
 
@@ -33,7 +34,9 @@ export const GlobeCard = forwardRef<HTMLButtonElement, GlobeCardProps>(
       imageSrc,
       x,
       y,
-      roll,
+      z,
+      latitude,
+      longitude,
       depth,
       scale,
       selected = false,
@@ -44,13 +47,18 @@ export const GlobeCard = forwardRef<HTMLButtonElement, GlobeCardProps>(
   ) {
     const prefersReducedMotion = useReducedMotion();
 
-    const finalScale = scale * (0.82 + depth * 0.18);
+    const finalScale = Math.min(
+      0.94,
+      scale * (0.82 + depth * 0.12),
+    );
 
     const shadowOpacity = 0.06 + depth * 0.08;
 
     const shadowBlur = 16 + depth * 14;
 
     const shadowY = 8 + depth * 8;
+
+    const frameShadow = "0 0 0 9px rgba(0,0,0,0.1)";
 
     const clickable = depth > 0.45;
 
@@ -67,55 +75,70 @@ export const GlobeCard = forwardRef<HTMLButtonElement, GlobeCardProps>(
         style={{
           transform: `
             translate(-50%, -50%)
-            translate3d(${x}px, ${y}px, 0px)
-            rotateZ(${roll}deg)
+            translate3d(${x}px, ${y}px, ${z}px)
             scale(${finalScale})
           `,
           zIndex: Math.round(depth * 1000),
           transformOrigin: "center",
+          transformStyle: "preserve-3d",
           pointerEvents: clickable ? "auto" : "none",
           cursor: clickable ? "pointer" : "default",
           visibility: hidden ? "hidden" : "visible",
           willChange: "transform",
         }}
       >
-        <motion.div
-          whileHover={
-            clickable && !prefersReducedMotion
-              ? {
-                  boxShadow:
-                    "0 18px 40px rgba(0,0,0,0.18)",
-                  scale: 1.06,
-                  y: -8,
-                }
-              : undefined
-          }
-          whileTap={
-            clickable && !prefersReducedMotion
-              ? {
-                  scale: 0.98,
-                }
-              : undefined
-          }
-          transition={{
-            type: "spring",
-            stiffness: 280,
-            damping: 22,
-          }}
-          className="relative h-[104px] w-[104px] overflow-hidden rounded-[3px] border-[4px] border-white bg-white"
+        <div
           style={{
-            boxShadow: `0 ${shadowY}px ${shadowBlur}px rgba(0,0,0,${shadowOpacity})`,
+            transform: `rotateY(${longitude}deg)`,
+            transformStyle: "preserve-3d",
           }}
         >
-          <Image
-            src={imageSrc}
-            alt={imageAlt}
-            fill
-            draggable={false}
-            className="pointer-events-none select-none object-cover"
-            sizes="104px"
-          />
-        </motion.div>
+          <div
+            style={{
+              transform: `rotateX(${-latitude}deg)`,
+              transformStyle: "preserve-3d",
+            }}
+          >
+            <motion.div
+              whileHover={
+                clickable && !prefersReducedMotion
+                  ? {
+                      boxShadow:
+                        `${frameShadow}, 0 18px 40px rgba(0,0,0,0.18)`,
+                      scale: 1.06,
+                      y: -8,
+                    }
+                  : undefined
+              }
+              whileTap={
+                clickable && !prefersReducedMotion
+                  ? {
+                      scale: 0.98,
+                    }
+                  : undefined
+              }
+              transition={{
+                type: "spring",
+                stiffness: 280,
+                damping: 22,
+              }}
+              className="relative h-[72px] w-[72px] overflow-hidden rounded-[3px] bg-white"
+              style={{
+                boxShadow: `${frameShadow}, 0 ${shadowY}px ${shadowBlur}px rgba(0,0,0,${shadowOpacity})`,
+                outline: "8px solid white",
+              }}
+            >
+              <Image
+                src={imageSrc}
+                alt={imageAlt}
+                fill
+                draggable={false}
+                className="pointer-events-none select-none object-cover"
+                sizes="72px"
+              />
+            </motion.div>
+          </div>
+        </div>
       </button>
     );
   },

@@ -16,8 +16,9 @@ interface Photo {
   imageSrc: string;
 }
 
-const RADIUS = 360;
-const CAMERA_DISTANCE = 1100;
+const RADIUS = 315;
+const CAMERA_DISTANCE = 770;
+const RAD_TO_DEG = 180 / Math.PI;
 
 interface SelectedPhoto extends Photo {
   closing: boolean;
@@ -76,25 +77,29 @@ export function PhotoGlobe({
           point.y * Math.sin(rotationX) +
           z1 * Math.cos(rotationX);
 
-        const perspective =
-          CAMERA_DISTANCE /
-          (CAMERA_DISTANCE - z2);
+        const latitude =
+          Math.asin(Math.max(-1, Math.min(1, y2 / RADIUS))) *
+          RAD_TO_DEG;
+
+        const longitude = Math.atan2(x1, z2) * RAD_TO_DEG;
 
         return {
           alt: photos[index].alt ?? `Photo ${index + 1}`,
           id: photos[index].id,
           imageSrc: photos[index].imageSrc,
 
-          x: x1 * perspective,
-          y: y2 * perspective,
+          x: x1,
+          y: y2,
 
           z: z2,
 
-          scale: perspective,
+          scale: 1,
 
           depth: (z2 + RADIUS) / (RADIUS * 2),
 
           roll: point.roll,
+          latitude,
+          longitude,
 
           order: index,
         };
@@ -135,11 +140,12 @@ export function PhotoGlobe({
   };
 
   return (
-    <section className="flex h-[70vh] items-center justify-center overflow-hidden">
+    <section className="flex min-h-[800px] items-center justify-center overflow-visible">
       <div
-        className="relative h-[760px] w-[760px]"
+        className="relative h-[665px] w-[665px]"
         style={{
-          perspective: "1600px",
+          perspective: `${CAMERA_DISTANCE}px`,
+          transformStyle: "preserve-3d",
         }}
       >
         {cards.map((photo) => (
@@ -157,7 +163,8 @@ export function PhotoGlobe({
             x={photo.x}
             y={photo.y}
             z={photo.z}
-            roll={photo.roll}
+            latitude={photo.latitude}
+            longitude={photo.longitude}
             depth={photo.depth}
             scale={photo.scale}
             selected={selectedPhoto?.id === photo.id}

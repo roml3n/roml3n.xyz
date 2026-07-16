@@ -1,6 +1,5 @@
-export const photos = [
-  {   id: "photo-1",
-    imageSrc: "/images/(photosPage)/photo_1.jpg" },
+const sourcePhotos = [
+  { id: "photo-1", imageSrc: "/images/(photosPage)/photo_1.jpg" },
   { id: "photo-2",
     imageSrc: "/images/(photosPage)/photo_2.jpg" },
   { id: "photo-3",
@@ -34,3 +33,14 @@ export const photos = [
   { id: "photo-17",
     imageSrc: "/images/(photosPage)/photo_17.jpg" },
 ] as const;
+
+const PHOTO_REPEAT_COUNT = 8;
+
+export const photos = Array.from(
+  { length: PHOTO_REPEAT_COUNT },
+  (_, copyIndex) =>
+    sourcePhotos.map((photo) => ({
+      ...photo,
+      id: `${photo.id}-copy-${copyIndex + 1}`,
+    })),
+).flat();
