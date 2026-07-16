@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { GlobeCard } from "./GlobeCard";
 import {
@@ -11,6 +11,7 @@ import { createSphereLayout } from "./sphereLayout";
 import { useGlobeRotation } from "./useGlobeRotation";
 
 interface Photo {
+  alt?: string;
   id: string;
   imageSrc: string;
 }
@@ -42,6 +43,7 @@ export function PhotoGlobe({
   const [selectedPhoto, setSelectedPhoto] =
     useState<SelectedPhoto | null>(null);
   const cardRefs = useRef(new Map<string, HTMLButtonElement>());
+  const returningPhotoId = useRef<string | null>(null);
 
   const rotation = useGlobeRotation();
 
@@ -79,6 +81,7 @@ export function PhotoGlobe({
           (CAMERA_DISTANCE - z2);
 
         return {
+          alt: photos[index].alt ?? `Photo ${index + 1}`,
           id: photos[index].id,
           imageSrc: photos[index].imageSrc,
 
@@ -104,6 +107,15 @@ export function PhotoGlobe({
         return a.order - b.order;
       });
   }, [layout, photos, rotationX, rotationY]);
+
+  useEffect(() => {
+    if (selectedPhoto || !returningPhotoId.current) {
+      return;
+    }
+
+    cardRefs.current.get(returningPhotoId.current)?.focus();
+    returningPhotoId.current = null;
+  }, [selectedPhoto]);
 
   const closeSelectedPhoto = () => {
     if (!selectedPhoto || selectedPhoto.closing) {
@@ -140,6 +152,7 @@ export function PhotoGlobe({
                 cardRefs.current.delete(photo.id);
               }
             }}
+            imageAlt={photo.alt}
             imageSrc={photo.imageSrc}
             x={photo.x}
             y={photo.y}
@@ -158,6 +171,7 @@ export function PhotoGlobe({
 
               setSelectedPhoto({
                 closing: false,
+                alt: photo.alt,
                 id: photo.id,
                 imageSrc: photo.imageSrc,
                 originRect: snapshotRect(card.getBoundingClientRect()),
@@ -178,6 +192,7 @@ export function PhotoGlobe({
           closing={selectedPhoto.closing}
           onClose={closeSelectedPhoto}
           onClosed={() => {
+            returningPhotoId.current = selectedPhoto.id;
             setSelectedPhoto(null);
           }}
         />

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useReducedMotion } from "framer-motion";
 
 export interface GlobeRotation {
   x: number;
@@ -14,6 +15,8 @@ const IDLE_SPEED = 0.16;
 const FOLLOW = 0.06;
 
 export function useGlobeRotation() {
+  const prefersReducedMotion = useReducedMotion();
+
   const frame = useRef<number | null>(null);
 
   const rotation = useRef<GlobeRotation>({
@@ -34,6 +37,10 @@ export function useGlobeRotation() {
   const [, rerender] = useState(0);
 
   useEffect(() => {
+    if (prefersReducedMotion) {
+      return;
+    }
+
     const onMove = (event: PointerEvent) => {
       pointer.current.x =
         (event.clientX / window.innerWidth - 0.5) * 2;
@@ -47,9 +54,13 @@ export function useGlobeRotation() {
     return () => {
       window.removeEventListener("pointermove", onMove);
     };
-  }, []);
+  }, [prefersReducedMotion]);
 
   useEffect(() => {
+    if (prefersReducedMotion) {
+      return;
+    }
+
     let wobble = 0;
 
     const animate = () => {
@@ -81,7 +92,7 @@ export function useGlobeRotation() {
         cancelAnimationFrame(frame.current);
       }
     };
-  }, []);
+  }, [prefersReducedMotion]);
 
   return rotation.current;
 }

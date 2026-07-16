@@ -2,9 +2,11 @@
 
 import { forwardRef } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 interface GlobeCardProps {
+  imageAlt: string;
+
   imageSrc: string;
 
   x: number;
@@ -27,6 +29,7 @@ interface GlobeCardProps {
 export const GlobeCard = forwardRef<HTMLButtonElement, GlobeCardProps>(
   function GlobeCard(
     {
+      imageAlt,
       imageSrc,
       x,
       y,
@@ -39,6 +42,8 @@ export const GlobeCard = forwardRef<HTMLButtonElement, GlobeCardProps>(
     },
     ref,
   ) {
+    const prefersReducedMotion = useReducedMotion();
+
     const finalScale = scale * (0.82 + depth * 0.18);
 
     const shadowOpacity = 0.06 + depth * 0.08;
@@ -54,8 +59,11 @@ export const GlobeCard = forwardRef<HTMLButtonElement, GlobeCardProps>(
         ref={ref}
         type="button"
         aria-pressed={selected}
+        aria-label={`View ${imageAlt}`}
+        aria-hidden={clickable ? undefined : true}
+        tabIndex={clickable ? 0 : -1}
         onClick={clickable ? onClick : undefined}
-        className="absolute left-1/2 top-1/2 appearance-none border-0 bg-transparent p-0"
+        className="absolute left-1/2 top-1/2 appearance-none border-0 bg-transparent p-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
         style={{
           transform: `
             translate(-50%, -50%)
@@ -66,13 +74,14 @@ export const GlobeCard = forwardRef<HTMLButtonElement, GlobeCardProps>(
           zIndex: Math.round(depth * 1000),
           transformOrigin: "center",
           pointerEvents: clickable ? "auto" : "none",
+          cursor: clickable ? "pointer" : "default",
           visibility: hidden ? "hidden" : "visible",
           willChange: "transform",
         }}
       >
         <motion.div
           whileHover={
-            clickable
+            clickable && !prefersReducedMotion
               ? {
                   boxShadow:
                     "0 18px 40px rgba(0,0,0,0.18)",
@@ -82,7 +91,7 @@ export const GlobeCard = forwardRef<HTMLButtonElement, GlobeCardProps>(
               : undefined
           }
           whileTap={
-            clickable
+            clickable && !prefersReducedMotion
               ? {
                   scale: 0.98,
                 }
@@ -100,7 +109,7 @@ export const GlobeCard = forwardRef<HTMLButtonElement, GlobeCardProps>(
         >
           <Image
             src={imageSrc}
-            alt=""
+            alt={imageAlt}
             fill
             draggable={false}
             className="pointer-events-none select-none object-cover"
