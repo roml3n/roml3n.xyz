@@ -1,19 +1,14 @@
-import { writingPosts } from "@/app/data/writingPosts";
-import { getSubstackPosts, type WritingPost } from "@/lib/substack";
+import { getSubstackPosts, type WritingPost } from "./substack";
 
-const SUBSTACK_URL = process.env.SUBSTACK_URL;
+const SUBSTACK_URL = "https://roml3n.substack.com";
 
 export async function getWritingPosts(limit = 20): Promise<WritingPost[]> {
-  if (!SUBSTACK_URL) return writingPosts;
-
   try {
-    const substackPosts = await getSubstackPosts(SUBSTACK_URL, limit);
-    if (substackPosts.length > 0) {
-      return substackPosts;
-    }
-  } catch (error) {
-    console.error("Failed to load Substack posts:", error);
+    return await getSubstackPosts(SUBSTACK_URL, limit);
+  } catch (err) {
+    console.error("Error fetching writing posts:", err);
+    return [];
   }
-
-  return writingPosts;
 }
+
+export type { WritingPost };
