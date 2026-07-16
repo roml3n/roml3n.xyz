@@ -24,18 +24,19 @@ const Tucheze = () => {
           height={720}
           className="w-full mb-4"
         />
+        <div className="flex justify-between w-full">
         <h5 className="h5 font-medium opacity-40 whitespace-pre-line">
           {" "}
           {`The CB Group \n [ 05.2024 ]`}{" "}
-        </h5>
+        </h5><Button variant="primary" label="See live" url="https://tucheze.com" /></div>
       </div>
 
       {/* Intro  */}
       <div className="flex flex-col gap-4 col-span-2">
-        <Button variant="primary" label="See live" url="https://tucheze.com" />
+        
       </div>
 
-      <h5 className="h5 lg:col-start-5 col-span-4 md:col-span-8">
+      <h5 className="h5 col-span-4 md:col-span-6 lg:col-span-8 md:col-start-2 lg:col-start-3">
         Tucheze is an online sports and casino betting platform, and the
         existing interface wasn’t matching the adrenaline of live games. Users
         wanted the immediacy and energy of a stadium, but the interface felt
@@ -47,8 +48,10 @@ const Tucheze = () => {
         usability: users needed to move seamlessly between live games, dynamic
         bets, and real-time scores without getting lost in flashy chaos
       </h5>
+
+
       <CaseSection title="Goals for the design">
-        <div className="flex flex-col md:flex-row w-full gap-4">
+        <div className="flex flex-col md:flex-row w-full gap-4 -mt-10">
           <TuchezeCard
             description="Make it feel alive:
 Create a visually dynamic interface that captures the excitement of high-stakes betting."
