@@ -12,9 +12,9 @@ const Button = ({
 
   const variantStyles = {
     primary:
-      "pl-6 pr-3 py-3 bg-mainblue hover:bg-[#0A65A6] !text-fullwhite gap-4 justify-between min-w-[220px]",
+      "pl-6 pr-3 py-3 bg-mainblue hover:bg-[#0A65A6] !text-fullwhite gap-4 justify-between ",
     secondary:
-      "pl-6 pr-3 py-3 bg-white hover:bg-almostwhite border border-solid border-midgrey !text-fullgrey gap-4 justify-between min-w-[220px]",
+      "pl-6 pr-3 py-3 bg-white hover:bg-almostwhite border border-solid border-midgrey !text-fullgrey gap-4 justify-between",
     ghost:
       "gap-1 justify-end sm:justify-start py-2 px-4 box-border border border-solid border-midgrey !bg-fullwhite",
   };

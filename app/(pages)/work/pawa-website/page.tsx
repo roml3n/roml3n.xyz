@@ -9,7 +9,7 @@ const BigStore = () => {
     <section className="content-start w-full min-h-[calc(100dvh-23rem)] mt-24 grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 grid-rows-auto gap-x-4 md:gap-x-6 gap-y-9 md:gap-y-16 relative justify-center self-center">
       <div className="row-span-1 col-span-4 md:col-span-8 lg:col-span-6  flex flex-col gap-1">
         <h2 className="h2"> Repositioning Pawa IT for the AI era </h2>
-        <h2 className="h2 opacity-40"> [ product design ] </h2>
+        <h2 className="h2 opacity-40"> [ interface design ] </h2>
       </div>
 
       {/* Hero  */}
@@ -21,20 +21,21 @@ const BigStore = () => {
           height={720}
           className="w-full mb-4"
         />
-        <h5 className="h5 font-medium opacity-40 whitespace-pre-line">
+        <div className="w-full flex justify-between"><h5 className="h5 font-medium opacity-40 whitespace-pre-line">
           {" "}
           {`Pawa IT \n [ 07.2024 ]`}{" "}
         </h5>
-      </div>
-
-      {/* Intro  – Left */}
-      <div className="flex flex-col gap-16 col-span-3">
         <Button
           variant="primary"
           label="See live"
           url="https://pawait.africa/"
-        />
-        <div className="flex flex-col gap-1 w-full">
+        /></div>
+        
+      </div>
+
+      {/* Metadata */}
+      <div className="flex justify-between w-full col-span-4 md:col-span-6 lg:col-span-8 md:col-start-2 lg:col-start-3">
+        <div className="flex flex-col gap-1">
           <h3 className="h3 ">Role</h3>
           <h5 className="h5 whitespace-preline">
             Solo Designer
@@ -42,18 +43,18 @@ const BigStore = () => {
             <br /> Documentation
           </h5>
         </div>
-        <div className="flex flex-col gap-1 w-full">
+        <div className="flex flex-col gap-1">
           <h3 className="h3 ">Team</h3>
           <h5 className="h5">Solo</h5>
         </div>
-        <div className="flex flex-col gap-1 w-full">
+        <div className="flex flex-col gap-1">
           <h3 className="h3 ">Timeline</h3>
           <h5 className="h5">Aug &mdash; Nov 24 (3 months)</h5>
         </div>
       </div>
 
-      {/* Intro  – Right */}
-      <div className="flex flex-col gap-12 h5 lg:col-start-5 col-span-4 md:col-span-8">
+      {/* Intro */}
+      <div className="w-full flex flex-col gap-4 col-span-4 md:col-span-6 lg:col-span-8 md:col-start-2 lg:col-start-3">
         <div className="flex flex-col">
           <h3 className="h3 ">Overview</h3>
           <h5 className="h5 whitespace-preline">
@@ -128,7 +129,7 @@ This phase established clear north star metrics and defined the boundaries for t
             alt=""
             width={1980}
             height={1080}
-            className="w-full h-auto"
+            className="w-full h-auto col-span-4 md:col-span-6 lg:col-span-12"
           />
           <p className="h5 text-center italic opacity-70">
             Aligned business goals and KPIs with the Head of Marketing
@@ -195,19 +196,7 @@ I then designed a scalable mega menu that exposed key offerings and CTAs at a gl
             their respective groups, making them easy to find and reference
           </p>
         </div>
-        <div className="mt-4 flex flex-col gap-2 w-full">
-          <Image
-            src="/images/work/pawa-website/mega-menu-overview.webp"
-            alt=""
-            width={1920}
-            height={1080}
-            className="w-full h-auto"
-          />
-          <p className="h5 text-center italic opacity-70">
-            I restructured the top level pages into a neat mega menu component,
-            grouping all similar pages together
-          </p>
-        </div>
+        
         <div className="mt-4 flex flex-col gap-2 w-full">
           <Image
             src="/images/work/pawa-website/mega-menu-interaction.webp"
@@ -218,7 +207,8 @@ I then designed a scalable mega menu that exposed key offerings and CTAs at a gl
           />
           <p className="h5 text-center italic opacity-70">
             Early prototype of the mega menu component showing the interaction
-            and motion{" "}
+            and motion{" "} <br /> I restructured the top level pages into a neat mega menu component,
+            grouping all similar pages together
           </p>
         </div>
       </CaseSection>
@@ -265,15 +255,11 @@ Accessibility and responsiveness were embedded throughout, including contrast co
               src: "/images/work/pawa-website/bdr.webp",
               alt: "Screenshot of custom illustrations and icons",
             },
-            {
-              src: "/images/work/pawa-website/ai-next-leap.webp",
-              alt: "Screenshot of custom illustrations and icons",
-            },
           ]}
           caption="Snapshot of custom illustrations in play within the brand system"
         />
       </CaseSection>
-      <CaseSection title="Final UI Screenshots">
+      <CaseSection >
         <CaseImageCarousel
           images={[
             {
@@ -285,20 +271,8 @@ Accessibility and responsiveness were embedded throughout, including contrast co
               alt: "Screenshot of Google Workspace for Business webpage",
             },
             {
-              src: "/images/work/pawa-website/build-custom-apps.webp",
-              alt: "Screenshot of Google AppSheet webpage",
-            },
-            {
               src: "/images/work/pawa-website/chromebooks.webp",
               alt: "Screenshot of Google Chromebooks webpage",
-            },
-            {
-              src: "/images/work/pawa-website/chrome-os.webp",
-              alt: "Screenshot of Google ChromeOS webpage",
-            },
-            {
-              src: "/images/work/pawa-website/android-enterprise.webp",
-              alt: "Screenshot of Android Enterprise webpage",
             },
             {
               src: "/images/work/pawa-website/about-timeline.webp",
@@ -321,31 +295,14 @@ Accessibility and responsiveness were embedded throughout, including contrast co
               src: "/images/work/pawa-website/footer.webp",
               alt: "Screenshot of footer section",
             },
-          ]}
-          caption="section highlights"
-        />
-        <CaseImageCarousel
-          images={[
-            {
-              src: "/images/work/pawa-website/pricing-1.webp",
-              alt: "Screenshot of pricing section",
-            },
-            {
-              src: "/images/work/pawa-website/pricing-2.webp",
-              alt: "Screenshot of pricing section",
-            },
-          ]}
-          caption="solution and services pricing cards"
-        />
-        <CaseImageCarousel
-          images={[
             {
               src: "/images/work/pawa-website/404.webp",
               alt: "Screenshot of 404 page",
             },
           ]}
-          caption="easily find your way back if lost"
+          caption="section highlights"
         />
+       
       </CaseSection>
       <CaseSection
         title="🚸 Light Usability Validation"

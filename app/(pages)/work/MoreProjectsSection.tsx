@@ -24,7 +24,7 @@ const MoreProjectsSection = ({ currentHref }: MoreProjectsSectionProps) => {
         );
 
   return (
-    <section className="col-span-4 md:col-span-8 lg:col-span-12 w-full pt-10 md:pt-12 border-t-2 border-midgrey/70 grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-x-4 md:gap-x-6 gap-y-8 md:gap-y-10">
+    <section className="col-span-4 md:col-span-8 lg:col-span-12 w-full pt-10 md:pt-12 border-t-2 border-midgrey/70 grid grid-cols-4 md:grid-cols-6 lg:grid-cols-12 gap-x-4 md:gap-x-6 gap-y-8 md:gap-y-10">
       <div className="col-span-4 md:col-span-8 lg:col-span-12 flex flex-col gap-1">
         <h2 className="h2 opacity-60">More projects</h2>
       </div>
