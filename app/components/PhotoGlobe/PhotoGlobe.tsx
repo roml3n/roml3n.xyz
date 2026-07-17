@@ -93,7 +93,7 @@ export function PhotoGlobe({
 
           z: z2,
 
-          scale: 1,
+          scale: point.poleScale,
 
           depth: (z2 + RADIUS) / (RADIUS * 2),
 

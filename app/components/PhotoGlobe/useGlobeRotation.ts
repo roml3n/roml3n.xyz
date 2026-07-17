@@ -14,6 +14,16 @@ const IDLE_SPEED = 0.16;
 
 const FOLLOW = 0.06;
 
+const DRAG_SENSITIVITY = 0.35;
+
+const MOMENTUM_FRICTION = 0.95;
+
+const MOMENTUM_STOP_THRESHOLD = 0.01;
+
+const IDLE_RESUME_BLEND = 0.04;
+
+const CLICK_SUPPRESS_DISTANCE = 4;
+
 export function useGlobeRotation() {
   const prefersReducedMotion = useReducedMotion();
 
@@ -34,6 +44,15 @@ export function useGlobeRotation() {
     y: 0,
   });
 
+  const drag = useRef({
+    active: false,
+    lastX: 0,
+    lastY: 0,
+    moved: 0,
+    momentumX: 0,
+    momentumY: 0,
+  });
+
   const [, rerender] = useState(0);
 
   useEffect(() => {
@@ -47,12 +66,66 @@ export function useGlobeRotation() {
 
       pointer.current.y =
         (event.clientY / window.innerHeight - 0.5) * 2;
+
+      if (!drag.current.active) {
+        return;
+      }
+
+      const deltaX = event.clientX - drag.current.lastX;
+      const deltaY = event.clientY - drag.current.lastY;
+
+      drag.current.lastX = event.clientX;
+      drag.current.lastY = event.clientY;
+      drag.current.moved += Math.abs(deltaX) + Math.abs(deltaY);
+
+      const spinY = deltaX * DRAG_SENSITIVITY;
+      const spinX = -deltaY * DRAG_SENSITIVITY;
+
+      rotation.current.y += spinY;
+      rotation.current.x += spinX;
+
+      drag.current.momentumX = spinX;
+      drag.current.momentumY = spinY;
+    };
+
+    const onDown = (event: PointerEvent) => {
+      drag.current.active = true;
+      drag.current.lastX = event.clientX;
+      drag.current.lastY = event.clientY;
+      drag.current.moved = 0;
+      drag.current.momentumX = 0;
+      drag.current.momentumY = 0;
+      velocity.current.y = 0;
+    };
+
+    const endDrag = () => {
+      if (!drag.current.active) {
+        return;
+      }
+
+      drag.current.active = false;
+    };
+
+    const onClickCapture = (event: MouseEvent) => {
+      if (drag.current.moved > CLICK_SUPPRESS_DISTANCE) {
+        event.stopPropagation();
+        event.preventDefault();
+        drag.current.moved = 0;
+      }
     };
 
     window.addEventListener("pointermove", onMove);
+    window.addEventListener("pointerdown", onDown);
+    window.addEventListener("pointerup", endDrag);
+    window.addEventListener("pointercancel", endDrag);
+    window.addEventListener("click", onClickCapture, true);
 
     return () => {
       window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerdown", onDown);
+      window.removeEventListener("pointerup", endDrag);
+      window.removeEventListener("pointercancel", endDrag);
+      window.removeEventListener("click", onClickCapture, true);
     };
   }, [prefersReducedMotion]);
 
@@ -66,19 +139,42 @@ export function useGlobeRotation() {
     const animate = () => {
       wobble += 0.012;
 
-      const targetX =
-        IDLE_X -
-        pointer.current.y * 12 +
-        Math.sin(wobble) * 1.4;
+      if (drag.current.active) {
+        rerender((v) => (v + 1) % 100000);
+        frame.current = requestAnimationFrame(animate);
+        return;
+      }
 
-      velocity.current.y +=
-        (IDLE_SPEED + pointer.current.x * 0.05 - velocity.current.y) *
-        0.05;
+      const hasMomentum =
+        Math.abs(drag.current.momentumX) > MOMENTUM_STOP_THRESHOLD ||
+        Math.abs(drag.current.momentumY) > MOMENTUM_STOP_THRESHOLD;
 
-      rotation.current.y += velocity.current.y;
+      if (hasMomentum) {
+        rotation.current.x += drag.current.momentumX;
+        rotation.current.y += drag.current.momentumY;
 
-      rotation.current.x +=
-        (targetX - rotation.current.x) * FOLLOW;
+        drag.current.momentumX *= MOMENTUM_FRICTION;
+        drag.current.momentumY *= MOMENTUM_FRICTION;
+
+        velocity.current.y = drag.current.momentumY;
+      } else {
+        drag.current.momentumX = 0;
+        drag.current.momentumY = 0;
+
+        const targetX =
+          IDLE_X -
+          pointer.current.y * 12 +
+          Math.sin(wobble) * 1.4;
+
+        velocity.current.y +=
+          (IDLE_SPEED + pointer.current.x * 0.05 - velocity.current.y) *
+          IDLE_RESUME_BLEND;
+
+        rotation.current.y += velocity.current.y;
+
+        rotation.current.x +=
+          (targetX - rotation.current.x) * FOLLOW;
+      }
 
       rerender((v) => (v + 1) % 100000);
 
