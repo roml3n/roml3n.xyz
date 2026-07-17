@@ -4,6 +4,8 @@ import Image from "next/image";
 //sections
 import Button from "@/app/components/Button";
 import MoreProjectsSection from "@/app/(pages)/work/MoreProjectsSection";
+import CaseIntroSection from "@/app/(pages)/work/CaseIntroSection";
+import { IconBrandFigma } from "@tabler/icons-react";
 
 const BigStore = () => {
   return (
@@ -44,16 +46,57 @@ const BigStore = () => {
       </div>
 
       {/* Intro  */}
+      <CaseIntroSection
+        intro={`Shoppers were dropping off before completing purchases because key information was hidden, forms were confusing, and payment options were limited. Bigstore's digital experience was losing customers, and the team needed a redesign that actually made buying easy and enjoyable.
 
-      <h5 className="h5 col-span-4 md:col-span-6 lg:col-span-8 md:col-start-2 lg:col-start-3">
-        Shoppers were dropping off before completing purchases because key
-        information was hidden, forms were confusing, and payment options were
-        limited. Bigstore’s digital experience was losing customers, and the
-        team needed a redesign that actually made buying easy and enjoyable. I
-        took on the challenge to rethink the platform from the ground up,
-        balancing usability with a fresh, modern look that could drive
-        engagement and sales.
-      </h5>
+I took on the challenge to rethink the platform from the ground up, balancing usability with a fresh, modern look that could drive engagement and sales.`}
+        role={["Product Designer (solo)"]}
+        timeline={["Jul 2023"]}
+        type={["Web", "E-commerce", "B2C"]}
+        tools={[{ label: "Figma", icon: IconBrandFigma }]}
+        problem={{
+          title: "Problems",
+          description: (
+            <>
+              Shoppers were{" "}
+              <strong className="font-semibold">
+                dropping off before completing purchases
+              </strong>{" "}
+              &mdash; product details and reviews were hard to find, checkout
+              forms were confusing, and payment options and order tracking
+              were limited.
+            </>
+          ),
+        }}
+        solution={{
+          title: "Solution",
+          description: (
+            <>
+              I redesigned{" "}
+              <strong className="font-semibold">
+                product details, reviews, checkout, and order tracking
+              </strong>{" "}
+              with clear descriptions, verified reviews, streamlined forms
+              with upfront pricing, and{" "}
+              <strong className="font-semibold">real-time tracking</strong>{" "}
+              to remove friction at every step.
+            </>
+          ),
+        }}
+        results={{
+          title: "Results",
+          description: (
+            <>
+              Delivered a{" "}
+              <strong className="font-semibold">
+                redesigned end-to-end shopping experience
+              </strong>{" "}
+              that removed the friction causing drop-off, giving Bigstore a
+              smoother, more trustworthy path from browsing to checkout.
+            </>
+          ),
+        }}
+      />
 
       {/* Interviews  */}
       <div className="flex flex-col col-span-4 md:col-span-6 lg:col-span-8 md:col-start-2 lg:col-start-3">

@@ -5,7 +5,9 @@ import CaseImageCarousel from "@/app/components/CaseImageCarousel";
 
 //sections
 import CaseSection from "@/app/(pages)/work/caseSection";
+import CaseIntroSection from "@/app/(pages)/work/CaseIntroSection";
 import MoreProjectsSection from "@/app/(pages)/work/MoreProjectsSection";
+import { IconBrandFigma } from "@tabler/icons-react";
 
 const WayaBusiness = () => {
   return (
@@ -34,26 +36,57 @@ const WayaBusiness = () => {
       </div>
 
       {/* Intro  */}
-      <div className="flex flex-col gap-6 col-span-4 md:col-span-6 lg:col-span-8 md:col-start-2 lg:col-start-3">
-        <div className="flex flex-col gap-1 w-full">
-          <h3 className="h3 opacity-60">Overview</h3>
-          <h5 className="h5 ">
-            Waya, a US-based neobank primarily focused on providing financial
-            inclusion to new Americans and immigrants, faced a challenge where a
-            growing number of immigrant-owned businesses needed their financial
-            needs met, especially with the increasing documentation hell that is
-            business bank account creation.
-          </h5>
-        </div>
-        <div className="flex flex-col gap-1 w-full">
-          <h3 className="h3 opacity-60">Challenge</h3>
-          <h5 className="h5">
-            I was brought in to lead the design of the end-to-end
-            experience—from account creation and setup, to ordering a virtual or
-            physical debit card, to (eventually) making the first deposit.
-          </h5>
-        </div>
-      </div>
+      <CaseIntroSection
+        intro={`Waya, a US-based neobank focused on financial inclusion for new Americans and immigrants, was seeing a growing number of immigrant-owned businesses need their financial needs met — especially with the increasing documentation hell that is business bank account creation.
+
+I was brought in to lead the design of the end-to-end experience: from account creation and setup, to ordering a virtual or physical debit card, to making the first deposit.`}
+        role={["Product Designer (solo)"]}
+        timeline={["Jul 2023"]}
+        type={["Mobile App", "Fintech", "B2B"]}
+        tools={[{ label: "Figma", icon: IconBrandFigma }]}
+        problem={{
+          title: "Problems",
+          description: (
+            <>
+              Immigrant-owned businesses faced{" "}
+              <strong className="font-semibold">
+                documentation hell just to open a business account
+              </strong>
+              , with no clear path from account creation to ordering a card to
+              making a first deposit.
+            </>
+          ),
+        }}
+        solution={{
+          title: "Solution",
+          description: (
+            <>
+              I designed the{" "}
+              <strong className="font-semibold">
+                end-to-end account experience
+              </strong>{" "}
+              — onboarding, virtual and physical Mastercard&trade; debit
+              cards, team member card assignment with spending limits, and
+              deposits and transfers, all built around keeping the process{" "}
+              <strong className="font-semibold">frictionless</strong>.
+            </>
+          ),
+        }}
+        results={{
+          title: "Results",
+          description: (
+            <>
+              Shipped a{" "}
+              <strong className="font-semibold">
+                complete business banking experience
+              </strong>{" "}
+              — account setup, cards, team management, and transfers — giving
+              Waya a product ready to onboard immigrant-owned businesses at
+              scale.
+            </>
+          ),
+        }}
+      />
 
       <div className="flex flex-col gap-12 w-full col-span-4 md:col-span-8 lg:col-span-12">
         <CaseImageCarousel

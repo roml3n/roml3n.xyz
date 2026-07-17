@@ -1,8 +1,10 @@
 import CaseSection from "@/app/(pages)/work/caseSection";
+import CaseIntroSection from "@/app/(pages)/work/CaseIntroSection";
 import TuchezeCard from "@/app/(pages)/work/tucheze/TuchezeCard";
 import Image from "next/image";
 import Button from "@/app/components/Button";
 import MoreProjectsSection from "@/app/(pages)/work/MoreProjectsSection";
+import { IconBrandFigma } from "@tabler/icons-react";
 
 const Tucheze = () => {
   return (
@@ -32,23 +34,59 @@ const Tucheze = () => {
       </div>
 
       {/* Intro  */}
-      <div className="flex flex-col gap-4 col-span-2">
-        
-      </div>
+      <CaseIntroSection
+        intro={`Tucheze is an online sports and casino betting platform, and the existing interface wasn't matching the adrenaline of live games. Users wanted the immediacy and energy of a stadium, but the interface felt flat and static.
 
-      <h5 className="h5 col-span-4 md:col-span-6 lg:col-span-8 md:col-start-2 lg:col-start-3">
-        Tucheze is an online sports and casino betting platform, and the
-        existing interface wasn’t matching the adrenaline of live games. Users
-        wanted the immediacy and energy of a stadium, but the interface felt
-        flat and static.
-        <br />
-        <br />
-        My role was to translate that excitement into visuals, making each
-        interaction feel like game day. The challenge was balancing thrill with
-        usability: users needed to move seamlessly between live games, dynamic
-        bets, and real-time scores without getting lost in flashy chaos
-      </h5>
-
+My role was to translate that excitement into visuals, making each interaction feel like game day, while balancing thrill with usability: users needed to move seamlessly between live games, dynamic bets, and real-time scores without getting lost in flashy chaos.`}
+        role={["Product Designer (solo)"]}
+        timeline={["May 2024"]}
+        type={["Mobile App", "iGaming", "B2C"]}
+        tools={[{ label: "Figma", icon: IconBrandFigma }]}
+        problem={{
+          title: "Problems",
+          description: (
+            <>
+              The interface{" "}
+              <strong className="font-semibold">
+                felt flat and static
+              </strong>{" "}
+              against the adrenaline of live betting, and users struggled to
+              move between live games, bets, and scores without getting lost.
+            </>
+          ),
+        }}
+        solution={{
+          title: "Solution",
+          description: (
+            <>
+              I designed a{" "}
+              <strong className="font-semibold">
+                visually dynamic interface
+              </strong>{" "}
+              that captures the excitement of live games, with{" "}
+              <strong className="font-semibold">
+                frictionless navigation
+              </strong>{" "}
+              between live games, bets, and scores &mdash; balancing
+              high-energy visuals with usability.
+            </>
+          ),
+        }}
+        results={{
+          title: "Results",
+          description: (
+            <>
+              The redesign{" "}
+              <strong className="font-semibold">
+                increased user engagement
+              </strong>{" "}
+              &mdash; longer session times and higher interaction rates with
+              key features &mdash; with users praising the dynamic visuals and
+              intuitive layout.
+            </>
+          ),
+        }}
+      />
 
       <div className="flex flex-col gap-4 col-span-4 md:col-span-6 lg:col-span-8 md:col-start-2 lg:col-start-3">
       <h3 className="h3 opacity-70">Goals of the design</h3>

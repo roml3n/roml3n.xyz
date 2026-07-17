@@ -2,7 +2,9 @@ import Image from "next/image";
 import Button from "@/app/components/Button";
 import CaseImageCarousel from "@/app/components/CaseImageCarousel";
 import CaseSection from "@/app/(pages)/work/caseSection";
+import CaseIntroSection from "@/app/(pages)/work/CaseIntroSection";
 import MoreProjectsSection from "@/app/(pages)/work/MoreProjectsSection";
+import { IconBrandFigma } from "@tabler/icons-react";
 
 const BigStore = () => {
   return (
@@ -33,79 +35,72 @@ const BigStore = () => {
         
       </div>
 
-      {/* Metadata */}
-      <div className="flex justify-between w-full col-span-4 md:col-span-6 lg:col-span-8 md:col-start-2 lg:col-start-3">
-        <div className="flex flex-col gap-1">
-          <h3 className="h3 ">Role</h3>
-          <h5 className="h5 whitespace-preline">
-            Solo Designer
-            <br /> Design System
-            <br /> Documentation
-          </h5>
-        </div>
-        <div className="flex flex-col gap-1">
-          <h3 className="h3 ">Team</h3>
-          <h5 className="h5">Solo</h5>
-        </div>
-        <div className="flex flex-col gap-1">
-          <h3 className="h3 ">Timeline</h3>
-          <h5 className="h5">Aug &mdash; Nov 24 (3 months)</h5>
-        </div>
-      </div>
-
       {/* Intro */}
-      <div className="w-full flex flex-col gap-4 col-span-4 md:col-span-6 lg:col-span-8 md:col-start-2 lg:col-start-3">
-        <div className="flex flex-col">
-          <h3 className="h3 ">Overview</h3>
-          <h5 className="h5 whitespace-preline">
-            As Pawa IT expanded beyond cloud services into AI and machine
-            learning, the website no longer reflected the company&apos;s
-            direction. The messaging felt dated, navigation buried high-value
-            solutions, and the experience didn&apos;t speak to the C-level
-            decision-makers driving digital transformation.
-            <br />
-            <br />
-            The goal wasn&apos;t just a visual refresh. It was a strategic
-            repositioning, aligning the digital presence with the company&apos;s
-            evolution into an AI-first cloud partner.
-          </h5>
-        </div>
-        <div className="flex flex-col gap-1">
-          <h3 className="h3 ">Challenge</h3>
-          <h5 className="h5 whitespace-preline">
-            The existing site didn&apos;t communicate Pawa IT&apos;s shift
-            toward AI. Content was scattered, visuals felt outdated, and
-            navigation failed to guide executives toward demos, events, and core
-            solutions.
-            <br />
-            <br />
-            My challenge was to restructure the site architecture, modernize the
-            brand system, and create a digital experience that positioned Pawa
-            IT as a forward-looking AI and cloud partner, while increasing
-            engagement across demos and events.
-          </h5>
-        </div>
-        <div className="flex flex-col gap-1 ">
-          <h3 className="h3 ">Impact</h3>
-          <div className="ul list-disc list-inside">
-            <li className="h5 whitespace-preline">
-              +28% weekly visits within two months
-            </li>
-            <li className="h5 whitespace-preline">
-              4 AI-focused events generated, alongside increased demo requests
-              and AI project inquiries
-            </li>
-            <li className="h5 whitespace-preline">
-              Positive enterprise and stakeholder feedback on clarity and
-              professionalism
-            </li>
-            <li className="h5 whitespace-preline">
-              Improved product discoverability through a redesigned mega menu
-              and modular bento grid system
-            </li>
-          </div>
-        </div>
-      </div>
+      <CaseIntroSection
+        intro={`I used the Pawa IT website for years as it evolved. As the company expanded beyond cloud services into AI and machine learning, the site no longer reflected that direction — messaging felt dated, navigation buried high-value solutions, and the experience didn't speak to the C-level decision-makers driving digital transformation.
+
+On paper, the company had shifted decisively toward AI. On the website, that shift was nowhere to be found: content was scattered, visuals felt outdated, and navigation failed to guide executives toward demos, events, and core solutions.
+
+The site had fallen behind the business it was meant to represent.
+
+I redesigned the site so the digital experience matched the company's direction. I restructured the information architecture, modernized the brand system, and rebuilt the navigation and content model so it actively guided executives toward demos, events, and core solutions.`}
+        role={["Product Designer (solo)", "UX Research (solo)"]}
+        timeline={["Aug – Nov 2024", "3 months"]}
+        type={["Web", "B2B", "Marketing Site"]}
+        tools={[{ label: "Figma", icon: IconBrandFigma }]}
+        problem={{
+          title: "Problems",
+          description: (
+            <>
+              The website{" "}
+              <strong className="font-semibold">
+                hadn&apos;t kept pace with the company&apos;s shift toward AI
+              </strong>
+              . Content was scattered, visuals felt outdated, and navigation
+              failed to guide executives toward demos, events, and core
+              solutions.
+            </>
+          ),
+        }}
+        solution={{
+          title: "Solution",
+          description: (
+            <>
+              I{" "}
+              <strong className="font-semibold">
+                restructured the site around three clear pillars
+              </strong>{" "}
+              &mdash; Products, Solutions, and Resources &mdash; and paired
+              that with a{" "}
+              <strong className="font-semibold">
+                scalable mega menu, a modular bento grid system, and a
+                refreshed brand identity
+              </strong>{" "}
+              to reposition Pawa IT as an AI-first cloud partner.
+            </>
+          ),
+        }}
+        results={{
+          title: "Results",
+          description: (
+            <>
+              Weekly visits grew{" "}
+              <strong className="font-semibold">
+                +28% within two months
+              </strong>
+              . The relaunch generated{" "}
+              <strong className="font-semibold">
+                4 AI-focused events
+              </strong>{" "}
+              and increased demo requests, with clearer navigation{" "}
+              <strong className="font-semibold">
+                improving product discoverability
+              </strong>{" "}
+              across the site.
+            </>
+          ),
+        }}
+      />
 
       <CaseSection
         title="My role"

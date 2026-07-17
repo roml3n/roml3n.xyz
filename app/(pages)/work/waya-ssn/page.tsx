@@ -5,6 +5,8 @@ import MoreProjectsSection from "@/app/(pages)/work/MoreProjectsSection";
 import Button from "@/app/components/Button";
 import CaseImageCarousel from "@/app/components/CaseImageCarousel";
 import CaseSection from "../caseSection";
+import CaseIntroSection from "../CaseIntroSection";
+import { IconBrandFigma } from "@tabler/icons-react";
 
 const WayaSSN = () => {
   return (
@@ -47,55 +49,61 @@ const WayaSSN = () => {
        
       </div>
 
-      {/* Metadata */}
-        
-      <div className="flex justify-between w-full col-span-4 md:col-span-6 lg:col-span-8 md:col-start-2 lg:col-start-3">
-        <div className="flex flex-col gap-1">
-          <h3 className="h3 ">Role</h3>
-          <h5 className="h5 whitespace-preline">
-            Solo Designer
-            <br /> Design System
-            <br /> Documentation
-          </h5>
-        </div>
-        <div className="flex flex-col gap-1">
-          <h3 className="h3 ">Team</h3>
-          <h5 className="h5">Solo</h5>
-        </div>
-      </div>
-
       {/* Intro  */}
-      <div className="flex flex-col gap-6 col-span-4 md:col-span-6 lg:col-span-8 md:col-start-2 lg:col-start-3">
-        <div className="flex flex-col gap-1 w-full">
-          <h3 className="h3 opacity-60">Overview</h3>
-          <h5 className="h5 ">
-            In Q1 2024, during a design sprint at Waya, I worked on a feature
-            aimed at one clear goal: helping new Americans and immigrants access
-            financial services without a Social Security Number. <br /> <br />
-            For many, arriving in the U.S. means starting over. No credit
-            history, established records, and often, no SSN. Traditional banks
-            treat that as a hard stop. We saw it as a design problem worth
-            solving.
-          </h5>
-        </div>
-        <div className="flex flex-col gap-1 w-full">
-          <h3 className="h3 opacity-60">Challenge</h3>
-          <h5 className="h5">
-            New Americans and immigrants face a frustrating barrier: most banks
-            require an SSN to open an account. Without it, people are locked out
-            of saving, investing, or even receiving payments securely.
-            <br />
-            <br />
-            The result? Many rely on expensive alternatives with high fees and
-            limited functionality. Financial exclusion becomes the default, not
-            the exception.
-            <br />
-            <br />
-            Our challenge was to rethink onboarding in a way that maintained
-            compliance and security, while expanding access.
-          </h5>
-        </div>
-      </div>
+      <CaseIntroSection
+        intro={`In Q1 2024, during a design sprint at Waya, I worked on a feature aimed at one clear goal: helping new Americans and immigrants access financial services without a Social Security Number.
+
+For many, arriving in the U.S. means starting over — no credit history, no established records, and often, no SSN. Traditional banks treat that as a hard stop. We saw it as a design problem worth solving, and our challenge was to rethink onboarding in a way that maintained compliance and security while expanding access.`}
+        role={["Product Designer (solo)", "Design System", "Documentation"]}
+        timeline={["Q1 2024", "Design sprint"]}
+        type={["Mobile App", "Fintech", "B2C"]}
+        tools={[{ label: "Figma", icon: IconBrandFigma }]}
+        problem={{
+          title: "Problems",
+          description: (
+            <>
+              Most banks{" "}
+              <strong className="font-semibold">require an SSN</strong> to
+              open an account, locking new Americans and immigrants out of
+              saving, investing, or receiving payments securely &mdash;
+              pushing them toward expensive, limited alternatives.
+            </>
+          ),
+        }}
+        solution={{
+          title: "Solution",
+          description: (
+            <>
+              I designed a{" "}
+              <strong className="font-semibold">
+                flexible onboarding flow
+              </strong>{" "}
+              that accepts alternative forms of ID, backed by{" "}
+              <strong className="font-semibold">
+                robust encryption and clear security messaging
+              </strong>{" "}
+              to build trust from the first interaction.
+            </>
+          ),
+        }}
+        results={{
+          title: "Results",
+          description: (
+            <>
+              Incorporated regulatory requirements, including the W-8BEN
+              form, into the flow{" "}
+              <strong className="font-semibold">
+                without making it feel intimidating
+              </strong>
+              , balancing compliance with accessibility and{" "}
+              <strong className="font-semibold">
+                expanding who could realistically open an account
+              </strong>
+              .
+            </>
+          ),
+        }}
+      />
 
       {/* Interview  */}
 
