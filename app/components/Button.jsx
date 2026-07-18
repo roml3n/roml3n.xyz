@@ -12,11 +12,11 @@ const Button = ({
 
   const variantStyles = {
     primary:
-      "pl-6 pr-3 py-3 bg-mainblue hover:bg-[#0A65A6] !text-fullwhite gap-4 justify-between ",
+      "pl-4 pr-1.5 py-1.5 sm:pl-6 sm:pr-3 sm:py-3 bg-mainblue hover:bg-[#0A65A6] !text-fullwhite gap-2 sm:gap-4 justify-between ",
     secondary:
-      "pl-6 pr-3 py-3 bg-white hover:bg-almostwhite border border-solid border-midgrey !text-fullgrey gap-4 justify-between",
+      "pl-4 pr-1.5 py-1.5 sm:pl-6 sm:pr-3 sm:py-3 bg-white hover:bg-almostwhite border border-solid border-midgrey !text-fullgrey gap-2 sm:gap-4 justify-between",
     ghost:
-      "gap-1 justify-end sm:justify-start py-2 px-4 box-border border border-solid border-midgrey !bg-fullwhite",
+      "gap-1 justify-end sm:justify-start py-1.5 px-3 sm:py-2 sm:px-4 box-border border border-solid border-midgrey !bg-fullwhite",
   };
 
   const circleStyles = {
@@ -39,16 +39,21 @@ const Button = ({
       className={`${baseLinkClasses} ${variantStyles[variant] || variantStyles.ghost} ${className}`}
     >
       {isGhost ? (
-        <p className="h4">{label}</p>
+        <p className="h4 !text-sm sm:!text-base md:!text-lg lg:!text-xl">
+          {label}
+        </p>
       ) : (
         <>
-          <p className={`h4 ${labelStyles[variant] || ""}`}>{label}</p>
+          <p
+            className={`h4 !text-sm sm:!text-base md:!text-lg lg:!text-xl ${labelStyles[variant] || ""}`}
+          >
+            {label}
+          </p>
           <span
-            className={`flex items-center justify-center p-3 rounded-full ${circleStyles[variant]}`}
+            className={`flex items-center justify-center p-2 sm:p-3 rounded-full ${circleStyles[variant]}`}
           >
             <svg
-              width="16"
-              height="16"
+              className="w-3 h-3 sm:w-4 sm:h-4"
               viewBox="0 0 10 10"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"

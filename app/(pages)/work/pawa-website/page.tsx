@@ -4,6 +4,7 @@ import CaseImageCarousel from "@/app/components/CaseImageCarousel";
 import CaseSection from "@/app/(pages)/work/caseSection";
 import CaseIntroSection from "@/app/(pages)/work/CaseIntroSection";
 import MoreProjectsSection from "@/app/(pages)/work/MoreProjectsSection";
+import InformationArchitecture from "@/app/(pages)/work/pawa-website/InformationArchitecture";
 import { IconBrandFigma } from "@tabler/icons-react";
 
 const BigStore = () => {
@@ -165,33 +166,15 @@ This reduced cognitive load and surfaced demos and events more prominently. \n
 I then designed a scalable mega menu that exposed key offerings and CTAs at a glance, and introduced a modular bento grid system that marketing could reuse for campaigns and landing pages. The goal was clarity at scale.`}
       >
         <div className="mt-4 flex flex-col gap-2 w-full">
-          <Image
-            src="/images/work/pawa-website/sitemap-before.webp"
-            alt=""
-            width={1920}
-            height={1080}
-            className="w-full h-auto"
-          />
+          <InformationArchitecture />
           <p className="h5 text-center italic opacity-70">
-            Sitemap before the redesign
-          </p>
-        </div>
-        <div className="mt-4 flex flex-col gap-2 w-full">
-          <Image
-            src="/images/work/pawa-website/sitemap-after.webp"
-            alt=""
-            width={1920}
-            height={1080}
-            className="w-full h-auto"
-          />
-          <p className="h5 text-center italic opacity-70">
-            Proposed sitemap for redesign.
+            Sitemap before and after the redesign.
             <br />
             Products, Solutions and the newer Resources are now structured into
             their respective groups, making them easy to find and reference
           </p>
         </div>
-        
+
         <div className="mt-4 flex flex-col gap-2 w-full">
           <Image
             src="/images/work/pawa-website/mega-menu-interaction.webp"
