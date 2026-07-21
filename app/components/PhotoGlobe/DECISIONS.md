@@ -1,5 +1,33 @@
 # Decisions
 
+## 2026-07-21
+
+`useGlobeRotation` takes a `paused` argument; its RAF loop keeps ticking but
+skips rotation math and the `rerender()` call entirely while paused, and
+`PhotoGlobe.tsx` passes `selectedPhoto !== null` (true for the whole open +
+closing lifetime of the overlay).
+
+Reason:
+The idle/drag loop forced a re-render of `PhotoGlobe` — and all ~124
+`GlobeCard` children — on every animation frame regardless of whether the
+overlay was open. That constant main-thread reconciliation work was
+competing with the FLIP overlay's transform/blur animation and was the
+actual source of the reported choppiness, since the globe is fully hidden
+behind the overlay backdrop anyway during that time. Leaving the RAF
+scheduling itself running (rather than tearing the effect down) keeps
+rotation resuming exactly where it left off with no restart seam.
+
+---
+
+`PhotoGlobeOverlay`'s backdrop blur/opacity transition and the FLIP
+transform transition both moved from 0.45s to 0.5s duration, and the
+backdrop layer now sets `willChange: "backdrop-filter, opacity"`.
+
+Reason:
+Requested duration increase, plus giving the browser an explicit
+compositing hint for the backdrop-filter animation reduces its per-frame
+cost now that it's no longer competing with the globe's render storm.
+
 ## 2026-07-17 (5)
 
 The two pole-tier rings (`rowsFromPole <= 1`) compute their own

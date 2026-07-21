@@ -166,13 +166,14 @@ export function PhotoGlobeOverlay({
         aria-hidden="true"
         className="absolute inset-0 bg-[rgba(5,9,15,0.28)]"
         initial={false}
+        style={{ willChange: "backdrop-filter, opacity" }}
         animate={{
           backdropFilter:
             closing || !hasEntered ? "blur(0px)" : "blur(8px)",
           opacity: closing || !hasEntered ? 0 : 1,
         }}
         transition={{
-          duration: prefersReducedMotion ? 0 : 0.45,
+          duration: prefersReducedMotion ? 0 : 0.5,
           ease: EASE,
         }}
       />
@@ -187,7 +188,7 @@ export function PhotoGlobeOverlay({
         initial={false}
         animate={targetTransform}
         transition={{
-          duration: prefersReducedMotion ? 0 : 0.45,
+          duration: prefersReducedMotion ? 0 : 0.5,
           ease: EASE,
         }}
         onAnimationComplete={() => {

@@ -24,10 +24,11 @@ const IDLE_RESUME_BLEND = 0.04;
 
 const CLICK_SUPPRESS_DISTANCE = 4;
 
-export function useGlobeRotation() {
+export function useGlobeRotation(paused = false) {
   const prefersReducedMotion = useReducedMotion();
 
   const frame = useRef<number | null>(null);
+  const pausedRef = useRef(paused);
 
   const rotation = useRef<GlobeRotation>({
     x: IDLE_X,
@@ -54,6 +55,10 @@ export function useGlobeRotation() {
   });
 
   const [, rerender] = useState(0);
+
+  useEffect(() => {
+    pausedRef.current = paused;
+  }, [paused]);
 
   useEffect(() => {
     if (prefersReducedMotion) {
@@ -137,6 +142,11 @@ export function useGlobeRotation() {
     let wobble = 0;
 
     const animate = () => {
+      if (pausedRef.current) {
+        frame.current = requestAnimationFrame(animate);
+        return;
+      }
+
       wobble += 0.012;
 
       if (drag.current.active) {

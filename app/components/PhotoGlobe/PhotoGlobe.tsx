@@ -46,7 +46,7 @@ export function PhotoGlobe({
   const cardRefs = useRef(new Map<string, HTMLButtonElement>());
   const returningPhotoId = useRef<string | null>(null);
 
-  const rotation = useGlobeRotation();
+  const rotation = useGlobeRotation(selectedPhoto !== null);
 
   const layout = useMemo(() => {
     return createSphereLayout(
