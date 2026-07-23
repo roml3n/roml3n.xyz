@@ -25,7 +25,7 @@ const CONFIG = {
   dragRotXMax: 14,
   scaleFalloff: 0,
   shadowMax: 0.08,
-  tapFlickStrength: 0.35,
+  tapFlickStrength: 1.6,
 } as const;
 
 const FRONT = { rotate: CONFIG.frontRotate, x: 0, y: 0 };
