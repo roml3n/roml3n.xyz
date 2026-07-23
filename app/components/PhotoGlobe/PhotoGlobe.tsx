@@ -10,10 +10,13 @@ import {
 import { createSphereLayout } from "./sphereLayout";
 import { useGlobeRotation } from "./useGlobeRotation";
 
+import type { PhotoMeta } from "@/app/data/photos";
+
 interface Photo {
   alt?: string;
   id: string;
   imageSrc: string;
+  meta?: PhotoMeta;
 }
 
 const RADIUS = 315;
@@ -87,6 +90,7 @@ export function PhotoGlobe({
           alt: photos[index].alt ?? `Photo ${index + 1}`,
           id: photos[index].id,
           imageSrc: photos[index].imageSrc,
+          meta: photos[index].meta,
 
           x: x1,
           y: y2,
@@ -121,6 +125,30 @@ export function PhotoGlobe({
     cardRefs.current.get(returningPhotoId.current)?.focus();
     returningPhotoId.current = null;
   }, [selectedPhoto]);
+
+  const navigateSelectedPhoto = (delta: 1 | -1) => {
+    if (!selectedPhoto || selectedPhoto.closing) {
+      return;
+    }
+
+    const index = photos.findIndex(
+      (photo) => photo.id === selectedPhoto.id,
+    );
+
+    if (index === -1) {
+      return;
+    }
+
+    const next = photos[(index + delta + photos.length) % photos.length];
+
+    setSelectedPhoto({
+      ...selectedPhoto,
+      alt: next.alt,
+      id: next.id,
+      imageSrc: next.imageSrc,
+      meta: next.meta,
+    });
+  };
 
   const closeSelectedPhoto = () => {
     if (!selectedPhoto || selectedPhoto.closing) {
@@ -181,6 +209,7 @@ export function PhotoGlobe({
                 alt: photo.alt,
                 id: photo.id,
                 imageSrc: photo.imageSrc,
+                meta: photo.meta,
                 originRect: snapshotRect(card.getBoundingClientRect()),
                 originRoll: photo.roll,
                 returnRect: null,
@@ -198,6 +227,7 @@ export function PhotoGlobe({
           returnRect={selectedPhoto.returnRect}
           closing={selectedPhoto.closing}
           onClose={closeSelectedPhoto}
+          onNavigate={navigateSelectedPhoto}
           onClosed={() => {
             returningPhotoId.current = selectedPhoto.id;
             setSelectedPhoto(null);

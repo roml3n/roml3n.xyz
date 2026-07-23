@@ -1,4 +1,22 @@
-const sourcePhotos = [
+export interface PhotoMeta {
+  camera?: string;
+  focalLength?: string;
+  location?: string;
+  aperture?: string;
+  date?: string;
+  shutter?: string;
+  note?: string;
+  signature?: string;
+}
+
+interface SourcePhoto {
+  alt?: string;
+  id: string;
+  imageSrc: string;
+  meta?: PhotoMeta;
+}
+
+const sourcePhotos: readonly SourcePhoto[] = [
   { id: "photo-1", imageSrc: "/images/(photosPage)/photo_1.jpg" },
   { id: "photo-2",
     imageSrc: "/images/(photosPage)/photo_2.jpg" },
@@ -32,7 +50,7 @@ const sourcePhotos = [
     imageSrc: "/images/(photosPage)/photo_16.jpg" },
   { id: "photo-17",
     imageSrc: "/images/(photosPage)/photo_17.jpg" },
-] as const;
+];
 
 const PHOTO_REPEAT_COUNT = 8;
 
