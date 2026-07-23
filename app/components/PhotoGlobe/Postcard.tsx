@@ -2,7 +2,13 @@
 
 import Image from "next/image";
 import { Caveat } from "next/font/google";
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 
 import type { PhotoMeta } from "@/app/data/photos";
 
@@ -25,7 +31,7 @@ const CONFIG = {
   dragRotXMax: 14,
   scaleFalloff: 0,
   shadowMax: 0.08,
-  tapFlickStrength: 1.6,
+  tapFlickStrength: 2.0,
 } as const;
 
 const FRONT = { rotate: CONFIG.frontRotate, x: 0, y: 0 };
@@ -42,6 +48,23 @@ const DEFAULT_META: Required<PhotoMeta> = {
   signature: "R.",
 };
 
+const SLIDE_DURATION = 600;
+const SLIDE_MAX_BLUR = 14;
+// Blur px per px/ms of track speed — measured from actual per-frame travel.
+const SLIDE_BLUR_PER_SPEED = 3;
+// Extra distance past the viewport edge so cards start/end fully offscreen.
+const SLIDE_OVERSHOOT = 48;
+
+function easeOutQuart(t: number) {
+  return 1 - Math.pow(1 - t, 4);
+}
+
+// Slower launch than easeOutQuart but same destination — the back card
+// visibly trails the front card (parallax) yet still exits the frame.
+function easeOutCubic(t: number) {
+  return 1 - Math.pow(1 - t, 3);
+}
+
 interface SpringTarget {
   rotate: number;
   x: number;
@@ -57,7 +80,11 @@ function clamp(n: number, min: number, max: number) {
 function useSpring(
   target: SpringTarget,
   override: SpringTarget | null,
-): [SpringTarget, (deltaVel: Partial<SpringTarget>) => void] {
+): [
+  SpringTarget,
+  (deltaVel: Partial<SpringTarget>) => void,
+  (value: SpringTarget) => void,
+] {
   const [value, setValue] = useState<SpringTarget>(override ?? target);
   const current = useRef<SpringTarget>(override ?? target);
   const vel = useRef<SpringTarget>({ rotate: 0, x: 0, y: 0 });
@@ -67,6 +94,13 @@ function useSpring(
     for (const key of Object.keys(deltaVel) as (keyof SpringTarget)[]) {
       vel.current[key] += deltaVel[key] ?? 0;
     }
+  }, []);
+
+  const reset = useCallback((resetValue: SpringTarget) => {
+    cancelAnimationFrame(raf.current);
+    current.current = { ...resetValue };
+    vel.current = { rotate: 0, x: 0, y: 0 };
+    setValue({ ...resetValue });
   }, []);
 
   useEffect(() => {
@@ -119,23 +153,48 @@ function useSpring(
     target.y,
   ]);
 
-  return [value, kick];
+  return [value, kick, reset];
+}
+
+interface PostcardPhoto {
+  alt?: string;
+  id: string;
+  imageSrc: string;
+  meta?: PhotoMeta;
+}
+
+interface SlideState {
+  // Track positions of the outgoing stack's front and back layers; the
+  // incoming stack rides exactly one slot behind each layer.
+  back: number;
+  blur: number;
+  blurBack: number;
+  dir: 1 | -1;
+  from: PostcardPhoto;
+  fromFront: CardId;
+  front: number;
+  // Slot width used by this slide (center → fully offscreen), captured so
+  // interrupts stay continuous even if the viewport changed.
+  slot: number;
 }
 
 interface PostcardProps {
-  photo: {
-    alt?: string;
-    imageSrc: string;
-    meta?: PhotoMeta;
-  };
+  photo: PostcardPhoto;
+  navDirection?: 1 | -1 | null;
   open: boolean;
   scale?: number;
 }
 
-export function Postcard({ photo, open, scale = 1 }: PostcardProps) {
+export function Postcard({
+  photo,
+  navDirection = null,
+  open,
+  scale = 1,
+}: PostcardProps) {
   const meta = { ...DEFAULT_META, ...photo.meta };
 
   const [frontCard, setFrontCard] = useState<CardId>("photo");
+  const [slide, setSlide] = useState<SlideState | null>(null);
   const [drag, setDrag] = useState({
     active: false,
     card: null as CardId | null,
@@ -147,20 +206,20 @@ export function Postcard({ photo, open, scale = 1 }: PostcardProps) {
   const dragDistance = useRef(0);
   const draggedCard = useRef<CardId | null>(null);
   const suppressClick = useRef(false);
+  const prevPhotoRef = useRef(photo);
+  const frontCardRef = useRef(frontCard);
+  const slideRef = useRef<SlideState | null>(null);
+  const slideRaf = useRef(0);
+
+  useEffect(() => {
+    frontCardRef.current = frontCard;
+  }, [frontCard]);
 
   useEffect(() => {
     if (!open) {
       setFrontCard("photo");
     }
   }, [open]);
-
-  useEffect(() => {
-    setFrontCard("photo");
-  }, [photo.imageSrc]);
-
-  const swap = useCallback(() => {
-    setFrontCard((card) => (card === "photo" ? "note" : "photo"));
-  }, []);
 
   const targetFor = (card: CardId) => {
     if (!open) {
@@ -175,17 +234,135 @@ export function Postcard({ photo, open, scale = 1 }: PostcardProps) {
       ? { rotate: targetFor(card).rotate, x: drag.x, y: drag.y }
       : null;
 
-  const [photoSpring, kickPhoto] = useSpring(
+  const [photoSpring, kickPhoto, resetPhotoSpring] = useSpring(
     targetFor("photo"),
     overrideFor("photo"),
   );
-  const [noteSpring, kickNote] = useSpring(
+  const [noteSpring, kickNote, resetNoteSpring] = useSpring(
     targetFor("note"),
     overrideFor("note"),
   );
 
+  // Layout effect so the first painted frame after a photo change already
+  // has the incoming stack offscreen — a plain effect runs post-paint and
+  // flashes the new card centered for one frame.
+  useLayoutEffect(() => {
+    const prev = prevPhotoRef.current;
+    prevPhotoRef.current = photo;
+
+    if (prev.id === photo.id) {
+      return;
+    }
+
+    const interrupted = slideRef.current;
+    const fromFront = interrupted ? "photo" : frontCardRef.current;
+
+    setFrontCard("photo");
+    resetPhotoSpring(FRONT);
+    resetNoteSpring(BACK);
+    draggedCard.current = null;
+    setDrag({ active: false, card: null, x: 0, y: 0 });
+
+    if (!navDirection) {
+      return;
+    }
+
+    const dir = navDirection;
+
+    // Slot width: from center to fully past the viewport edge (in stage
+    // coordinates, hence / scale) so cards start and end offscreen.
+    const slot =
+      (window.innerWidth / scale + CARD_W) / 2 + SLIDE_OVERSHOOT;
+
+    // Continuity on interrupt: the outgoing stack starts wherever the
+    // (previously incoming) stack currently sits on the track.
+    const startFront = interrupted
+      ? interrupted.front + interrupted.dir * interrupted.slot
+      : 0;
+    const startBack = interrupted
+      ? interrupted.back + interrupted.dir * interrupted.slot
+      : 0;
+    const targetX = -dir * slot;
+
+    cancelAnimationFrame(slideRaf.current);
+
+    const start = performance.now();
+    let lastFront = startFront;
+    let lastBack = startBack;
+    let lastT = start;
+
+    const commit = (state: SlideState | null) => {
+      slideRef.current = state;
+      setSlide(state);
+    };
+
+    commit({
+      back: startBack,
+      blur: 0,
+      blurBack: 0,
+      dir,
+      from: prev,
+      fromFront,
+      front: startFront,
+      slot,
+    });
+
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / SLIDE_DURATION);
+
+      if (t >= 1) {
+        commit(null);
+        return;
+      }
+
+      const front =
+        startFront + (targetX - startFront) * easeOutQuart(t);
+      const back = startBack + (targetX - startBack) * easeOutCubic(t);
+      const dt = Math.max(1, now - lastT);
+      const blur = Math.min(
+        SLIDE_MAX_BLUR,
+        (Math.abs(front - lastFront) / dt) * SLIDE_BLUR_PER_SPEED,
+      );
+      const blurBack = Math.min(
+        SLIDE_MAX_BLUR,
+        (Math.abs(back - lastBack) / dt) * SLIDE_BLUR_PER_SPEED,
+      );
+
+      lastFront = front;
+      lastBack = back;
+      lastT = now;
+
+      commit({
+        back,
+        blur,
+        blurBack,
+        dir,
+        from: prev,
+        fromFront,
+        front,
+        slot,
+      });
+      slideRaf.current = requestAnimationFrame(tick);
+    };
+
+    slideRaf.current = requestAnimationFrame(tick);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [photo.id]);
+
+  useEffect(() => {
+    return () => cancelAnimationFrame(slideRaf.current);
+  }, []);
+
+  const swap = useCallback(() => {
+    setFrontCard((card) => (card === "photo" ? "note" : "photo"));
+  }, []);
+
   const makeHandlers = (card: CardId) => ({
     onPointerDown: (event: React.PointerEvent<HTMLDivElement>) => {
+      if (slide) {
+        return;
+      }
+
       event.currentTarget.setPointerCapture(event.pointerId);
       dragStart.current = {
         t: performance.now(),
@@ -232,6 +409,10 @@ export function Postcard({ photo, open, scale = 1 }: PostcardProps) {
     onClick: () => {
       if (suppressClick.current) {
         suppressClick.current = false;
+        return;
+      }
+
+      if (slide) {
         return;
       }
 
@@ -283,15 +464,25 @@ export function Postcard({ photo, open, scale = 1 }: PostcardProps) {
     return frontCard === card ? 2 : 1;
   };
 
+  // Two rigid tracks (front layer, back layer): the incoming stack rides
+  // exactly one slot behind the outgoing stack on each, so each pair glides
+  // in lockstep — the incoming card "pushes" the outgoing one out. The back
+  // track's slower easing is the parallax.
+  const slideNewX = slide ? slide.front + slide.dir * slide.slot : 0;
+  const slideNewBackX = slide ? slide.back + slide.dir * slide.slot : 0;
+
   const cardShellStyle = (
     card: CardId,
     spring: SpringTarget,
     tilt: ReturnType<typeof tiltFor>,
+    offsetX = 0,
+    blur = 0,
   ): React.CSSProperties => ({
     boxShadow: "3.6px 10.8px 36px rgba(0,0,0,0.08)",
     cursor: drag.active && drag.card === card ? "grabbing" : "grab",
+    filter: blur > 0.2 ? `blur(${blur}px)` : undefined,
     touchAction: "none",
-    transform: `translate(${spring.x}px, ${spring.y}px) rotate(${spring.rotate}deg) rotateY(${tilt.rotY}deg) rotateX(${tilt.rotX}deg) scale(${tilt.scale})`,
+    transform: `translate(${spring.x + offsetX}px, ${spring.y}px) rotate(${spring.rotate}deg) rotateY(${tilt.rotY}deg) rotateX(${tilt.rotX}deg) scale(${tilt.scale})`,
     zIndex: zIndexFor(card),
   });
 
@@ -308,11 +499,19 @@ export function Postcard({ photo, open, scale = 1 }: PostcardProps) {
         className="relative"
         style={{ height: CARD_H, perspective: 1400, width: CARD_W }}
       >
+        {slide ? <OutgoingStack slide={slide} /> : null}
+
         <div
           {...makeHandlers("note")}
           className="absolute inset-0 select-none overflow-hidden rounded-[2px] bg-lightgrey transition-opacity duration-300"
           style={{
-            ...cardShellStyle("note", noteSpring, noteTilt),
+            ...cardShellStyle(
+              "note",
+              noteSpring,
+              noteTilt,
+              slideNewBackX,
+              slide ? slide.blurBack : 0,
+            ),
             opacity: open ? 1 : 0,
           }}
         >
@@ -326,12 +525,63 @@ export function Postcard({ photo, open, scale = 1 }: PostcardProps) {
         <div
           {...makeHandlers("photo")}
           className="absolute inset-0 select-none overflow-hidden rounded-[2px] bg-fullwhite"
-          style={cardShellStyle("photo", photoSpring, photoTilt)}
+          style={cardShellStyle(
+            "photo",
+            photoSpring,
+            photoTilt,
+            slideNewX,
+            slide ? slide.blur : 0,
+          )}
         >
           <PhotoFace photo={photo} meta={meta} shadow={photoTilt.shadow} />
         </div>
       </div>
     </div>
+  );
+}
+
+function OutgoingStack({ slide }: { slide: SlideState }) {
+  const meta = { ...DEFAULT_META, ...slide.from.meta };
+  const photoInFront = slide.fromFront === "photo";
+
+  const positionStyle = (
+    pos: SpringTarget,
+    offsetX: number,
+    blur: number,
+    zIndex: number,
+  ): React.CSSProperties => ({
+    boxShadow: "3.6px 10.8px 36px rgba(0,0,0,0.08)",
+    filter: blur > 0.2 ? `blur(${blur}px)` : undefined,
+    pointerEvents: "none",
+    transform: `translate(${pos.x + offsetX}px, ${pos.y}px) rotate(${pos.rotate}deg)`,
+    zIndex,
+  });
+
+  return (
+    <>
+      <div
+        className="absolute inset-0 select-none overflow-hidden rounded-[2px] bg-lightgrey"
+        style={positionStyle(
+          photoInFront ? BACK : FRONT,
+          photoInFront ? slide.back : slide.front,
+          photoInFront ? slide.blurBack : slide.blur,
+          photoInFront ? 1 : 2,
+        )}
+      >
+        <NoteFace note={meta.note} signature={meta.signature} shadow={0} />
+      </div>
+      <div
+        className="absolute inset-0 select-none overflow-hidden rounded-[2px] bg-fullwhite"
+        style={positionStyle(
+          photoInFront ? FRONT : BACK,
+          photoInFront ? slide.front : slide.back,
+          photoInFront ? slide.blur : slide.blurBack,
+          photoInFront ? 2 : 1,
+        )}
+      >
+        <PhotoFace photo={slide.from} meta={meta} shadow={0} />
+      </div>
+    </>
   );
 }
 

@@ -27,12 +27,31 @@ interface PhotoGlobeOverlayProps {
   originRoll: number;
   returnRect: RectSnapshot | null;
   closing: boolean;
+  navDirection: 1 | -1 | null;
   onClose: () => void;
   onClosed: () => void;
   onNavigate: (delta: 1 | -1) => void;
 }
 
 const EASE = [0.16, 1, 0.3, 1] as const;
+
+function NavArrow({ direction }: { direction: "left" | "right" }) {
+  return (
+    <svg
+      viewBox="0 0 9.67 7.81"
+      width="19"
+      height="16"
+      xmlns="http://www.w3.org/2000/svg"
+      className="shrink-0"
+    >
+      {direction === "left" ? (
+        <path d="M4.438 7.028C4.438 7.028 3.612 7.812 3.612 7.812C3.612 7.812 0.000 3.906 0.000 3.906C0.000 3.906 3.612 0.000 3.612 0.000C3.612 0.000 4.438 0.770 4.438 0.770C4.438 0.770 2.044 3.332 2.044 3.332C2.044 3.332 9.674 3.332 9.674 3.332C9.674 3.332 9.674 4.466 9.674 4.466C9.674 4.466 2.044 4.466 2.044 4.466C2.044 4.466 4.438 7.028 4.438 7.028Z" fill="#FFFFFF" />
+      ) : (
+        <path d="M9.674 3.906C9.674 3.906 6.048 7.812 6.048 7.812C6.048 7.812 5.222 7.028 5.222 7.028C5.222 7.028 7.630 4.466 7.630 4.466C7.630 4.466 0.000 4.466 0.000 4.466C0.000 4.466 0.000 3.332 0.000 3.332C0.000 3.332 7.630 3.332 7.630 3.332C7.630 3.332 5.222 0.770 5.222 0.770C5.222 0.770 6.048 0.000 6.048 0.000C6.048 0.000 9.674 3.906 9.674 3.906Z" fill="#FFFFFF" />
+      )}
+    </svg>
+  );
+}
 
 function ArrowKeycap({ direction }: { direction: "left" | "right" }) {
   return (
@@ -90,6 +109,7 @@ export function PhotoGlobeOverlay({
   originRoll,
   returnRect,
   closing,
+  navDirection,
   onClose,
   onClosed,
   onNavigate,
@@ -243,10 +263,33 @@ export function PhotoGlobeOverlay({
       >
         <Postcard
           photo={photo}
+          navDirection={navDirection}
           open={hasEntered && !closing}
           scale={centerRect.width / CARD_W}
         />
       </motion.div>
+
+      {(["left", "right"] as const).map((side) => (
+        <motion.button
+          key={side}
+          type="button"
+          aria-label={side === "left" ? "Previous photo" : "Next photo"}
+          className="fixed top-1/2 z-20 hidden size-11 -translate-y-1/2 items-center justify-center rounded-full text-white transition-colors hover:bg-white/10 md:flex"
+          style={side === "left" ? { left: 16 } : { right: 16 }}
+          initial={false}
+          animate={{ opacity: closing || !hasEntered ? 0 : 1 }}
+          transition={{
+            duration: prefersReducedMotion ? 0 : 0.5,
+            ease: EASE,
+          }}
+          onClick={(event) => {
+            event.stopPropagation();
+            onNavigate(side === "left" ? -1 : 1);
+          }}
+        >
+          <NavArrow direction={side} />
+        </motion.button>
+      ))}
 
       <motion.div
         aria-hidden="true"

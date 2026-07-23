@@ -1,6 +1,50 @@
 # Decisions
 
-## 2026-07-21
+## 2026-07-23
+
+Photo cycling (overlay arrows + arrow keys) reuses the paused globe's RAF
+loop for the "focus nudge": `useGlobeRotation` takes an optional
+`focus: GlobeRotation | null` and, while paused, eases rotation toward it
+(shortest-path on Y, factor 0.08) instead of staying frozen. The target is
+the selected photo's layout `latitude`/`longitude` converted to degrees —
+rotating Y to the point's longitude and X to its latitude centers that
+card front-of-globe, so the close animation returns the card to a
+center-front slot.
+
+Reason:
+The loop already ticks while paused (per the 2026-07-21 decision), so the
+nudge needs no second RAF or unpause; rerenders only happen while the
+delta is above threshold, preserving the render-storm fix.
+
+---
+
+The postcard slide transition is a self-contained RAF in `Postcard` (600ms)
+modeled as two rigid carousel tracks — one for front-layer cards
+(easeOutQuart) and one for back-layer cards (easeOutCubic, same
+destination). On each track the incoming stack rides exactly one slot
+behind the outgoing stack, so each pair glides in lockstep and the
+incoming card reads as pushing the outgoing one out (the "repelling
+magnets" brief). The slot width is computed per slide from the live
+viewport — (innerWidth / stage scale + CARD_W) / 2 + 48 — so cards start
+and end fully offscreen rather than stopping at a fixed 1.2 x CARD_W
+offset that left them visible when they unmounted. The slide starts in a
+`useLayoutEffect` (pre-paint); interrupts continue from the in-flight
+stack's current track position (the slide's own `slot` is stored in state
+for this); both swap springs hard-reset on photo change. Blur is uniform
+CSS `blur()` from measured per-frame track speed, capped 14px.
+
+Reason:
+Jitter sources removed one by one: a plain `useEffect` started the slide
+post-paint (one-frame centered flash of the new card); swap springs kept
+settling underneath the slide; mid-slide navigation restarted from
+scratch; and the fixed slot width made the outgoing card decelerate to a
+stop while still on screen, then vanish on unmount. Parallax via a slower
+easing on the back track (instead of a 0.55x travel fraction) keeps the
+back card trailing visibly while still exiting the frame — a travel
+fraction can never leave the viewport if the front's travel just reaches
+it. Ease-out matches swipe/scroll physics. Uniform blur over an SVG
+horizontal filter is for compositing cost and Safari reliability.
+
 
 `useGlobeRotation` takes a `paused` argument; its RAF loop keeps ticking but
 skips rotation math and the `rerender()` call entirely while paused, and

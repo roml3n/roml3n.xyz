@@ -8,7 +8,7 @@ import {
   type RectSnapshot,
 } from "./PhotoGlobeOverlay";
 import { createSphereLayout } from "./sphereLayout";
-import { useGlobeRotation } from "./useGlobeRotation";
+import { useGlobeRotation, type GlobeRotation } from "./useGlobeRotation";
 
 import type { PhotoMeta } from "@/app/data/photos";
 
@@ -25,6 +25,7 @@ const RAD_TO_DEG = 180 / Math.PI;
 
 interface SelectedPhoto extends Photo {
   closing: boolean;
+  navDirection: 1 | -1 | null;
   originRect: RectSnapshot;
   originRoll: number;
   returnRect: RectSnapshot | null;
@@ -46,10 +47,12 @@ export function PhotoGlobe({
 }) {
   const [selectedPhoto, setSelectedPhoto] =
     useState<SelectedPhoto | null>(null);
+  const [focusRotation, setFocusRotation] =
+    useState<GlobeRotation | null>(null);
   const cardRefs = useRef(new Map<string, HTMLButtonElement>());
   const returningPhotoId = useRef<string | null>(null);
 
-  const rotation = useGlobeRotation(selectedPhoto !== null);
+  const rotation = useGlobeRotation(selectedPhoto !== null, focusRotation);
 
   const layout = useMemo(() => {
     return createSphereLayout(
@@ -139,7 +142,16 @@ export function PhotoGlobe({
       return;
     }
 
-    const next = photos[(index + delta + photos.length) % photos.length];
+    const nextIndex = (index + delta + photos.length) % photos.length;
+    const next = photos[nextIndex];
+    const point = layout[nextIndex];
+
+    if (point) {
+      setFocusRotation({
+        x: point.latitude * RAD_TO_DEG,
+        y: point.longitude * RAD_TO_DEG,
+      });
+    }
 
     setSelectedPhoto({
       ...selectedPhoto,
@@ -147,6 +159,7 @@ export function PhotoGlobe({
       id: next.id,
       imageSrc: next.imageSrc,
       meta: next.meta,
+      navDirection: delta,
     });
   };
 
@@ -210,6 +223,7 @@ export function PhotoGlobe({
                 id: photo.id,
                 imageSrc: photo.imageSrc,
                 meta: photo.meta,
+                navDirection: null,
                 originRect: snapshotRect(card.getBoundingClientRect()),
                 originRoll: photo.roll,
                 returnRect: null,
@@ -226,11 +240,13 @@ export function PhotoGlobe({
           originRoll={selectedPhoto.originRoll}
           returnRect={selectedPhoto.returnRect}
           closing={selectedPhoto.closing}
+          navDirection={selectedPhoto.navDirection}
           onClose={closeSelectedPhoto}
           onNavigate={navigateSelectedPhoto}
           onClosed={() => {
             returningPhotoId.current = selectedPhoto.id;
             setSelectedPhoto(null);
+            setFocusRotation(null);
           }}
         />
       ) : null}

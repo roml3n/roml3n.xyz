@@ -24,11 +24,19 @@ const IDLE_RESUME_BLEND = 0.04;
 
 const CLICK_SUPPRESS_DISTANCE = 4;
 
-export function useGlobeRotation(paused = false) {
+const FOCUS_FOLLOW = 0.08;
+
+const FOCUS_STOP_THRESHOLD = 0.05;
+
+export function useGlobeRotation(
+  paused = false,
+  focus: GlobeRotation | null = null,
+) {
   const prefersReducedMotion = useReducedMotion();
 
   const frame = useRef<number | null>(null);
   const pausedRef = useRef(paused);
+  const focusRef = useRef(focus);
 
   const rotation = useRef<GlobeRotation>({
     x: IDLE_X,
@@ -59,6 +67,10 @@ export function useGlobeRotation(paused = false) {
   useEffect(() => {
     pausedRef.current = paused;
   }, [paused]);
+
+  useEffect(() => {
+    focusRef.current = focus;
+  }, [focus]);
 
   useEffect(() => {
     if (prefersReducedMotion) {
@@ -143,6 +155,25 @@ export function useGlobeRotation(paused = false) {
 
     const animate = () => {
       if (pausedRef.current) {
+        const focusTarget = focusRef.current;
+
+        if (focusTarget) {
+          const deltaY =
+            ((((focusTarget.y - rotation.current.y) % 360) + 540) % 360) -
+            180;
+          const deltaX = focusTarget.x - rotation.current.x;
+
+          if (
+            Math.abs(deltaY) > FOCUS_STOP_THRESHOLD ||
+            Math.abs(deltaX) > FOCUS_STOP_THRESHOLD
+          ) {
+            rotation.current.y += deltaY * FOCUS_FOLLOW;
+            rotation.current.x += deltaX * FOCUS_FOLLOW;
+
+            rerender((v) => (v + 1) % 100000);
+          }
+        }
+
         frame.current = requestAnimationFrame(animate);
         return;
       }
