@@ -18,7 +18,7 @@ export interface GlobeRotationState {
 
 const IDLE_X = -18;
 
-const IDLE_SPEED = 0.16;
+const IDLE_SPEED = 0.22;
 
 const FOLLOW = 0.06;
 
@@ -34,8 +34,13 @@ const MAX_SPIN_SPEED = 4.5;
 // rendered rotation — bounds the wind-up a long fast drag can store.
 const MAX_DRAG_GAP = 120;
 
-// Total travel a released fling may cover (deg). One revolution max.
-const MAX_FLING_TRAVEL = 360;
+// Total travel after release (deg), including the drag gap still being
+// settled at the moment of release. Half a revolution max.
+const MAX_FLING_TRAVEL = 180;
+
+// After a fling comes to rest, hold this long before easing back
+// upright and resuming the idle spin.
+const FLING_REST_MS = 300;
 
 // X tilt is confined to this range around IDLE_X, so the globe always
 // returns upright the short way instead of unwinding whole turns.
@@ -127,6 +132,11 @@ export function useGlobeRotation(
     momentumY: 0,
   });
 
+  const rest = useRef({
+    pending: false,
+    until: 0,
+  });
+
   const [tick, rerender] = useState(0);
 
   useEffect(() => {
@@ -187,6 +197,8 @@ export function useGlobeRotation(
       drag.current.momentumX = 0;
       drag.current.momentumY = 0;
       velocity.current.y = 0;
+      rest.current.pending = false;
+      rest.current.until = 0;
     };
 
     const endDrag = () => {
@@ -196,21 +208,30 @@ export function useGlobeRotation(
 
       drag.current.active = false;
 
-      // Momentum decays geometrically, so total post-release travel is
-      // momentum / (1 - friction); cap it at MAX_FLING_TRAVEL.
-      const maxMomentum = MAX_FLING_TRAVEL * (1 - MOMENTUM_FRICTION);
+      // Momentum decays geometrically, so it adds momentum/(1 - friction)
+      // of travel on top of the drag gap still being settled. Budget both
+      // against MAX_FLING_TRAVEL so total post-release travel stays capped.
+      const gapY = Math.abs(target.current.y - rotation.current.y);
+      const budgetY = Math.max(0, MAX_FLING_TRAVEL - gapY);
+      const maxMomentumY = budgetY * (1 - MOMENTUM_FRICTION);
 
       drag.current.momentumY = clamp(
         drag.current.momentumY,
-        -maxMomentum,
-        maxMomentum,
+        -maxMomentumY,
+        maxMomentumY,
       );
+
+      const maxMomentumX = MAX_TILT * (1 - MOMENTUM_FRICTION);
 
       drag.current.momentumX = clamp(
         drag.current.momentumX,
-        -maxMomentum,
-        maxMomentum,
+        -maxMomentumX,
+        maxMomentumX,
       );
+
+      if (drag.current.moved > CLICK_SUPPRESS_DISTANCE) {
+        rest.current.pending = true;
+      }
     };
 
     const onClickCapture = (event: MouseEvent) => {
@@ -342,6 +363,25 @@ export function useGlobeRotation(
           );
 
           velocity.current.y = rotation.current.y - beforeY;
+        } else if (
+          rest.current.pending ||
+          performance.now() < rest.current.until
+        ) {
+          // The fling just came to rest: hold the globe exactly where it
+          // stopped for a beat (bands catch up in the shared tail below),
+          // then fall through to idle, which eases the tilt back upright
+          // and ramps the spin from zero.
+          if (rest.current.pending) {
+            rest.current.pending = false;
+            rest.current.until = performance.now() + FLING_REST_MS;
+          }
+
+          drag.current.momentumX = 0;
+          drag.current.momentumY = 0;
+          velocity.current.y = 0;
+
+          target.current.x = rotation.current.x;
+          target.current.y = rotation.current.y;
         } else {
           drag.current.momentumX = 0;
           drag.current.momentumY = 0;

@@ -190,9 +190,9 @@ export function PhotoGlobe({
   };
 
   return (
-    <section className="flex min-h-[440px] items-center justify-center overflow-visible sm:min-h-[620px] md:min-h-[720px] lg:min-h-[800px]">
+    <section className="flex min-h-[470px] items-center justify-center overflow-visible sm:min-h-[620px] md:min-h-[720px] lg:min-h-[800px]">
       <div
-        className="relative h-[300px] w-[300px] scale-[0.45] sm:h-[480px] sm:w-[480px] sm:scale-[0.68] md:h-[580px] md:w-[580px] md:scale-[0.84] lg:h-[665px] lg:w-[665px] lg:scale-100"
+        className="relative h-[330px] w-[330px] scale-[0.5] sm:h-[480px] sm:w-[480px] sm:scale-[0.68] md:h-[580px] md:w-[580px] md:scale-[0.84] lg:h-[665px] lg:w-[665px] lg:scale-100"
         style={{
           perspective: `${CAMERA_DISTANCE}px`,
           transformStyle: "preserve-3d",

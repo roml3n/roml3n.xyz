@@ -76,7 +76,7 @@ function ArrowKeycap({ direction }: { direction: "left" | "right" }) {
 function getCenterRect() {
   const width = Math.min(
     CARD_W,
-    window.innerWidth - 48,
+    window.innerWidth - 72,
     ((window.innerHeight - 96) * CARD_W) / CARD_H,
   );
   const height = (width * CARD_H) / CARD_W;
