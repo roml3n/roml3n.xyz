@@ -1,3 +1,5 @@
+import photoExifData from "./photoExif.generated.json";
+
 export interface PhotoMeta {
   camera?: string;
   focalLength?: string;
@@ -16,6 +18,16 @@ interface SourcePhoto {
   meta?: PhotoMeta;
 }
 
+// Camera model, aperture, shutter speed, focal length, and capture date
+// come from each photo's real EXIF data — see photoExif.generated.json,
+// rebuilt automatically before `npm run dev` / `npm run build` (or on
+// demand via `npm run generate:photo-meta`). EXIF has no location or
+// caption fields (and these photos carry no GPS data), so `location`,
+// `note`, and `signature` — and any EXIF field that reads wrong — are
+// set by hand here and win over the generated data. Example:
+//
+// { id: "photo-3", imageSrc: "/images/(photosPage)/photo_3.jpg",
+//   meta: { location: "Naivasha, Kenya", note: "...", signature: "R." } },
 const sourcePhotos: readonly SourcePhoto[] = [
   { id: "photo-1", imageSrc: "/images/(photosPage)/photo_1.jpg" },
   { id: "photo-2",
@@ -52,6 +64,21 @@ const sourcePhotos: readonly SourcePhoto[] = [
     imageSrc: "/images/(photosPage)/photo_17.jpg" },
 ];
 
+const exifByFilename = photoExifData as Record<string, PhotoMeta>;
+
+function filenameFromSrc(imageSrc: string): string {
+  return imageSrc.split("/").pop() ?? imageSrc;
+}
+
+const resolvedSourcePhotos: readonly SourcePhoto[] = sourcePhotos.map(
+  (photo) => {
+    const exifMeta = exifByFilename[filenameFromSrc(photo.imageSrc)];
+    const meta = { ...exifMeta, ...photo.meta };
+
+    return Object.keys(meta).length > 0 ? { ...photo, meta } : photo;
+  },
+);
+
 // The globe's sphere grid wants enough cards to fill every lat/long
 // slot, so each real photo is repeated a few times to pad it out.
 // This is purely a display-density trick — it must never affect the
@@ -60,15 +87,15 @@ const MIN_GLOBE_CARDS = 120;
 
 const PHOTO_REPEAT_COUNT = Math.max(
   1,
-  Math.ceil(MIN_GLOBE_CARDS / sourcePhotos.length),
+  Math.ceil(MIN_GLOBE_CARDS / resolvedSourcePhotos.length),
 );
 
-export const PHOTO_COUNT = sourcePhotos.length;
+export const PHOTO_COUNT = resolvedSourcePhotos.length;
 
 export const photos = Array.from(
   { length: PHOTO_REPEAT_COUNT },
   (_, copyIndex) =>
-    sourcePhotos.map((photo) => ({
+    resolvedSourcePhotos.map((photo) => ({
       ...photo,
       id: `${photo.id}-copy-${copyIndex + 1}`,
     })),

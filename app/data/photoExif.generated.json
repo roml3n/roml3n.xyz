@@ -1,0 +1,121 @@
+{
+  "photo_1.jpg": {
+    "camera": "iPhone 13 Pro",
+    "aperture": "f/1.5",
+    "shutter": "1/350",
+    "focalLength": "26mm",
+    "date": "Mar 3, 2025"
+  },
+  "photo_10.jpg": {
+    "camera": "iPhone 13 Pro",
+    "aperture": "f/1.5",
+    "shutter": "1/50",
+    "focalLength": "26mm",
+    "date": "Feb 22, 2025"
+  },
+  "photo_11.jpg": {
+    "camera": "iPhone 13 Pro",
+    "aperture": "f/1.5",
+    "shutter": "1/640",
+    "focalLength": "26mm",
+    "date": "Mar 3, 2025"
+  },
+  "photo_12.jpg": {
+    "camera": "iPhone 13 Pro",
+    "aperture": "f/1.8",
+    "shutter": "1/1700",
+    "focalLength": "14mm",
+    "date": "Mar 8, 2025"
+  },
+  "photo_13.jpg": {
+    "camera": "iPhone 13 Pro",
+    "aperture": "f/1.5",
+    "shutter": "1/60",
+    "focalLength": "26mm",
+    "date": "Mar 8, 2025"
+  },
+  "photo_14.jpg": {
+    "camera": "iPhone 13 Pro",
+    "aperture": "f/1.5",
+    "shutter": "1/500",
+    "focalLength": "26mm",
+    "date": "Mar 8, 2025"
+  },
+  "photo_15.jpg": {
+    "camera": "iPhone 13 Pro",
+    "aperture": "f/1.8",
+    "shutter": "1/50",
+    "focalLength": "14mm",
+    "date": "Mar 8, 2025"
+  },
+  "photo_16.jpg": {
+    "camera": "iPhone 13 Pro",
+    "aperture": "f/1.8",
+    "shutter": "1/1200",
+    "focalLength": "14mm",
+    "date": "Mar 14, 2025"
+  },
+  "photo_17.jpg": {
+    "camera": "iPhone 13 Pro",
+    "aperture": "f/1.8",
+    "shutter": "1/50",
+    "focalLength": "13mm",
+    "date": "Feb 22, 2025"
+  },
+  "photo_2.jpg": {
+    "camera": "iPhone 13 Pro",
+    "aperture": "f/1.5",
+    "shutter": "1/16000",
+    "focalLength": "26mm",
+    "date": "Mar 8, 2025"
+  },
+  "photo_3.jpg": {
+    "camera": "iPhone 13 Pro",
+    "aperture": "f/1.5",
+    "shutter": "1/3800",
+    "focalLength": "26mm",
+    "date": "Mar 8, 2025"
+  },
+  "photo_4.jpg": {
+    "camera": "iPhone 13 Pro",
+    "aperture": "f/2.8",
+    "shutter": "1/750",
+    "focalLength": "77mm",
+    "date": "Mar 8, 2025"
+  },
+  "photo_5.jpg": {
+    "camera": "iPhone 13 Pro",
+    "aperture": "f/1.5",
+    "shutter": "1/450",
+    "focalLength": "26mm",
+    "date": "Mar 8, 2025"
+  },
+  "photo_6.jpg": {
+    "camera": "iPhone 13 Pro",
+    "aperture": "f/1.8",
+    "shutter": "1/100",
+    "focalLength": "14mm",
+    "date": "Mar 8, 2025"
+  },
+  "photo_7.jpg": {
+    "camera": "iPhone 13 Pro",
+    "aperture": "f/2.8",
+    "shutter": "1/50",
+    "focalLength": "77mm",
+    "date": "Mar 8, 2025"
+  },
+  "photo_8.jpg": {
+    "camera": "iPhone 13 Pro",
+    "aperture": "f/1.5",
+    "shutter": "1/5",
+    "focalLength": "26mm",
+    "date": "Mar 8, 2025"
+  },
+  "photo_9.jpg": {
+    "camera": "iPhone 13 Pro",
+    "aperture": "f/2.8",
+    "shutter": "1/640",
+    "focalLength": "77mm",
+    "date": "Mar 15, 2025"
+  }
+}
