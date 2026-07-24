@@ -52,7 +52,10 @@ export function PhotoGlobe({
   const cardRefs = useRef(new Map<string, HTMLButtonElement>());
   const returningPhotoId = useRef<string | null>(null);
 
-  const rotation = useGlobeRotation(selectedPhoto !== null, focusRotation);
+  const { rotation, bandOffsets, tick } = useGlobeRotation(
+    selectedPhoto !== null,
+    focusRotation,
+  );
 
   const layout = useMemo(() => {
     return createSphereLayout(
@@ -65,15 +68,19 @@ export function PhotoGlobe({
   const rotationX = (rotation.x * Math.PI) / 180;
 
   const cards = useMemo(() => {
+    const bandTrig = bandOffsets.map((offset) => {
+      const yaw = rotationY + (offset * Math.PI) / 180;
+
+      return { cos: Math.cos(yaw), sin: Math.sin(yaw) };
+    });
+
     return layout
       .map((point, index) => {
-        const x1 =
-          point.x * Math.cos(rotationY) -
-          point.z * Math.sin(rotationY);
+        const { cos: yawCos, sin: yawSin } = bandTrig[point.bandIndex];
 
-        const z1 =
-          point.x * Math.sin(rotationY) +
-          point.z * Math.cos(rotationY);
+        const x1 = point.x * yawCos - point.z * yawSin;
+
+        const z1 = point.x * yawSin + point.z * yawCos;
 
         const y2 =
           point.y * Math.cos(rotationX) -
@@ -118,7 +125,9 @@ export function PhotoGlobe({
 
         return a.order - b.order;
       });
-  }, [layout, photos, rotationX, rotationY]);
+    // `bandOffsets` is mutated in place each frame; `tick` is the frame
+    // counter that invalidates this memo when only the offsets changed.
+  }, [bandOffsets, layout, photos, rotationX, rotationY, tick]);
 
   useEffect(() => {
     if (selectedPhoto || !returningPhotoId.current) {
