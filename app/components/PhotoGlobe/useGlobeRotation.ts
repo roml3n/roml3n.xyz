@@ -22,9 +22,24 @@ const IDLE_SPEED = 0.16;
 
 const FOLLOW = 0.06;
 
-const DRAG_SENSITIVITY = 0.35;
+const DRAG_SENSITIVITY = 0.22;
 
-const DRAG_FOLLOW = 0.12;
+const DRAG_FOLLOW = 0.09;
+
+// Hard ceiling on rotation speed (deg/frame) so even violent flicks
+// stay readable instead of blurring through hundreds of degrees.
+const MAX_SPIN_SPEED = 4.5;
+
+// The drag target can never run more than this far ahead of the
+// rendered rotation — bounds the wind-up a long fast drag can store.
+const MAX_DRAG_GAP = 120;
+
+// Total travel a released fling may cover (deg). One revolution max.
+const MAX_FLING_TRAVEL = 360;
+
+// X tilt is confined to this range around IDLE_X, so the globe always
+// returns upright the short way instead of unwinding whole turns.
+const MAX_TILT = 35;
 
 const MOMENTUM_FRICTION = 0.95;
 
@@ -40,21 +55,25 @@ const FOCUS_FOLLOW = 0.08;
 
 const FOCUS_STOP_THRESHOLD = 0.05;
 
-const PARALLAX_GAIN = 6;
+const PARALLAX_GAIN = 14;
 
-const OFFSET_MAX = 12;
+const OFFSET_MAX = 8;
 
-const OFFSET_FOLLOW = 0.08;
+const OFFSET_FOLLOW = 0.1;
 
 const OFFSET_RENDER_THRESHOLD = 0.05;
 
 const VELOCITY_SMOOTHING = 0.15;
 
-const IDLE_OSC_AMP = 1.2;
+const IDLE_OSC_AMP = 2.6;
 
-const IDLE_OSC_SPEED = 0.008;
+const IDLE_OSC_SPEED = 0.011;
 
 const IDLE_OSC_PHASE = 1.7;
+
+function clamp(value: number, min: number, max: number) {
+  return Math.max(min, Math.min(max, value));
+}
 
 // Zero-mean per-band multipliers: equator rows lag (negative), pole rows
 // lead (positive), so the average spin speed stays that of the main
@@ -144,8 +163,17 @@ export function useGlobeRotation(
       const spinY = deltaX * DRAG_SENSITIVITY;
       const spinX = -deltaY * DRAG_SENSITIVITY;
 
-      target.current.y += spinY;
-      target.current.x += spinX;
+      target.current.y = clamp(
+        target.current.y + spinY,
+        rotation.current.y - MAX_DRAG_GAP,
+        rotation.current.y + MAX_DRAG_GAP,
+      );
+
+      target.current.x = clamp(
+        target.current.x + spinX,
+        IDLE_X - MAX_TILT,
+        IDLE_X + MAX_TILT,
+      );
 
       drag.current.momentumX = spinX;
       drag.current.momentumY = spinY;
@@ -167,6 +195,22 @@ export function useGlobeRotation(
       }
 
       drag.current.active = false;
+
+      // Momentum decays geometrically, so total post-release travel is
+      // momentum / (1 - friction); cap it at MAX_FLING_TRAVEL.
+      const maxMomentum = MAX_FLING_TRAVEL * (1 - MOMENTUM_FRICTION);
+
+      drag.current.momentumY = clamp(
+        drag.current.momentumY,
+        -maxMomentum,
+        maxMomentum,
+      );
+
+      drag.current.momentumX = clamp(
+        drag.current.momentumX,
+        -maxMomentum,
+        maxMomentum,
+      );
     };
 
     const onClickCapture = (event: MouseEvent) => {
@@ -252,10 +296,16 @@ export function useGlobeRotation(
       wobble += 0.012;
 
       if (drag.current.active) {
-        rotation.current.y +=
-          (target.current.y - rotation.current.y) * DRAG_FOLLOW;
-        rotation.current.x +=
-          (target.current.x - rotation.current.x) * DRAG_FOLLOW;
+        rotation.current.y += clamp(
+          (target.current.y - rotation.current.y) * DRAG_FOLLOW,
+          -MAX_SPIN_SPEED,
+          MAX_SPIN_SPEED,
+        );
+        rotation.current.x += clamp(
+          (target.current.x - rotation.current.x) * DRAG_FOLLOW,
+          -MAX_SPIN_SPEED,
+          MAX_SPIN_SPEED,
+        );
       } else {
         const hasMomentum =
           Math.abs(drag.current.momentumX) > MOMENTUM_STOP_THRESHOLD ||
@@ -268,7 +318,11 @@ export function useGlobeRotation(
             SETTLE_THRESHOLD;
 
         if (hasMomentum || settling) {
-          target.current.x += drag.current.momentumX;
+          target.current.x = clamp(
+            target.current.x + drag.current.momentumX,
+            IDLE_X - MAX_TILT,
+            IDLE_X + MAX_TILT,
+          );
           target.current.y += drag.current.momentumY;
 
           drag.current.momentumX *= MOMENTUM_FRICTION;
@@ -276,10 +330,16 @@ export function useGlobeRotation(
 
           const beforeY = rotation.current.y;
 
-          rotation.current.y +=
-            (target.current.y - rotation.current.y) * DRAG_FOLLOW;
-          rotation.current.x +=
-            (target.current.x - rotation.current.x) * DRAG_FOLLOW;
+          rotation.current.y += clamp(
+            (target.current.y - rotation.current.y) * DRAG_FOLLOW,
+            -MAX_SPIN_SPEED,
+            MAX_SPIN_SPEED,
+          );
+          rotation.current.x += clamp(
+            (target.current.x - rotation.current.x) * DRAG_FOLLOW,
+            -MAX_SPIN_SPEED,
+            MAX_SPIN_SPEED,
+          );
 
           velocity.current.y = rotation.current.y - beforeY;
         } else {
