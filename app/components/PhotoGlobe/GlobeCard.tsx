@@ -71,7 +71,7 @@ export const GlobeCard = forwardRef<HTMLButtonElement, GlobeCardProps>(
         aria-hidden={clickable ? undefined : true}
         tabIndex={clickable ? 0 : -1}
         onClick={clickable ? onClick : undefined}
-        className="absolute left-1/2 top-1/2 appearance-none border-0 bg-transparent p-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+        className="absolute left-1/2 top-1/2 appearance-none border-0 bg-transparent p-0 outline-none focus:outline-none focus-visible:outline-none"
         style={{
           transform: `
             translate(-50%, -50%)

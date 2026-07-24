@@ -1,4 +1,5 @@
 export interface SpherePoint {
+  bandIndex: number;
   latitude: number;
   longitude: number;
   roll: number;
@@ -8,7 +9,7 @@ export interface SpherePoint {
   poleScale: number;
 }
 
-const LATITUDE_BANDS = 10;
+export const LATITUDE_BANDS = 10;
 
 const POLE_SCALE = 0.65;
 
@@ -64,6 +65,7 @@ export function createSphereLayout(
         const longitude = (index / keepCount) * Math.PI * 2;
 
         points.push({
+          bandIndex: row,
           latitude,
           longitude,
           roll: 0,
@@ -81,6 +83,7 @@ export function createSphereLayout(
       const longitude = (column / longitudeColumns) * Math.PI * 2;
 
       points.push({
+        bandIndex: row,
         latitude,
         longitude,
         roll: 0,

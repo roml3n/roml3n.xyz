@@ -76,7 +76,7 @@ function ArrowKeycap({ direction }: { direction: "left" | "right" }) {
 function getCenterRect() {
   const width = Math.min(
     CARD_W,
-    window.innerWidth - 48,
+    window.innerWidth - 72,
     ((window.innerHeight - 96) * CARD_W) / CARD_H,
   );
   const height = (width * CARD_H) / CARD_W;
@@ -238,7 +238,7 @@ export function PhotoGlobeOverlay({
         aria-label={`Viewing ${photo.alt ?? "selected gallery photo"}`}
         aria-modal="true"
         tabIndex={-1}
-        className="fixed z-10"
+        className="fixed z-10 outline-none focus:outline-none focus-visible:outline-none"
         initial={false}
         animate={targetTransform}
         transition={{
@@ -274,7 +274,7 @@ export function PhotoGlobeOverlay({
           key={side}
           type="button"
           aria-label={side === "left" ? "Previous photo" : "Next photo"}
-          className="fixed top-1/2 z-20 hidden size-11 -translate-y-1/2 items-center justify-center rounded-full text-white transition-colors hover:bg-white/10 md:flex"
+          className="fixed top-1/2 z-20 hidden size-11 -translate-y-1/2 items-center justify-center rounded-full text-white outline-none transition-colors hover:bg-white/10 focus:outline-none focus-visible:outline-none md:flex"
           style={side === "left" ? { left: 16 } : { right: 16 }}
           initial={false}
           animate={{ opacity: closing || !hasEntered ? 0 : 1 }}
