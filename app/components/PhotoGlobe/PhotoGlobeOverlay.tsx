@@ -73,10 +73,36 @@ function ArrowKeycap({ direction }: { direction: "left" | "right" }) {
   );
 }
 
+function MobileNavButton({
+  direction,
+  label,
+  onClick,
+}: {
+  direction: "left" | "right";
+  label: string;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      aria-label={label}
+      className="flex items-center justify-center rounded-xl border-2 border-black/70 bg-black/10 p-3 text-white outline-none transition-colors active:bg-black/20 focus:outline-none focus-visible:outline-none"
+      onClick={(event) => {
+        event.stopPropagation();
+        onClick();
+      }}
+    >
+      <NavArrow direction={direction} />
+    </button>
+  );
+}
+
 function getCenterRect() {
+  const isMobile = window.innerWidth < 640;
+
   const width = Math.min(
-    CARD_W,
-    window.innerWidth - 72,
+    isMobile ? CARD_W * 0.92 : CARD_W,
+    window.innerWidth - (isMobile ? 88 : 72),
     ((window.innerHeight - 96) * CARD_W) / CARD_H,
   );
   const height = (width * CARD_H) / CARD_W;
@@ -264,6 +290,7 @@ export function PhotoGlobeOverlay({
         <Postcard
           photo={photo}
           navDirection={navDirection}
+          onNavigate={closing ? undefined : onNavigate}
           open={hasEntered && !closing}
           scale={centerRect.width / CARD_W}
         />
@@ -292,8 +319,7 @@ export function PhotoGlobeOverlay({
       ))}
 
       <motion.div
-        aria-hidden="true"
-        className="pointer-events-none fixed left-0 right-0 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 px-6 text-center font-montreal text-base leading-5 text-white"
+        className="fixed left-0 right-0 flex flex-col items-center gap-5"
         style={{ top: centerRect.top + centerRect.height + 24 }}
         initial={false}
         animate={{ opacity: closing || !hasEntered ? 0 : 1 }}
@@ -302,16 +328,37 @@ export function PhotoGlobeOverlay({
           ease: EASE,
         }}
       >
-        <span>Click or flick to swap cards.</span>
-        <span className="flex items-center gap-1.5">
-          Hit
-          <span className="flex items-center gap-1">
-            <ArrowKeycap direction="left" />
-            or
-            <ArrowKeycap direction="right" />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none flex flex-wrap items-center justify-center gap-x-2 gap-y-1 px-6 text-center font-montreal text-base leading-5 text-white"
+        >
+          <span>Click or flick to swap cards.</span>
+          <span className="hidden items-center gap-1.5 md:flex">
+            Hit
+            <span className="flex items-center gap-1">
+              <ArrowKeycap direction="left" />
+              or
+              <ArrowKeycap direction="right" />
+            </span>
+            to cycle photos.
           </span>
-          to cycle photos.
-        </span>
+          <span className="md:hidden">
+            Swipe or use the arrows to cycle photos.
+          </span>
+        </div>
+
+        <div className="flex items-center gap-9 md:hidden">
+          <MobileNavButton
+            direction="left"
+            label="Previous photo"
+            onClick={() => onNavigate(-1)}
+          />
+          <MobileNavButton
+            direction="right"
+            label="Next photo"
+            onClick={() => onNavigate(1)}
+          />
+        </div>
       </motion.div>
     </div>,
     document.body,

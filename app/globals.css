@@ -16,6 +16,7 @@ body {
   background: #fff;
   overflow: auto;
   overflow-x: hidden;
+  overscroll-behavior-x: none;
   box-sizing: border-box;
 }
 

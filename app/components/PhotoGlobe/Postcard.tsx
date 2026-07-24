@@ -32,6 +32,12 @@ const CONFIG = {
   scaleFalloff: 0,
   shadowMax: 0.08,
   tapFlickStrength: 2.0,
+  // A swipe counts as "change photo" (not "flip card") once it's clearly
+  // horizontal and past one of these — bigger than flickDistance/Velocity
+  // so a deliberate gallery-style swipe doesn't get mistaken for a flip.
+  navHorizontalRatio: 1.4,
+  navDistance: 90,
+  navVelocity: 0.5,
 } as const;
 
 const FRONT = { rotate: CONFIG.frontRotate, x: 0, y: 0 };
@@ -181,6 +187,7 @@ interface SlideState {
 interface PostcardProps {
   photo: PostcardPhoto;
   navDirection?: 1 | -1 | null;
+  onNavigate?: (delta: 1 | -1) => void;
   open: boolean;
   scale?: number;
 }
@@ -188,10 +195,20 @@ interface PostcardProps {
 export function Postcard({
   photo,
   navDirection = null,
+  onNavigate,
   open,
   scale = 1,
 }: PostcardProps) {
   const meta = { ...DEFAULT_META, ...photo.meta };
+
+  // Card content is authored at a fixed design size (CARD_W/CARD_H) and
+  // uniformly scaled to fit the viewport, so small screens shrink text
+  // right along with everything else. A sqrt falloff gives the meta row
+  // a partial boost — legible on small screens, unchanged at scale 1.
+  const metaFontScale = Math.min(
+    1.5,
+    1 / Math.sqrt(Math.min(1, Math.max(scale, 0.01))),
+  );
 
   const [frontCard, setFrontCard] = useState<CardId>("photo");
   const [slide, setSlide] = useState<SlideState | null>(null);
@@ -393,6 +410,20 @@ export function Postcard({
 
       const dt = Math.max(1, performance.now() - dragStart.current.t);
       const velocity = dragDistance.current / dt;
+      const { x: dx, y: dy } = drag;
+      const vx = dx / dt;
+      const isHorizontal =
+        Math.abs(dx) > Math.abs(dy) * CONFIG.navHorizontalRatio;
+      const passesNavThreshold =
+        Math.abs(dx) > CONFIG.navDistance ||
+        Math.abs(vx) > CONFIG.navVelocity;
+
+      if (onNavigate && isHorizontal && passesNavThreshold) {
+        suppressClick.current = true;
+        onNavigate(dx < 0 ? 1 : -1);
+        setDrag({ active: false, card: null, x: 0, y: 0 });
+        return;
+      }
 
       if (
         dragDistance.current > CONFIG.flickDistance ||
@@ -499,7 +530,9 @@ export function Postcard({
         className="relative"
         style={{ height: CARD_H, perspective: 1400, width: CARD_W }}
       >
-        {slide ? <OutgoingStack slide={slide} /> : null}
+        {slide ? (
+          <OutgoingStack slide={slide} metaFontScale={metaFontScale} />
+        ) : null}
 
         <div
           {...makeHandlers("note")}
@@ -533,14 +566,25 @@ export function Postcard({
             slide ? slide.blur : 0,
           )}
         >
-          <PhotoFace photo={photo} meta={meta} shadow={photoTilt.shadow} />
+          <PhotoFace
+            photo={photo}
+            meta={meta}
+            shadow={photoTilt.shadow}
+            metaFontScale={metaFontScale}
+          />
         </div>
       </div>
     </div>
   );
 }
 
-function OutgoingStack({ slide }: { slide: SlideState }) {
+function OutgoingStack({
+  slide,
+  metaFontScale,
+}: {
+  slide: SlideState;
+  metaFontScale: number;
+}) {
   const meta = { ...DEFAULT_META, ...slide.from.meta };
   const photoInFront = slide.fromFront === "photo";
 
@@ -579,7 +623,12 @@ function OutgoingStack({ slide }: { slide: SlideState }) {
           photoInFront ? 2 : 1,
         )}
       >
-        <PhotoFace photo={slide.from} meta={meta} shadow={0} />
+        <PhotoFace
+          photo={slide.from}
+          meta={meta}
+          shadow={0}
+          metaFontScale={metaFontScale}
+        />
       </div>
     </>
   );
@@ -589,10 +638,12 @@ function PhotoFace({
   photo,
   meta,
   shadow,
+  metaFontScale,
 }: {
   photo: PostcardProps["photo"];
   meta: Required<PhotoMeta>;
   shadow: number;
+  metaFontScale: number;
 }) {
   return (
     <>
@@ -617,14 +668,41 @@ function PhotoFace({
         </div>
         <div className="flex items-start gap-[7px] self-stretch">
           <div className="flex flex-1 flex-col gap-2">
-            <InfoRow icon={<CameraIcon />} value={meta.camera} />
-            <InfoRow icon={<FocalLengthIcon />} value={meta.focalLength} />
-            <InfoRow icon={<LocationIcon />} value={meta.location} />
+            <InfoRow
+              icon={<CameraIcon />}
+              value={meta.camera}
+              fontScale={metaFontScale}
+            />
+            <InfoRow
+              icon={<FocalLengthIcon />}
+              value={meta.focalLength}
+              fontScale={metaFontScale}
+            />
+            <InfoRow
+              icon={<LocationIcon />}
+              value={meta.location}
+              fontScale={metaFontScale}
+            />
           </div>
           <div className="flex flex-1 flex-col items-end gap-2">
-            <InfoRow icon={<ApertureIcon />} value={meta.aperture} fixed />
-            <InfoRow icon={<CalendarIcon />} value={meta.date} fixed />
-            <InfoRow icon={<ShutterIcon />} value={meta.shutter} fixed />
+            <InfoRow
+              icon={<ApertureIcon />}
+              value={meta.aperture}
+              fontScale={metaFontScale}
+              fixed
+            />
+            <InfoRow
+              icon={<CalendarIcon />}
+              value={meta.date}
+              fontScale={metaFontScale}
+              fixed
+            />
+            <InfoRow
+              icon={<ShutterIcon />}
+              value={meta.shutter}
+              fontScale={metaFontScale}
+              fixed
+            />
           </div>
         </div>
       </div>
@@ -669,20 +747,25 @@ function NoteFace({
 function InfoRow({
   icon,
   value,
+  fontScale,
   fixed = false,
 }: {
   icon: React.ReactNode;
   value: string;
+  fontScale: number;
   fixed?: boolean;
 }) {
   return (
     <div
       className={`flex items-center gap-[7.2px] ${
-        fixed ? "w-[108px]" : "w-full"
+        fixed ? "w-[128px]" : "w-full"
       }`}
     >
       {icon}
-      <span className="whitespace-nowrap font-montreal text-sm font-medium leading-[18px] text-fullgrey">
+      <span
+        className="whitespace-nowrap font-montreal font-medium text-fullgrey"
+        style={{ fontSize: 14 * fontScale, lineHeight: `${18 * fontScale}px` }}
+      >
         {value}
       </span>
     </div>

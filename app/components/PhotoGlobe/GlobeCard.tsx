@@ -83,6 +83,7 @@ export const GlobeCard = forwardRef<HTMLButtonElement, GlobeCardProps>(
           transformStyle: "preserve-3d",
           pointerEvents: clickable ? "auto" : "none",
           cursor: clickable ? "pointer" : "default",
+          touchAction: "none",
           visibility: hidden ? "hidden" : "visible",
           willChange: "transform",
         }}

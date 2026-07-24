@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/app/components/Header.jsx";
@@ -28,6 +28,11 @@ const ppNeueMontreal = localFont({
   variable: "--font-pp-neue-montreal",
   display: "swap",
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
   title: "Roman Lenjo",
