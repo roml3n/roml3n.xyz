@@ -52,7 +52,18 @@ const sourcePhotos: readonly SourcePhoto[] = [
     imageSrc: "/images/(photosPage)/photo_17.jpg" },
 ];
 
-const PHOTO_REPEAT_COUNT = 8;
+// The globe's sphere grid wants enough cards to fill every lat/long
+// slot, so each real photo is repeated a few times to pad it out.
+// This is purely a display-density trick — it must never affect the
+// real photo count shown elsewhere on the site.
+const MIN_GLOBE_CARDS = 120;
+
+const PHOTO_REPEAT_COUNT = Math.max(
+  1,
+  Math.ceil(MIN_GLOBE_CARDS / sourcePhotos.length),
+);
+
+export const PHOTO_COUNT = sourcePhotos.length;
 
 export const photos = Array.from(
   { length: PHOTO_REPEAT_COUNT },

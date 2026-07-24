@@ -6,7 +6,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 import Footer from "./components/Footer";
 import { workProjects } from "./data/workProjects";
-import { photos } from "./data/photos";
+import { PHOTO_COUNT } from "./data/photos";
 import { getWritingPosts } from "@/lib/getWritingPosts";
 import PageTransitionProvider, {
   PageTransitionContent,
@@ -76,7 +76,7 @@ export default async function RootLayout({
             menuCounts={{
               work: workProjects.length,
               writing: writingMenuPosts.length,
-              photos: photos.length,
+              photos: PHOTO_COUNT,
             }}
           />
           <main className="w-[90%] md:w-[80%] mx-auto max-w-7xl">
