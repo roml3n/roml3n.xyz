@@ -35,6 +35,13 @@ interface PhotoGlobeOverlayProps {
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
+// Tapping the empty backdrop closes the overlay; swiping it browses
+// photos, matching the thresholds used on the card itself.
+const BACKDROP_TAP_DISTANCE = 8;
+const BACKDROP_NAV_HORIZONTAL_RATIO = 1.4;
+const BACKDROP_NAV_DISTANCE = 90;
+const BACKDROP_NAV_VELOCITY = 0.5;
+
 function NavArrow({ direction }: { direction: "left" | "right" }) {
   return (
     <svg
@@ -73,36 +80,12 @@ function ArrowKeycap({ direction }: { direction: "left" | "right" }) {
   );
 }
 
-function MobileNavButton({
-  direction,
-  label,
-  onClick,
-}: {
-  direction: "left" | "right";
-  label: string;
-  onClick: () => void;
-}) {
-  return (
-    <button
-      type="button"
-      aria-label={label}
-      className="flex items-center justify-center rounded-xl border-2 border-black/70 bg-black/10 p-3 text-white outline-none transition-colors active:bg-black/20 focus:outline-none focus-visible:outline-none"
-      onClick={(event) => {
-        event.stopPropagation();
-        onClick();
-      }}
-    >
-      <NavArrow direction={direction} />
-    </button>
-  );
-}
-
 function getCenterRect() {
   const isMobile = window.innerWidth < 640;
 
   const width = Math.min(
-    isMobile ? CARD_W * 0.92 : CARD_W,
-    window.innerWidth - (isMobile ? 88 : 72),
+    isMobile ? CARD_W * 0.8 : CARD_W,
+    window.innerWidth - (isMobile ? 110 : 72),
     ((window.innerHeight - 96) * CARD_W) / CARD_H,
   );
   const height = (width * CARD_H) / CARD_W;
@@ -142,9 +125,56 @@ export function PhotoGlobeOverlay({
 }: PhotoGlobeOverlayProps) {
   const prefersReducedMotion = useReducedMotion();
   const photoRef = useRef<HTMLDivElement>(null);
+  const backdropDrag = useRef({ active: false, startX: 0, startY: 0, t: 0 });
   const [hasEntered, setHasEntered] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [centerRect, setCenterRect] = useState<RectSnapshot | null>(null);
+
+  const handleBackdropPointerDown = (event: React.PointerEvent) => {
+    const target = event.target as HTMLElement;
+
+    if (photoRef.current?.contains(target) || target.closest("button")) {
+      return;
+    }
+
+    backdropDrag.current = {
+      active: true,
+      startX: event.clientX,
+      startY: event.clientY,
+      t: performance.now(),
+    };
+  };
+
+  const handleBackdropPointerUp = (event: React.PointerEvent) => {
+    if (!backdropDrag.current.active) {
+      return;
+    }
+
+    backdropDrag.current.active = false;
+
+    if (closing) {
+      return;
+    }
+
+    const dx = event.clientX - backdropDrag.current.startX;
+    const dy = event.clientY - backdropDrag.current.startY;
+    const dt = Math.max(1, performance.now() - backdropDrag.current.t);
+    const vx = dx / dt;
+    const isHorizontal =
+      Math.abs(dx) > Math.abs(dy) * BACKDROP_NAV_HORIZONTAL_RATIO;
+    const passesNavThreshold =
+      Math.abs(dx) > BACKDROP_NAV_DISTANCE ||
+      Math.abs(vx) > BACKDROP_NAV_VELOCITY;
+
+    if (isHorizontal && passesNavThreshold) {
+      onNavigate(dx < 0 ? 1 : -1);
+      return;
+    }
+
+    if (Math.hypot(dx, dy) < BACKDROP_TAP_DISTANCE) {
+      onClose();
+    }
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -239,8 +269,9 @@ export function PhotoGlobeOverlay({
 
   return createPortal(
     <div
-      className="fixed inset-0 z-50"
-      onClick={onClose}
+      className="fixed inset-0 z-50 touch-none"
+      onPointerDown={handleBackdropPointerDown}
+      onPointerUp={handleBackdropPointerUp}
     >
       <motion.div
         aria-hidden="true"
@@ -343,21 +374,8 @@ export function PhotoGlobeOverlay({
             to cycle photos.
           </span>
           <span className="md:hidden">
-            Swipe or use the arrows to cycle photos.
+            Swipe to browse, tap outside to close.
           </span>
-        </div>
-
-        <div className="flex items-center gap-9 md:hidden">
-          <MobileNavButton
-            direction="left"
-            label="Previous photo"
-            onClick={() => onNavigate(-1)}
-          />
-          <MobileNavButton
-            direction="right"
-            label="Next photo"
-            onClick={() => onNavigate(1)}
-          />
         </div>
       </motion.div>
     </div>,
