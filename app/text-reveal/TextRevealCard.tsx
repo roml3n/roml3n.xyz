@@ -89,17 +89,22 @@ export function TextRevealCard({ topLines, bottomLines, className = "" }: TextRe
     let pCurX = 0.5, pCurY = 0.5;
     let cursorUV: [number, number] = [-1, -1];
     let hoverTgt = 0, hoverCur = 0;
+    // Listens on window rather than host: an absolutely-positioned sibling
+    // overlay (badge trail) sits above this card and would otherwise swallow
+    // pointermove before it ever reaches the host element.
     const onMove = (e: PointerEvent) => {
       const b = host.getBoundingClientRect();
       const ux = (e.clientX - b.left) / b.width;
       const uy = (e.clientY - b.top) / b.height;
+      if (ux < 0 || ux > 1 || uy < 0 || uy > 1) {
+        pTgtX = 0.5; pTgtY = 0.5; hoverTgt = 0;
+        return;
+      }
       pTgtX = ux; pTgtY = uy;
       cursorUV = [ux, uy];
       hoverTgt = 1;
     };
-    const onLeave = () => { pTgtX = 0.5; pTgtY = 0.5; hoverTgt = 0; };
-    host.addEventListener("pointermove", onMove);
-    host.addEventListener("pointerleave", onLeave);
+    window.addEventListener("pointermove", onMove);
 
     let phase: "in" | "settled" = "in";
     let progress = 0;
@@ -204,8 +209,7 @@ export function TextRevealCard({ topLines, bottomLines, className = "" }: TextRe
       ro.disconnect();
       window.clearTimeout(resizeT);
       document.removeEventListener("visibilitychange", onVis);
-      host.removeEventListener("pointermove", onMove);
-      host.removeEventListener("pointerleave", onLeave);
+      window.removeEventListener("pointermove", onMove);
       gl.destroy();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
