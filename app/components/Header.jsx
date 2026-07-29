@@ -46,19 +46,37 @@ const Header = ({ menuCounts }) => {
   };
   const menuItems = useMemo(
     () => [
-      { label: "Home", href: "/" },
-      { label: "About", href: "/#about" },
+      {
+        label: "Home",
+        href: "/",
+        color: { light: "#9d9dff", dark: "#370b8f" },
+        hoverTextWhite: true,
+      },
+      {
+        label: "About",
+        href: "/#about",
+        color: { light: "#ff5c01", dark: "#6e1626" },
+        hoverTextWhite: true,
+      },
       {
         label: "Work",
         href: "/#work",
         meta: formatCount(menuCounts?.work),
+        color: { light: "#ffcd04", dark: "#745606" },
       },
       {
         label: "Writing",
         href: "/writing",
         meta: formatCount(menuCounts?.writing),
+        color: { light: "#85af25", dark: "#253504" },
+        hoverTextWhite: true,
       },
-      { label: "Photos", href: "/photos", meta: formatCount(menuCounts?.photos) },
+      {
+        label: "Photos",
+        href: "/photos",
+        meta: formatCount(menuCounts?.photos),
+        color: { light: "#9debff", dark: "#0b758f" },
+      },
     ],
     [menuCounts],
   );
@@ -179,19 +197,38 @@ const Header = ({ menuCounts }) => {
               />
             </div>
 
-            <nav className="menu-overlay-list mt-12 md:mt-0 col-start-1 lg:col-start-6 col-span-4 self-start md:self-center md:row-span-2 lg:row-span-1 row-start-2 flex flex-col gap-1 md:gap-3">
+            <nav className="menu-overlay-list mt-12 md:mt-0 col-start-1 lg:col-start-6 col-span-4 self-start md:self-center md:row-span-2 lg:row-span-1 row-start-2 min-w-0 flex flex-col gap-1 md:gap-3">
               {menuItems.map((item) => (
                 <TransitionLink
                   key={item.label}
                   href={item.href}
                   onClick={(event) => handleMenuItemClick(event, item.href)}
-                  className="group inline-flex py- items-start gap-2 text-4xl md:text-5xl font-montreal font-medium text-fullgrey transition-all duration-300 hover:bg-hoverbg hover:px-4 hover:border-r-4 hover:border-midgrey rounded-sm"
+                  style={{
+                    "--item-light": item.color.light,
+                    "--item-dark": item.color.dark,
+                  }}
+                  className="group relative flex min-w-0 items-center gap-2 md:gap-3 overflow-x-hidden pr-4 text-4xl md:text-5xl font-montreal font-medium text-fullgrey"
                 >
-                  <span className="relative">
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-0 -z-10 origin-left scale-x-0 bg-[var(--item-light)] transition-transform duration-300 ease-out group-hover:scale-x-100"
+                  />
+                  <span className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center bg-[var(--item-light)] transition-colors duration-300 group-hover:bg-[var(--item-dark)] md:h-14 md:w-14 lg:h-16 lg:w-16">
+                    <span className="h-3 w-3 rounded-full bg-[var(--item-dark)] transition-colors duration-300 group-hover:bg-[var(--item-light)]" />
+                  </span>
+                  <span
+                    className={`relative z-10 min-w-0 truncate transition-colors duration-300 ${
+                      item.hoverTextWhite ? "group-hover:text-white" : ""
+                    }`}
+                  >
                     <span className="menu-overlay-link">{item.label}</span>
                   </span>
                   {item.meta && (
-                    <span className="text-xs md:text-sm text-darkgrey font-montreal opacity-60 tracking-[0.2em]">
+                    <span
+                      className={`relative z-10 text-xs md:text-sm text-darkgrey font-montreal opacity-60 tracking-[0.2em] transition-colors duration-300 ${
+                        item.hoverTextWhite ? "group-hover:text-white" : ""
+                      }`}
+                    >
                       [{item.meta}]
                     </span>
                   )}
