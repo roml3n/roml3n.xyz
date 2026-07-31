@@ -2,7 +2,7 @@
   "name": "roml3n.xyz",
   "version": "0.2.0",
   "private": true,
-  "packageManager": "yarn@1.22.22",
+  "packageManager": "yarn@4.18.0",
   "scripts": {
     "predev": "node scripts/generate-photo-meta.mjs",
     "dev": "next dev",
