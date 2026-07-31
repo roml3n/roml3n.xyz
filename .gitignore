@@ -9,6 +9,9 @@
 !.yarn/releases
 !.yarn/versions
 
+# npm (project uses yarn — see .yarnrc.yml)
+package-lock.json
+
 # testing
 /coverage
 
