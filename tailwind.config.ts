@@ -31,7 +31,7 @@ const config = {
       },
 
       colors: {
-        mainblue: "#002FA7",
+        mainblue: "#0000FF",
         fullgrey: "#49505D",
         darkgrey: "#6C727C",
         almostwhite: "#F8F8F9",

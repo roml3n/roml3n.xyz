@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la ~/Developer/ 2>&1 | grep -i globe)",
+      "Read(//home/roml3n/Developer/**)",
+      "Bash(npx tsc *)",
+      "Bash(npm run *)",
+      "Bash(node -e ' *)",
+      "Skill(run)",
+      "Skill(run:*)",
+      "Bash(node shot.js)",
+      "Bash(npx --yes playwright screenshot --help)",
+      "Bash(npx --yes playwright screenshot --wait-for-timeout 2000 --viewport-size 1280,900 http://localhost:3000/photos /tmp/claude-1000/-home-roml3n-Developer-roml3n-xyz/b7366293-af79-4753-a281-8553a5b332f2/scratchpad/photos-globe.png)"
+    ]
+  }
+}

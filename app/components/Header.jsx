@@ -118,10 +118,10 @@ const Header = ({ menuCounts }) => {
 
   return (
     <>
-      <header className="z-[9999] fixed top-3 left-1/2 -translate-x-1/2 p-1 flex items-center w-fit gap-1 rounded-2xl bg-midgrey shadow-sm">
+      <header className="z-[9999] fixed top-3 left-1/2 -translate-x-1/2 p-1 flex items-center w-fit gap-1 rounded-full shadow-sm">
         {/* Logo Container */}
         <Link href="/" className="group block">
-          <div className="px-4 py-2 bg-fullwhite rounded-xl flex items-center justify-center shadow-sm w-fit">
+          <div className="px-6 py-4 bg-almostwhite group-hover:bg-lightgrey rounded-l-full rounded-r-lg flex items-center justify-center shadow-sm w-fit">
             <div className="h-6 w-auto flex">
               <span
                 aria-hidden="true"
@@ -146,18 +146,18 @@ const Header = ({ menuCounts }) => {
         <button
           type="button"
           onClick={() => setMenuOpen((prev) => !prev)}
-          className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-mainblue hover:bg-[#0A65A6] transition-opacity hover:opacity-90"
+          className="relative flex pl-7 pr-8 py-7 items-center justify-center rounded-l-lg rounded-r-full bg-mainblue hover:bg-red-500 transition-opacity hover:opacity-90"
           aria-expanded={menuOpen}
           aria-label={menuOpen ? "Close menu" : "Open menu"}
         >
           <span
-            className={`absolute h-[1.5px] w-6 rounded-full bg-fullwhite transition-all duration-300 ease-in-out ${
+            className={`absolute h-[1.5px] w-6 rounded-full bg-fullwhite group-hover:bg-[#745606] transition-all duration-300 ease-in-out ${
               menuOpen ? "translate-y-0 rotate-45" : "-translate-y-1 rotate-0"
             }`}
             aria-hidden="true"
           />
           <span
-            className={`absolute h-[1.5px] w-6 rounded-full bg-fullwhite transition-all duration-300 ease-in-out ${
+            className={`absolute h-[1.5px] w-6 rounded-full bg-fullwhite hover:bg-[#745606] transition-all duration-300 ease-in-out ${
               menuOpen ? "translate-y-0 -rotate-45" : "translate-y-1 rotate-0"
             }`}
             aria-hidden="true"
