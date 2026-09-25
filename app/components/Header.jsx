@@ -118,10 +118,10 @@ const Header = ({ menuCounts }) => {
 
   return (
     <>
-      <header className="z-[9999] fixed top-3 left-1/2 -translate-x-1/2 p-1 flex items-center w-fit gap-1 rounded-full shadow-sm">
+      <header className="z-[9999] fixed top-3 left-1/2 -translate-x-1/2 p-1 flex items-center w-fit gap-1 rounded-full shadow-[0_4px_24px_rgba(0,0,0,0.10)]">
         {/* Logo Container */}
         <Link href="/" className="group block">
-          <div className="px-6 py-4 bg-almostwhite group-hover:bg-lightgrey rounded-l-full rounded-r-lg flex items-center justify-center shadow-sm w-fit">
+          <div className="px-6 py-4 bg-almostwhite group-hover:bg-lightgrey rounded-l-full flex items-center justify-center w-fit border border-midgrey" style={{ borderTopRightRadius: '24px', borderBottomRightRadius: '24px' }}>
             <div className="h-6 w-auto flex">
               <span
                 aria-hidden="true"
@@ -146,7 +146,8 @@ const Header = ({ menuCounts }) => {
         <button
           type="button"
           onClick={() => setMenuOpen((prev) => !prev)}
-          className="relative flex pl-7 pr-8 py-7 items-center justify-center rounded-l-lg rounded-r-full bg-mainblue hover:bg-red-500 transition-opacity hover:opacity-90"
+          className="relative flex pl-7 pr-8 py-7 items-center justify-center rounded-r-full bg-mainblue hover:bg-red-500 transition-opacity hover:opacity-90"
+          style={{ borderTopLeftRadius: '24px', borderBottomLeftRadius: '24px' }}
           aria-expanded={menuOpen}
           aria-label={menuOpen ? "Close menu" : "Open menu"}
         >
