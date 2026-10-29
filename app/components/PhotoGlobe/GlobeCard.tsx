@@ -4,6 +4,8 @@ import { forwardRef } from "react";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 
+import { usePhotoGlobeMotion } from "./PhotoGlobeMotionProvider";
+
 interface GlobeCardProps {
   imageAlt: string;
   imageSrc: string;
@@ -40,6 +42,7 @@ export const GlobeCard = forwardRef<HTMLDivElement, GlobeCardProps>(
     faceRef,
   ) {
     const prefersReducedMotion = useReducedMotion();
+    const motionConfig = usePhotoGlobeMotion();
 
     const finalScale = Math.min(
       0.94,
@@ -93,11 +96,13 @@ export const GlobeCard = forwardRef<HTMLDivElement, GlobeCardProps>(
             <motion.div
               ref={faceRef}
               whileHover={
-                clickable && !prefersReducedMotion ? { scale: 1.1 } : undefined
+                clickable && !prefersReducedMotion
+                  ? { scale: motionConfig.globeCard.hoverScale }
+                  : undefined
               }
               transition={{
-                duration: 0.16,
-                ease: [0.23, 1, 0.32, 1],
+                duration: motionConfig.globeCard.hoverDuration,
+                ease: [...motionConfig.globeCard.hoverEase],
               }}
               className="relative h-[72px] w-[54px] overflow-hidden rounded-[1px] border border-black/10"
               style={{

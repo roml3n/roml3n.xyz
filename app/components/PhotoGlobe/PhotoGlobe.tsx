@@ -10,6 +10,7 @@ import {
 } from "./PhotoGlobeOverlay";
 import { createSphereLayout } from "./sphereLayout";
 import { useGlobeRotation, type GlobeRotation } from "./useGlobeRotation";
+import { usePhotoGlobeMotion } from "./PhotoGlobeMotionProvider";
 
 import type { PhotoMeta } from "@/app/data/photos";
 
@@ -68,9 +69,12 @@ export function PhotoGlobe({
       ? "slow"
       : "normal";
 
+  const motion = usePhotoGlobeMotion();
+
   const { rotation, tick } = useGlobeRotation(
     rotationMode,
     focusRotation,
+    motion.globeRotation,
   );
 
   const layout = useMemo(() => {

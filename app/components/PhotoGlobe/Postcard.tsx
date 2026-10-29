@@ -13,6 +13,8 @@ import {
 
 import type { PhotoMeta } from "@/app/data/photos";
 
+import { usePhotoGlobeMotion } from "./PhotoGlobeMotionProvider";
+
 const caveat = Caveat({ subsets: ["latin"], weight: "600", display: "swap" });
 
 function PaperGrain() {
@@ -43,9 +45,6 @@ export const CARD_IMAGE_PAD = 16;
 export const CARD_IMG_H = 467;
 const CARD_IMAGE_PAD_MIN = 1;
 const CARD_IMAGE_GAP = 16;
-const CHROME_INTRO_MS = 560;
-const CHROME_INTRO_SPREAD_START = 0.95;
-const CHROME_INTRO_SPREAD_RANGE = 0.36;
 
 export type PostcardChromeIntro = "off" | "active" | "done";
 
@@ -110,12 +109,12 @@ export { easeOutQuart };
 export function getImageRectFromCardRect(
   card: RectSnapshot,
   padProgress = 1,
+  padMin = CARD_IMAGE_PAD_MIN,
+  padMax = CARD_IMAGE_PAD,
 ) {
   const scale = card.width / CARD_W;
   const pad =
-    (CARD_IMAGE_PAD_MIN +
-      (CARD_IMAGE_PAD - CARD_IMAGE_PAD_MIN) * easeOutQuart(padProgress)) *
-    scale;
+    (padMin + (padMax - padMin) * easeOutQuart(padProgress)) * scale;
 
   return {
     height: CARD_IMG_H * scale,
@@ -125,10 +124,15 @@ export function getImageRectFromCardRect(
   };
 }
 
+function easeOutPow(t: number, power: number) {
+  const p = Math.max(1, power);
+  return 1 - Math.pow(1 - t, p);
+}
+
 // Slower launch than easeOutQuart but same destination — the back card
 // visibly trails the front card (parallax) yet still exits the frame.
 function easeOutCubic(t: number) {
-  return 1 - Math.pow(1 - t, 3);
+  return easeOutPow(t, 3);
 }
 
 interface SpringTarget {
@@ -154,6 +158,7 @@ function lerpSpring(from: SpringTarget, to: SpringTarget, t: number): SpringTarg
 function useSpring(
   target: SpringTarget,
   override: SpringTarget | null,
+  physics: { damping: number; stiffness: number },
 ): [
   SpringTarget,
   (deltaVel: Partial<SpringTarget>) => void,
@@ -195,7 +200,7 @@ function useSpring(
         const dx = target[key] - current.current[key];
 
         vel.current[key] =
-          (vel.current[key] + dx * CONFIG.stiffness) * CONFIG.damping;
+          (vel.current[key] + dx * physics.stiffness) * physics.damping;
         next[key] = current.current[key] + vel.current[key];
 
         if (Math.abs(dx) > 0.05 || Math.abs(vel.current[key]) > 0.05) {
@@ -260,7 +265,10 @@ interface PostcardProps {
   closing?: boolean;
   hideImage?: boolean;
   chromeIntro?: PostcardChromeIntro;
+  /** Eased 0–1 for padding / caption */
   introProgress?: number;
+  /** Linear 0–1 clock for note spread (wall time / open intro) */
+  introLinearProgress?: number;
   scale?: number;
 }
 
@@ -273,8 +281,26 @@ export function Postcard({
   hideImage = false,
   chromeIntro = "done",
   introProgress,
+  introLinearProgress,
   scale = 1,
 }: PostcardProps) {
+  const globeMotion = usePhotoGlobeMotion();
+  const frame = globeMotion.lightboxFrame;
+  const noteSpread = globeMotion.lightboxNoteSpread;
+  const stack = globeMotion.postcardStack;
+
+  const springPhysics = {
+    damping: stack.damping,
+    stiffness: stack.stiffness,
+  };
+
+  const FRONT = { rotate: CONFIG.frontRotate, x: 0, y: 0 };
+  const BACK = {
+    rotate: stack.backRotate,
+    x: stack.backX,
+    y: stack.backY,
+  };
+
   const meta = { ...DEFAULT_META, ...photo.meta };
 
   // Card content is authored at a fixed design size (CARD_W/CARD_H) and
@@ -304,19 +330,21 @@ export function Postcard({
   const slideRef = useRef<SlideState | null>(null);
   const slideRaf = useRef(0);
   const [introT, setIntroT] = useState(chromeIntro === "active" ? 0 : 1);
+  const [introLinearT, setIntroLinearT] = useState(chromeIntro === "active" ? 0 : 1);
   const chromeIntroRun = useRef(0);
 
   const effectiveIntroT = introProgress ?? introT;
+  const effectiveIntroLinear = introLinearProgress ?? introLinearT;
   const spreadProgress =
     chromeIntro === "active"
       ? clamp(
-          (effectiveIntroT - CHROME_INTRO_SPREAD_START) /
-            CHROME_INTRO_SPREAD_RANGE,
+          (effectiveIntroLinear - noteSpread.spreadStartLinearProgress) /
+            Math.max(0.001, noteSpread.spreadAnimLinearLength),
           0,
           1,
         )
       : 1;
-  const spreadEased = easeOutCubic(spreadProgress);
+  const spreadEased = easeOutPow(spreadProgress, noteSpread.spreadEasePower);
   const introNotePose = lerpSpring(FRONT, BACK, spreadEased);
 
   useEffect(() => {
@@ -327,12 +355,14 @@ export function Postcard({
     if (chromeIntro !== "active") {
       if (chromeIntro === "done") {
         setIntroT(1);
+        setIntroLinearT(1);
       }
       return;
     }
 
     const runId = ++chromeIntroRun.current;
     setIntroT(0);
+    setIntroLinearT(0);
 
     const start = performance.now();
     let frame = 0;
@@ -342,7 +372,11 @@ export function Postcard({
         return;
       }
 
-      const linear = Math.min(1, (performance.now() - start) / CHROME_INTRO_MS);
+      const linear = Math.min(
+        1,
+        (performance.now() - start) / globeMotion.lightboxOpen.openIntroTimelineMs,
+      );
+      setIntroLinearT(linear);
       setIntroT(easeOutQuart(linear));
 
       if (linear < 1) {
@@ -355,7 +389,7 @@ export function Postcard({
     return () => {
       cancelAnimationFrame(frame);
     };
-  }, [chromeIntro, introProgress]);
+  }, [chromeIntro, globeMotion.lightboxOpen.openIntroTimelineMs, introProgress]);
 
   useEffect(() => {
     frontCardRef.current = frontCard;
@@ -398,10 +432,12 @@ export function Postcard({
   const [photoSpring, kickPhoto, resetPhotoSpring] = useSpring(
     targetFor("photo"),
     overrideFor("photo"),
+    springPhysics,
   );
   const [noteSpring, kickNote, resetNoteSpring] = useSpring(
     targetFor("note"),
     overrideFor("note"),
+    springPhysics,
   );
 
   useLayoutEffect(() => {
@@ -489,7 +525,7 @@ export function Postcard({
     });
 
     const tick = (now: number) => {
-      const t = Math.min(1, (now - start) / SLIDE_DURATION);
+      const t = Math.min(1, (now - start) / stack.slideDurationMs);
 
       if (t >= 1) {
         commit(null);
@@ -676,7 +712,14 @@ export function Postcard({
         return 0;
       }
 
-      return easeOutQuart(spreadProgress);
+      const fadeSpan = Math.max(0.001, 1 - noteSpread.noteFadeDelayInSpread);
+      const fadeT = clamp(
+        (spreadProgress - noteSpread.noteFadeDelayInSpread) / fadeSpan,
+        0,
+        1,
+      );
+
+      return easeOutQuart(fadeT);
     }
 
     return 1;
@@ -757,6 +800,11 @@ export function Postcard({
             metaFontScale={metaFontScale}
             hideImage={hideImage}
             contentIntro={contentIntro}
+            padMin={frame.paddingInnerMin}
+            padMax={frame.paddingInnerMax}
+            gapMax={frame.captionGap}
+            metaRevealStart={frame.captionOpacityStart}
+            metaRevealRange={frame.captionOpacityDuration}
           />
         </div>
       </div>
@@ -829,6 +877,11 @@ function PhotoFace({
   metaFontScale,
   hideImage = false,
   contentIntro = 1,
+  padMin = CARD_IMAGE_PAD_MIN,
+  padMax = CARD_IMAGE_PAD,
+  gapMax = CARD_IMAGE_GAP,
+  metaRevealStart = 0.22,
+  metaRevealRange = 0.5,
 }: {
   photo: PostcardProps["photo"];
   meta: Required<PhotoMeta>;
@@ -836,12 +889,23 @@ function PhotoFace({
   metaFontScale: number;
   hideImage?: boolean;
   contentIntro?: number;
+  padMin?: number;
+  padMax?: number;
+  gapMax?: number;
+  metaRevealStart?: number;
+  metaRevealRange?: number;
 }) {
   const pad =
-    CARD_IMAGE_PAD_MIN +
-    (CARD_IMAGE_PAD - CARD_IMAGE_PAD_MIN) * easeOutQuart(contentIntro);
-  const gap = CARD_IMAGE_GAP * easeOutQuart(contentIntro);
-  const metaReveal = clamp((contentIntro - 0.22) / 0.5, 0, 1);
+    (padMin ?? CARD_IMAGE_PAD_MIN) +
+    ((padMax ?? CARD_IMAGE_PAD) - (padMin ?? CARD_IMAGE_PAD_MIN)) *
+      easeOutQuart(contentIntro);
+  const gap = (gapMax ?? CARD_IMAGE_GAP) * easeOutQuart(contentIntro);
+  const metaReveal = clamp(
+    (contentIntro - (metaRevealStart ?? 0.22)) /
+      (metaRevealRange ?? 0.5),
+    0,
+    1,
+  );
 
   return (
     <>
