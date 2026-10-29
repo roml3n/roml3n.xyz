@@ -60,6 +60,7 @@ export function PhotoGlobe({
   const faceRefs = useRef(new Map<string, HTMLDivElement>());
   const returningPhotoId = useRef<string | null>(null);
   const [globeHovered, setGlobeHovered] = useState(false);
+  const [globeSlotRevealed, setGlobeSlotRevealed] = useState(false);
 
   const rotationMode = selectedPhoto
     ? "frozen"
@@ -206,6 +207,7 @@ export function PhotoGlobe({
     returningPhotoId.current = photoId;
 
     flushSync(() => {
+      setGlobeSlotRevealed(false);
       setSelectedPhoto(null);
       setFocusRotation(null);
     });
@@ -253,7 +255,9 @@ export function PhotoGlobe({
             depth={photo.depth}
             scale={photo.scale}
             selected={selectedPhoto?.id === photo.id}
-            hidden={selectedPhoto?.id === photo.id}
+            hidden={
+              selectedPhoto?.id === photo.id && !globeSlotRevealed
+            }
             onClick={() => {
               const face = faceRefs.current.get(photo.id);
 
@@ -262,6 +266,7 @@ export function PhotoGlobe({
               }
 
               setFocusRotation(null);
+              setGlobeSlotRevealed(false);
 
               setSelectedPhoto({
                 closing: false,
@@ -301,6 +306,9 @@ export function PhotoGlobe({
           onClose={closeSelectedPhoto}
           onNavigate={navigateSelectedPhoto}
           onClosingComplete={handleClosingComplete}
+          onRevealGlobeSlot={() => {
+            setGlobeSlotRevealed(true);
+          }}
         />
       ) : null}
     </section>

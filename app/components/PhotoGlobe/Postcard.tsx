@@ -41,18 +41,13 @@ export const CARD_W = 512;
 export const CARD_H = 586;
 export const CARD_IMAGE_PAD = 16;
 export const CARD_IMG_H = 467;
+const CARD_IMAGE_PAD_MIN = 1;
+const CARD_IMAGE_GAP = 16;
+const CHROME_INTRO_MS = 560;
+const CHROME_INTRO_SPREAD_START = 0.95;
+const CHROME_INTRO_SPREAD_RANGE = 0.36;
 
-export function getImageRectFromCardRect(card: RectSnapshot): RectSnapshot {
-  const scale = card.width / CARD_W;
-  const pad = CARD_IMAGE_PAD * scale;
-
-  return {
-    height: CARD_IMG_H * scale,
-    left: card.left + pad,
-    top: card.top + pad,
-    width: card.width - pad * 2,
-  };
-}
+export type PostcardChromeIntro = "off" | "active" | "done";
 
 export interface RectSnapshot {
   height: number;
@@ -110,6 +105,26 @@ function easeOutQuart(t: number) {
   return 1 - Math.pow(1 - t, 4);
 }
 
+export { easeOutQuart };
+
+export function getImageRectFromCardRect(
+  card: RectSnapshot,
+  padProgress = 1,
+) {
+  const scale = card.width / CARD_W;
+  const pad =
+    (CARD_IMAGE_PAD_MIN +
+      (CARD_IMAGE_PAD - CARD_IMAGE_PAD_MIN) * easeOutQuart(padProgress)) *
+    scale;
+
+  return {
+    height: CARD_IMG_H * scale,
+    left: card.left + pad,
+    top: card.top + pad,
+    width: card.width - pad * 2,
+  };
+}
+
 // Slower launch than easeOutQuart but same destination — the back card
 // visibly trails the front card (parallax) yet still exits the frame.
 function easeOutCubic(t: number) {
@@ -126,6 +141,14 @@ type CardId = "photo" | "note";
 
 function clamp(n: number, min: number, max: number) {
   return Math.max(min, Math.min(max, n));
+}
+
+function lerpSpring(from: SpringTarget, to: SpringTarget, t: number): SpringTarget {
+  return {
+    rotate: from.rotate + (to.rotate - from.rotate) * t,
+    x: from.x + (to.x - from.x) * t,
+    y: from.y + (to.y - from.y) * t,
+  };
 }
 
 function useSpring(
@@ -236,6 +259,8 @@ interface PostcardProps {
   open: boolean;
   closing?: boolean;
   hideImage?: boolean;
+  chromeIntro?: PostcardChromeIntro;
+  introProgress?: number;
   scale?: number;
 }
 
@@ -246,6 +271,8 @@ export function Postcard({
   open,
   closing = false,
   hideImage = false,
+  chromeIntro = "done",
+  introProgress,
   scale = 1,
 }: PostcardProps) {
   const meta = { ...DEFAULT_META, ...photo.meta };
@@ -276,6 +303,59 @@ export function Postcard({
   const frontCardRef = useRef(frontCard);
   const slideRef = useRef<SlideState | null>(null);
   const slideRaf = useRef(0);
+  const [introT, setIntroT] = useState(chromeIntro === "active" ? 0 : 1);
+  const chromeIntroRun = useRef(0);
+
+  const effectiveIntroT = introProgress ?? introT;
+  const spreadProgress =
+    chromeIntro === "active"
+      ? clamp(
+          (effectiveIntroT - CHROME_INTRO_SPREAD_START) /
+            CHROME_INTRO_SPREAD_RANGE,
+          0,
+          1,
+        )
+      : 1;
+  const spreadEased = easeOutCubic(spreadProgress);
+  const introNotePose = lerpSpring(FRONT, BACK, spreadEased);
+
+  useEffect(() => {
+    if (introProgress !== undefined) {
+      return;
+    }
+
+    if (chromeIntro !== "active") {
+      if (chromeIntro === "done") {
+        setIntroT(1);
+      }
+      return;
+    }
+
+    const runId = ++chromeIntroRun.current;
+    setIntroT(0);
+
+    const start = performance.now();
+    let frame = 0;
+
+    const step = () => {
+      if (chromeIntroRun.current !== runId) {
+        return;
+      }
+
+      const linear = Math.min(1, (performance.now() - start) / CHROME_INTRO_MS);
+      setIntroT(easeOutQuart(linear));
+
+      if (linear < 1) {
+        frame = requestAnimationFrame(step);
+      }
+    };
+
+    frame = requestAnimationFrame(step);
+
+    return () => {
+      cancelAnimationFrame(frame);
+    };
+  }, [chromeIntro, introProgress]);
 
   useEffect(() => {
     frontCardRef.current = frontCard;
@@ -292,6 +372,10 @@ export function Postcard({
       return card === "photo" ? FRONT : BACK;
     }
 
+    if (chromeIntro === "active" && spreadProgress <= 0) {
+      return FRONT;
+    }
+
     if (!open) {
       return card === "photo" ? FRONT : BACK;
     }
@@ -299,10 +383,17 @@ export function Postcard({
     return frontCard === card ? FRONT : BACK;
   };
 
-  const overrideFor = (card: CardId) =>
-    drag.active && drag.card === card
-      ? { rotate: targetFor(card).rotate, x: drag.x, y: drag.y }
-      : null;
+  const overrideFor = (card: CardId) => {
+    if (drag.active && drag.card === card) {
+      return { rotate: targetFor(card).rotate, x: drag.x, y: drag.y };
+    }
+
+    if (chromeIntro === "active" && card === "note" && spreadProgress > 0) {
+      return introNotePose;
+    }
+
+    return null;
+  };
 
   const [photoSpring, kickPhoto, resetPhotoSpring] = useSpring(
     targetFor("photo"),
@@ -312,6 +403,16 @@ export function Postcard({
     targetFor("note"),
     overrideFor("note"),
   );
+
+  useLayoutEffect(() => {
+    if (chromeIntro !== "active") {
+      return;
+    }
+
+    setFrontCard("photo");
+    resetPhotoSpring(FRONT);
+    resetNoteSpring(FRONT);
+  }, [chromeIntro, resetNoteSpring, resetPhotoSpring]);
 
   useLayoutEffect(() => {
     if (!closing) {
@@ -565,6 +666,24 @@ export function Postcard({
   const slideNewX = slide ? slide.front + slide.dir * slide.slot : 0;
   const slideNewBackX = slide ? slide.back + slide.dir * slide.slot : 0;
 
+  const noteOpacity = (() => {
+    if (!open || closing) {
+      return 0;
+    }
+
+    if (chromeIntro === "active") {
+      if (spreadProgress <= 0) {
+        return 0;
+      }
+
+      return easeOutQuart(spreadProgress);
+    }
+
+    return 1;
+  })();
+
+  const contentIntro = chromeIntro === "active" ? effectiveIntroT : 1;
+
   const cardShellStyle = (
     card: CardId,
     spring: SpringTarget,
@@ -600,7 +719,7 @@ export function Postcard({
 
         <div
           {...makeHandlers("note")}
-          className="absolute inset-0 isolate select-none overflow-hidden rounded-[1px] bg-lightgrey transition-opacity duration-300"
+          className="absolute inset-0 isolate select-none overflow-hidden rounded-[1px] bg-lightgrey"
           style={{
             ...cardShellStyle(
               "note",
@@ -609,7 +728,7 @@ export function Postcard({
               slideNewBackX,
               slide ? slide.blurBack : 0,
             ),
-            opacity: open && !closing ? 1 : 0,
+            opacity: noteOpacity,
           }}
         >
           <NoteFace
@@ -637,6 +756,7 @@ export function Postcard({
             shadow={photoTilt.shadow}
             metaFontScale={metaFontScale}
             hideImage={hideImage}
+            contentIntro={contentIntro}
           />
         </div>
       </div>
@@ -708,13 +828,21 @@ function PhotoFace({
   shadow,
   metaFontScale,
   hideImage = false,
+  contentIntro = 1,
 }: {
   photo: PostcardProps["photo"];
   meta: Required<PhotoMeta>;
   shadow: number;
   metaFontScale: number;
   hideImage?: boolean;
+  contentIntro?: number;
 }) {
+  const pad =
+    CARD_IMAGE_PAD_MIN +
+    (CARD_IMAGE_PAD - CARD_IMAGE_PAD_MIN) * easeOutQuart(contentIntro);
+  const gap = CARD_IMAGE_GAP * easeOutQuart(contentIntro);
+  const metaReveal = clamp((contentIntro - 0.22) / 0.5, 0, 1);
+
   return (
     <>
       <div
@@ -722,7 +850,10 @@ function PhotoFace({
         className="pointer-events-none absolute inset-0 z-[2] bg-black"
         style={{ opacity: shadow }}
       />
-      <div className="flex h-full w-full flex-col gap-4 bg-fullwhite p-4">
+      <div
+        className="flex h-full w-full flex-col bg-fullwhite"
+        style={{ gap, padding: pad }}
+      >
         <div
           className="relative shrink-0 overflow-hidden rounded-[1px]"
           style={{ height: IMG_H, borderRadius: 1 }}
@@ -743,7 +874,13 @@ function PhotoFace({
             />
           )}
         </div>
-        <div className="flex items-start gap-[7px] self-stretch">
+        <div
+          className="flex items-start gap-[7px] self-stretch"
+          style={{
+            opacity: metaReveal,
+            transform: `translateY(${(1 - metaReveal) * -14}px)`,
+          }}
+        >
           <div className="flex flex-1 flex-col gap-2">
             <InfoRow
               icon={<CameraIcon />}
