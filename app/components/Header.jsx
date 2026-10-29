@@ -13,12 +13,11 @@ const desktopItems = [
   { id: "work", label: "Work", href: "/#work" },
   { id: "notes", label: "Notes", href: "/writing" },
   { id: "photos", label: "Photos", href: "/photos" },
-  { id: "about", label: "About", href: "/#about" },
+  { id: "about", label: "About", href: "/about" },
 ];
 
 const Header = ({ menuCounts }) => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [hash, setHash] = useState("");
   const pathname = usePathname();
 
   const mobileItems = useMemo(
@@ -30,7 +29,7 @@ const Header = ({ menuCounts }) => {
       },
       {
         label: "About",
-        href: "/#about",
+        href: "/about",
         color: { light: "#ff5c01", dark: "#6e1626" },
       },
       {
@@ -54,13 +53,6 @@ const Header = ({ menuCounts }) => {
     ],
     [menuCounts],
   );
-
-  useEffect(() => {
-    const syncHash = () => setHash(window.location.hash.replace("#", ""));
-    syncHash();
-    window.addEventListener("hashchange", syncHash);
-    return () => window.removeEventListener("hashchange", syncHash);
-  }, [pathname]);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -87,16 +79,15 @@ const Header = ({ menuCounts }) => {
     event.preventDefault();
     const target = document.getElementById(href.slice(2));
     window.history.replaceState(null, "", href);
-    setHash(href.slice(2));
     target?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   const isDesktopActive = (id) => {
     if (id === "notes") return pathname.startsWith("/writing");
     if (id === "photos") return pathname.startsWith("/photos");
-    if (id === "about") return pathname === "/" && hash === "about";
+    if (id === "about") return pathname.startsWith("/about");
     if (id === "work") {
-      return pathname.startsWith("/work") || (pathname === "/" && hash !== "about");
+      return pathname === "/" || pathname.startsWith("/work");
     }
     return false;
   };
@@ -174,7 +165,7 @@ const Header = ({ menuCounts }) => {
               >
                 <span
                   aria-hidden="true"
-                  className="flex size-6 shrink-0 items-center justify-center"
+                  className="flex size-6 shrink-0 items-center justify-center rounded-full"
                   style={{ backgroundColor: item.color.light }}
                 >
                   <span

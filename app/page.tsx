@@ -3,7 +3,6 @@ import React from "react";
 import "./globals.css";
 
 import { Hero } from "./hero";
-import { AboutSection } from "./AboutSection";
 import WorkSection from "./WorkSection";
 import Footer from "@/app/components/Footer";
 import ButtonLink from "@/app/components/ButtonLink";
@@ -16,7 +15,6 @@ function App() {
       <main className="flex flex-col items-center w-full">
         <Hero />
         <WorkSection />
-        <AboutSection />
       </main>
     </section>
   );

@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <footer
       id="about"
-      className="w-screen place-self-center justify-center flex py-8 md:py-16 bg-[radial-gradient(150%_80%_at_bottom,_#B3E2EF_0%,_#FFFFFF_50%)]"
+      className="w-screen place-self-center justify-center flex py-8 md:py-16 bg-[radial-gradient(150%_80%_at_bottom,_#B3E2EF_0%,_#F5F5F5_0%)]"
     >
       <div className="w-[90%] md:w-[80%] max-w-7xl flex flex-col">
         {/* Logo and Links  */}

@@ -36,10 +36,6 @@ const RoleLine = ({
 export const Hero = () => {
   return (
     <section className="relative flex min-h-[509px] w-full flex-col items-center justify-end py-16 pt-28 lg:h-[509px] lg:pt-16">
-      <div
-        aria-hidden="true"
-        className="absolute inset-y-0 left-1/2 -z-10 w-screen -translate-x-1/2 bg-lightgrey"
-      />
       <div className="flex w-full flex-col items-start gap-[30px]">
         <h1 className="w-full max-w-[638px] font-season text-[40px] font-normal leading-normal text-fullgrey sm:text-[52px] lg:w-[638px] lg:text-[64px]">
           Roman Lenjo is a designer who builds
