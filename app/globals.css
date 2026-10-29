@@ -206,3 +206,44 @@ body {
     --page-transition-duration-enter: 120ms;
   }
 }
+
+::selection {
+  background-color: rgba(0, 0, 255, 0.25);
+  color: #0000ff;
+}
+
+html.custom-cursor,
+html.custom-cursor * {
+  cursor: none;
+}
+
+html.custom-cursor [data-cursor="native"],
+html.custom-cursor [data-cursor="native"] * {
+  cursor: auto;
+}
+
+@keyframes custom-cursor-caret-blink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+
+  50%,
+  95% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.custom-cursor-caret {
+  animation: custom-cursor-caret-blink 1.05s step-end infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .custom-cursor-caret {
+    animation: none;
+  }
+}

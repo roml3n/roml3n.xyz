@@ -11,6 +11,7 @@ import { getWritingPosts } from "@/lib/getWritingPosts";
 import PageTransitionProvider, {
   PageTransitionContent,
 } from "./components/transitions/PageTransitionProvider";
+import CustomCursor from "./components/cursor/CustomCursor";
 
 const ppNeueMontreal = localFont({
   src: [
@@ -90,6 +91,7 @@ export default async function RootLayout({
             <Footer />
           </main>
         </PageTransitionProvider>
+        <CustomCursor />
       </body>
     </html>
   );

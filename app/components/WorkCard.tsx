@@ -1,5 +1,9 @@
 import Image from "next/image";
 import React from "react";
+import {
+  cursorCompanyProps,
+  cursorLabelProps,
+} from "@/app/components/cursor/cursorProps";
 
 const WorkCard = ({
   title,
@@ -16,13 +20,14 @@ const WorkCard = ({
 }) => {
   return (
     <div
+      {...cursorLabelProps("view case study")}
       className={`group relative flex flex-col gap-6 col-span-4 md:col-span-4 lg:col-span-6 row-span-1 ${className}`}
     >
       <span className="pointer-events-none absolute -inset-3 -z-10 rounded-lg bg-mainblue/20 opacity-0 scale-95 transition-all duration-300 group-hover:opacity-100 group-hover:scale-100" />
       <div className="flex flex-col gap-1">
         <h4 className="h4 text-fullgrey w-full !leading-none">{title}</h4>
         <h5 className="h5 font-medium w-full opacity-60 !leading-tight">
-          {company}
+          <span {...cursorCompanyProps(company)}>{company}</span>
           <br />[ {date} ]
         </h5>
       </div>
