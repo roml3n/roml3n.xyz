@@ -39,7 +39,29 @@ function PaperGrain() {
 
 export const CARD_W = 512;
 export const CARD_H = 586;
-const IMG_H = 467;
+export const CARD_IMAGE_PAD = 16;
+export const CARD_IMG_H = 467;
+
+export function getImageRectFromCardRect(card: RectSnapshot): RectSnapshot {
+  const scale = card.width / CARD_W;
+  const pad = CARD_IMAGE_PAD * scale;
+
+  return {
+    height: CARD_IMG_H * scale,
+    left: card.left + pad,
+    top: card.top + pad,
+    width: card.width - pad * 2,
+  };
+}
+
+export interface RectSnapshot {
+  height: number;
+  left: number;
+  top: number;
+  width: number;
+}
+
+const IMG_H = CARD_IMG_H;
 
 const CONFIG = {
   stiffness: 0.05,
@@ -213,6 +235,7 @@ interface PostcardProps {
   onNavigate?: (delta: 1 | -1) => void;
   open: boolean;
   closing?: boolean;
+  hideImage?: boolean;
   scale?: number;
 }
 
@@ -222,6 +245,7 @@ export function Postcard({
   onNavigate,
   open,
   closing = false,
+  hideImage = false,
   scale = 1,
 }: PostcardProps) {
   const meta = { ...DEFAULT_META, ...photo.meta };
@@ -612,6 +636,7 @@ export function Postcard({
             meta={meta}
             shadow={photoTilt.shadow}
             metaFontScale={metaFontScale}
+            hideImage={hideImage}
           />
         </div>
       </div>
@@ -682,11 +707,13 @@ function PhotoFace({
   meta,
   shadow,
   metaFontScale,
+  hideImage = false,
 }: {
   photo: PostcardProps["photo"];
   meta: Required<PhotoMeta>;
   shadow: number;
   metaFontScale: number;
+  hideImage?: boolean;
 }) {
   return (
     <>
@@ -700,14 +727,21 @@ function PhotoFace({
           className="relative shrink-0 overflow-hidden rounded-[1px]"
           style={{ height: IMG_H, borderRadius: 1 }}
         >
-          <Image
-            src={photo.imageSrc}
-            alt={photo.alt ?? "Postcard photo"}
-            fill
-            draggable={false}
-            className="pointer-events-none select-none object-cover"
-            sizes={`${CARD_W}px`}
-          />
+          {hideImage ? (
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-transparent"
+            />
+          ) : (
+            <Image
+              src={photo.imageSrc}
+              alt={photo.alt ?? "Postcard photo"}
+              fill
+              draggable={false}
+              className="pointer-events-none select-none object-cover"
+              sizes={`${CARD_W}px`}
+            />
+          )}
         </div>
         <div className="flex items-start gap-[7px] self-stretch">
           <div className="flex flex-1 flex-col gap-2">

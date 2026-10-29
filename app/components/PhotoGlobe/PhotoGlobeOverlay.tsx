@@ -1,24 +1,26 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion, useReducedMotion } from "framer-motion";
 
 import type { PhotoMeta } from "@/app/data/photos";
-import { CARD_H, CARD_W, Postcard } from "./Postcard";
+import {
+  CARD_H,
+  CARD_W,
+  getImageRectFromCardRect,
+  Postcard,
+  type RectSnapshot,
+} from "./Postcard";
+
+export type { RectSnapshot };
 
 interface Photo {
   alt?: string;
   id: string;
   imageSrc: string;
   meta?: PhotoMeta;
-}
-
-export interface RectSnapshot {
-  height: number;
-  left: number;
-  top: number;
-  width: number;
 }
 
 interface PhotoGlobeOverlayProps {
@@ -40,15 +42,25 @@ interface PhotoGlobeOverlayProps {
 
 const EASE = [0.23, 1, 0.32, 1] as const;
 
-const OPEN_DURATION = 0.55;
-const CLOSE_DURATION = 0.42;
+const OPEN_IMAGE_DURATION = 0.34;
+const OPEN_CHROME_DURATION = 0.22;
+const CLOSE_CHROME_DURATION = 0.16;
+const CLOSE_IMAGE_DURATION = 0.36;
 
-// Tapping the empty backdrop closes the overlay; swiping it browses
-// photos, matching the thresholds used on the card itself.
+const CHROME_CLIP_FULL = "inset(0% 0% 0% 0% round 1px)";
+const CHROME_CLIP_HIDDEN = "inset(46% 38% 38% 38% round 1px)";
+
 const BACKDROP_TAP_DISTANCE = 8;
 const BACKDROP_NAV_HORIZONTAL_RATIO = 1.4;
 const BACKDROP_NAV_DISTANCE = 90;
 const BACKDROP_NAV_VELOCITY = 0.5;
+
+type OverlayPhase =
+  | "opening-image"
+  | "opening-chrome"
+  | "open"
+  | "closing-chrome"
+  | "closing-image";
 
 function NavArrow({ direction }: { direction: "left" | "right" }) {
   return (
@@ -109,16 +121,26 @@ function getCenterRect() {
 function getFlipTransform(from: RectSnapshot, to: RectSnapshot) {
   return {
     rotate: 0,
+    rotateX: 0,
+    rotateY: 0,
+    rotateZ: 0,
     scaleX: from.width / to.width,
     scaleY: from.height / to.height,
-    x:
-      from.left + from.width / 2 -
-      (to.left + to.width / 2),
-    y:
-      from.top + from.height / 2 -
-      (to.top + to.height / 2),
+    x: from.left + from.width / 2 - (to.left + to.width / 2),
+    y: from.top + from.height / 2 - (to.top + to.height / 2),
   };
 }
+
+const CENTER_IMAGE = {
+  rotate: 0,
+  rotateX: 0,
+  rotateY: 0,
+  rotateZ: 0,
+  scaleX: 1,
+  scaleY: 1,
+  x: 0,
+  y: 0,
+};
 
 export function PhotoGlobeOverlay({
   photo,
@@ -139,10 +161,12 @@ export function PhotoGlobeOverlay({
   const prefersReducedMotion = useReducedMotion();
   const photoRef = useRef<HTMLDivElement>(null);
   const closeCompletedRef = useRef(false);
+  const phaseTimeoutRef = useRef<number | null>(null);
   const backdropDrag = useRef({ active: false, startX: 0, startY: 0, t: 0 });
-  const [hasEntered, setHasEntered] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [centerRect, setCenterRect] = useState<RectSnapshot | null>(null);
+  const [phase, setPhase] = useState<OverlayPhase>("opening-image");
+  const [imageAtCenter, setImageAtCenter] = useState(false);
 
   const handleBackdropPointerDown = (event: React.PointerEvent) => {
     const target = event.target as HTMLElement;
@@ -166,7 +190,7 @@ export function PhotoGlobeOverlay({
 
     backdropDrag.current.active = false;
 
-    if (closing) {
+    if (phase === "closing-chrome" || phase === "closing-image") {
       return;
     }
 
@@ -196,35 +220,66 @@ export function PhotoGlobeOverlay({
   }, []);
 
   useLayoutEffect(() => {
-    if (closing) {
-      closeCompletedRef.current = false;
-    }
-  }, [closing]);
-
-  useEffect(() => {
-    if (mounted && !closing) {
-      photoRef.current?.focus();
-    }
-  }, [closing, mounted]);
-
-  useLayoutEffect(() => {
-    if (!mounted || centerRect === null || closing) {
+    if (!mounted || centerRect === null) {
       return;
     }
 
     if (prefersReducedMotion) {
-      setHasEntered(true);
+      setImageAtCenter(true);
+      setPhase("open");
       return;
     }
 
     const frame = requestAnimationFrame(() => {
-      setHasEntered(true);
+      setImageAtCenter(true);
     });
 
     return () => {
       cancelAnimationFrame(frame);
     };
-  }, [centerRect, closing, mounted, prefersReducedMotion]);
+  }, [centerRect, mounted, prefersReducedMotion]);
+
+  useLayoutEffect(() => {
+    if (!closing) {
+      closeCompletedRef.current = false;
+      return;
+    }
+
+    if (phase === "closing-chrome" || phase === "closing-image") {
+      return;
+    }
+
+    if (phase === "opening-image") {
+      setImageAtCenter(true);
+      setPhase("closing-image");
+      return;
+    }
+
+    setPhase("closing-chrome");
+
+    if (phaseTimeoutRef.current) {
+      window.clearTimeout(phaseTimeoutRef.current);
+    }
+
+    phaseTimeoutRef.current = window.setTimeout(() => {
+      setPhase("closing-image");
+      phaseTimeoutRef.current = null;
+    }, (prefersReducedMotion ? 0 : CLOSE_CHROME_DURATION) * 1000);
+  }, [closing, phase, prefersReducedMotion]);
+
+  useEffect(() => {
+    return () => {
+      if (phaseTimeoutRef.current) {
+        window.clearTimeout(phaseTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (mounted && phase === "open") {
+      photoRef.current?.focus();
+    }
+  }, [mounted, phase]);
 
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
@@ -238,7 +293,7 @@ export function PhotoGlobeOverlay({
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (closing) {
+      if (phase === "closing-chrome" || phase === "closing-image") {
         return;
       }
 
@@ -256,48 +311,110 @@ export function PhotoGlobeOverlay({
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [closing, onClose, onNavigate]);
+  }, [onClose, onNavigate, phase]);
 
   if (!mounted || centerRect === null) {
     return null;
   }
 
-  const returnTransform = returnRect
-    ? getFlipTransform(returnRect, centerRect)
+  const centerImageRect = getImageRectFromCardRect(centerRect);
+  const cardScale = centerRect.width / CARD_W;
+
+  const originImageTransform = {
+    ...getFlipTransform(originRect, centerImageRect),
+    rotate: originRoll * 0.45,
+    rotateX: -originLatitude - 8,
+    rotateY: originLongitude + 12,
+    rotateZ: 3,
+  };
+
+  const returnImageTransform = returnRect
+    ? {
+        ...getFlipTransform(returnRect, centerImageRect),
+        rotate: returnToOriginRect ? originRoll * 0.45 : 0,
+        rotateX: returnToOriginRect
+          ? -originLatitude - 8
+          : -returnLatitude,
+        rotateY: returnToOriginRect
+          ? originLongitude + 12
+          : returnLongitude,
+        rotateZ: returnToOriginRect ? 3 : 0,
+      }
     : null;
 
-  const originTransform = {
-    ...getFlipTransform(originRect, centerRect),
-    rotate: originRoll,
-    rotateX: -originLatitude,
-    rotateY: originLongitude,
-  };
+  const imageTarget =
+    phase === "closing-image" && returnImageTransform
+      ? returnImageTransform
+      : imageAtCenter
+        ? CENTER_IMAGE
+        : originImageTransform;
 
-  const centerTransform = {
-    rotate: 0,
-    rotateX: 0,
-    rotateY: 0,
-    scaleX: 1,
-    scaleY: 1,
-    x: 0,
-    y: 0,
-  };
-
-  // returnRect is already the card's projected screen box — only translate/scale.
-  const closingTransform =
-    closing && returnTransform ? returnTransform : null;
-
-  const targetTransform = closingTransform
-    ? closingTransform
-    : hasEntered
-      ? centerTransform
-      : originTransform;
-
-  const transitionDuration = prefersReducedMotion
+  const imageDuration = prefersReducedMotion
     ? 0
-    : closing
-      ? CLOSE_DURATION
-      : OPEN_DURATION;
+    : phase === "closing-image"
+      ? CLOSE_IMAGE_DURATION
+      : OPEN_IMAGE_DURATION;
+
+  const chromeClip =
+    phase === "opening-chrome" || phase === "open"
+      ? CHROME_CLIP_FULL
+      : CHROME_CLIP_HIDDEN;
+
+  const chromeClipActive =
+    phase === "opening-chrome" || phase === "closing-chrome";
+
+  const chromeDuration = prefersReducedMotion
+    ? 0
+    : phase === "closing-chrome"
+      ? CLOSE_CHROME_DURATION
+      : phase === "opening-chrome"
+        ? OPEN_CHROME_DURATION
+        : 0;
+
+  const chromeVisible =
+    phase === "opening-chrome" ||
+    phase === "open" ||
+    phase === "closing-chrome";
+
+  const backdropVisible =
+    phase === "open" ||
+    phase === "opening-chrome" ||
+    phase === "closing-chrome";
+
+  // Full postcard (with image) only while interactively open — fly layer handles globe↔lightbox.
+  const postcardOwnsImage = phase === "open";
+
+  const showFlyImage =
+    phase === "opening-image" ||
+    phase === "opening-chrome" ||
+    phase === "closing-chrome" ||
+    phase === "closing-image";
+
+  const handleImageAnimationComplete = () => {
+    if (phase === "opening-image") {
+      setPhase("opening-chrome");
+
+      if (phaseTimeoutRef.current) {
+        window.clearTimeout(phaseTimeoutRef.current);
+      }
+
+      phaseTimeoutRef.current = window.setTimeout(() => {
+        setPhase("open");
+        phaseTimeoutRef.current = null;
+      }, (prefersReducedMotion ? 0 : OPEN_CHROME_DURATION) * 1000);
+
+      return;
+    }
+
+    if (phase === "closing-image") {
+      if (closeCompletedRef.current) {
+        return;
+      }
+
+      closeCompletedRef.current = true;
+      onClosingComplete();
+    }
+  };
 
   return createPortal(
     <div
@@ -311,11 +428,11 @@ export function PhotoGlobeOverlay({
         initial={false}
         style={{ willChange: "backdrop-filter, opacity" }}
         animate={{
-          backdropFilter: closing || !hasEntered ? "blur(0px)" : "blur(8px)",
-          opacity: closing || !hasEntered ? 0 : 1,
+          backdropFilter: backdropVisible ? "blur(8px)" : "blur(0px)",
+          opacity: backdropVisible ? 1 : 0,
         }}
         transition={{
-          duration: prefersReducedMotion ? 0 : 0.5,
+          duration: prefersReducedMotion ? 0 : 0.28,
           ease: EASE,
         }}
       />
@@ -328,19 +445,19 @@ export function PhotoGlobeOverlay({
         tabIndex={-1}
         className="fixed z-10 outline-none focus:outline-none focus-visible:outline-none"
         initial={false}
-        animate={targetTransform}
-        transition={{
-          duration: transitionDuration,
-          ease: EASE,
-          type: "tween",
+        animate={{
+          clipPath: chromeClipActive ? chromeClip : "none",
+          opacity: chromeVisible ? 1 : 0,
         }}
-        onAnimationComplete={() => {
-          if (!closing || closeCompletedRef.current) {
-            return;
-          }
-
-          closeCompletedRef.current = true;
-          onClosingComplete();
+        transition={{
+          clipPath: {
+            duration: chromeClipActive ? chromeDuration : 0,
+            ease: EASE,
+          },
+          opacity: {
+            duration: prefersReducedMotion ? 0 : 0.12,
+            ease: EASE,
+          },
         }}
         onClick={(event) => {
           event.stopPropagation();
@@ -348,34 +465,74 @@ export function PhotoGlobeOverlay({
         style={{
           height: centerRect.height,
           left: centerRect.left,
+          overflow: phase === "open" ? "visible" : "hidden",
           top: centerRect.top,
-          transformPerspective: 1400,
-          transformStyle: "preserve-3d",
-          willChange: "transform",
           width: centerRect.width,
+          willChange: chromeClipActive ? "clip-path, opacity" : "opacity",
         }}
       >
         <Postcard
           photo={photo}
           navDirection={navDirection}
-          onNavigate={closing ? undefined : onNavigate}
+          onNavigate={phase === "open" ? onNavigate : undefined}
           open
-          closing={closing}
-          scale={centerRect.width / CARD_W}
+          closing={phase === "closing-chrome"}
+          hideImage={!postcardOwnsImage}
+          scale={cardScale}
         />
       </motion.div>
+
+      {showFlyImage ? (
+        <motion.div
+          aria-hidden
+          className="pointer-events-none fixed z-20 overflow-hidden rounded-[1px] border border-black/10"
+          initial={false}
+          animate={imageTarget}
+          transition={{
+            duration:
+              phase === "opening-chrome" || phase === "closing-chrome"
+                ? 0
+                : imageDuration,
+            ease: EASE,
+            type: "tween",
+          }}
+          onAnimationComplete={handleImageAnimationComplete}
+          style={{
+            height: centerImageRect.height,
+            left: centerImageRect.left,
+            top: centerImageRect.top,
+            transformOrigin: "center",
+            transformPerspective: 1400,
+            transformStyle: "preserve-3d",
+            width: centerImageRect.width,
+            willChange: "transform",
+            boxShadow: "3.6px 10.8px 36px rgba(0,0,0,0.08)",
+            borderRadius: 1,
+          }}
+        >
+          <Image
+            src={photo.imageSrc}
+            alt=""
+            fill
+            draggable={false}
+            className="pointer-events-none select-none object-cover"
+            sizes={`${Math.round(centerImageRect.width)}px`}
+            priority
+          />
+        </motion.div>
+      ) : null}
 
       {(["left", "right"] as const).map((side) => (
         <motion.button
           key={side}
           type="button"
           aria-label={side === "left" ? "Previous photo" : "Next photo"}
-          className="fixed top-1/2 z-20 hidden size-11 -translate-y-1/2 items-center justify-center rounded-full text-white outline-none transition-colors hover:bg-white/10 focus:outline-none focus-visible:outline-none md:flex"
+          className="fixed top-1/2 z-30 hidden size-11 -translate-y-1/2 items-center justify-center rounded-full text-white outline-none transition-colors hover:bg-white/10 focus:outline-none focus-visible:outline-none md:flex"
           style={side === "left" ? { left: 16 } : { right: 16 }}
           initial={false}
-          animate={{ opacity: closing || !hasEntered ? 0 : 1 }}
+          animate={{ opacity: phase === "open" ? 1 : 0 }}
           transition={{
-            duration: prefersReducedMotion ? 0 : 0.5,
+            duration: prefersReducedMotion ? 0 : 0.22,
             ease: EASE,
           }}
           onClick={(event) => {
@@ -388,12 +545,12 @@ export function PhotoGlobeOverlay({
       ))}
 
       <motion.div
-        className="fixed left-0 right-0 flex flex-col items-center gap-5"
+        className="fixed left-0 right-0 z-30 flex flex-col items-center gap-5"
         style={{ top: centerRect.top + centerRect.height + 24 }}
         initial={false}
-        animate={{ opacity: closing || !hasEntered ? 0 : 1 }}
+        animate={{ opacity: phase === "open" ? 1 : 0 }}
         transition={{
-          duration: prefersReducedMotion ? 0 : 0.5,
+          duration: prefersReducedMotion ? 0 : 0.22,
           ease: EASE,
         }}
       >

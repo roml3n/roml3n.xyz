@@ -17,6 +17,8 @@ const IDLE_X = -14;
 
 const IDLE_SPEED = 0.16;
 
+const SLOW_MULTIPLIER = 0.38;
+
 const FOLLOW = 0.06;
 
 const DRAG_SENSITIVITY = 0.22;
@@ -51,14 +53,16 @@ function clamp(value: number, min: number, max: number) {
   return Math.max(min, Math.min(max, value));
 }
 
+export type GlobeRotationMode = "normal" | "slow" | "frozen";
+
 export function useGlobeRotation(
-  paused = false,
+  mode: GlobeRotationMode = "normal",
   focus: GlobeRotation | null = null,
 ): GlobeRotationState {
   const prefersReducedMotion = useReducedMotion();
 
   const frame = useRef<number | null>(null);
-  const pausedRef = useRef(paused);
+  const modeRef = useRef(mode);
   const focusRef = useRef(focus);
 
   const rotation = useRef<GlobeRotation>({
@@ -93,8 +97,8 @@ export function useGlobeRotation(
   const [tick, rerender] = useState(0);
 
   useEffect(() => {
-    pausedRef.current = paused;
-  }, [paused]);
+    modeRef.current = mode;
+  }, [mode]);
 
   useEffect(() => {
     focusRef.current = focus;
@@ -207,7 +211,10 @@ export function useGlobeRotation(
     }
 
     const animate = () => {
-      if (pausedRef.current) {
+      const mode = modeRef.current;
+      const speedScale = mode === "slow" ? SLOW_MULTIPLIER : 1;
+
+      if (mode === "frozen") {
         const focusTarget = focusRef.current;
 
         if (!focusTarget) {
@@ -238,13 +245,13 @@ export function useGlobeRotation(
       if (drag.current.active) {
         rotation.current.y += clamp(
           (target.current.y - rotation.current.y) * DRAG_FOLLOW,
-          -MAX_SPIN_SPEED,
-          MAX_SPIN_SPEED,
+          -MAX_SPIN_SPEED * speedScale,
+          MAX_SPIN_SPEED * speedScale,
         );
         rotation.current.x += clamp(
           (target.current.x - rotation.current.x) * DRAG_FOLLOW,
-          -MAX_SPIN_SPEED,
-          MAX_SPIN_SPEED,
+          -MAX_SPIN_SPEED * speedScale,
+          MAX_SPIN_SPEED * speedScale,
         );
       } else {
         const hasMomentum =
@@ -259,11 +266,11 @@ export function useGlobeRotation(
 
         if (hasMomentum || settling) {
           target.current.x = clamp(
-            target.current.x + drag.current.momentumX,
+            target.current.x + drag.current.momentumX * speedScale,
             IDLE_X - MAX_TILT,
             IDLE_X + MAX_TILT,
           );
-          target.current.y += drag.current.momentumY;
+          target.current.y += drag.current.momentumY * speedScale;
 
           drag.current.momentumX *= MOMENTUM_FRICTION;
           drag.current.momentumY *= MOMENTUM_FRICTION;
@@ -272,13 +279,13 @@ export function useGlobeRotation(
 
           rotation.current.y += clamp(
             (target.current.y - rotation.current.y) * DRAG_FOLLOW,
-            -MAX_SPIN_SPEED,
-            MAX_SPIN_SPEED,
+            -MAX_SPIN_SPEED * speedScale,
+            MAX_SPIN_SPEED * speedScale,
           );
           rotation.current.x += clamp(
             (target.current.x - rotation.current.x) * DRAG_FOLLOW,
-            -MAX_SPIN_SPEED,
-            MAX_SPIN_SPEED,
+            -MAX_SPIN_SPEED * speedScale,
+            MAX_SPIN_SPEED * speedScale,
           );
 
           velocity.current.y = rotation.current.y - beforeY;
@@ -301,8 +308,10 @@ export function useGlobeRotation(
           drag.current.momentumX = 0;
           drag.current.momentumY = 0;
 
+          const idleTarget = IDLE_SPEED * speedScale;
+
           velocity.current.y +=
-            (IDLE_SPEED - velocity.current.y) * IDLE_RESUME_BLEND;
+            (idleTarget - velocity.current.y) * IDLE_RESUME_BLEND;
 
           rotation.current.y += velocity.current.y;
           rotation.current.x += (IDLE_X - rotation.current.x) * FOLLOW;
