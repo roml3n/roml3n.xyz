@@ -83,7 +83,7 @@ const resolvedSourcePhotos: readonly SourcePhoto[] = sourcePhotos.map(
 // slot, so each real photo is repeated a few times to pad it out.
 // This is purely a display-density trick — it must never affect the
 // real photo count shown elsewhere on the site.
-const MIN_GLOBE_CARDS = 120;
+const MIN_GLOBE_CARDS = 70;
 
 const PHOTO_REPEAT_COUNT = Math.max(
   1,
@@ -99,4 +99,4 @@ export const photos = Array.from(
       ...photo,
       id: `${photo.id}-copy-${copyIndex + 1}`,
     })),
-).flat();
+).flat().slice(0, MIN_GLOBE_CARDS);

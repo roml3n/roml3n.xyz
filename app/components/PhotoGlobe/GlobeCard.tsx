@@ -6,28 +6,21 @@ import { motion, useReducedMotion } from "framer-motion";
 
 interface GlobeCardProps {
   imageAlt: string;
-
   imageSrc: string;
-
   x: number;
   y: number;
   z: number;
-
   latitude: number;
   longitude: number;
-
   depth: number;
-
   scale: number;
-
   selected?: boolean;
-
   hidden?: boolean;
-
+  buttonRef?: React.Ref<HTMLButtonElement>;
   onClick?: () => void;
 }
 
-export const GlobeCard = forwardRef<HTMLButtonElement, GlobeCardProps>(
+export const GlobeCard = forwardRef<HTMLDivElement, GlobeCardProps>(
   function GlobeCard(
     {
       imageAlt,
@@ -41,9 +34,10 @@ export const GlobeCard = forwardRef<HTMLButtonElement, GlobeCardProps>(
       scale,
       selected = false,
       hidden = false,
+      buttonRef,
       onClick,
     },
-    ref,
+    faceRef,
   ) {
     const prefersReducedMotion = useReducedMotion();
 
@@ -53,18 +47,14 @@ export const GlobeCard = forwardRef<HTMLButtonElement, GlobeCardProps>(
     );
 
     const shadowOpacity = 0.06 + depth * 0.08;
-
     const shadowBlur = 16 + depth * 14;
-
     const shadowY = 8 + depth * 8;
-
-    const frameShadow = "0 0 0 9px rgba(0,0,0,0.1)";
 
     const clickable = depth > 0.45;
 
     return (
       <button
-        ref={ref}
+        ref={buttonRef}
         type="button"
         aria-pressed={selected}
         aria-label={`View ${imageAlt}`}
@@ -101,42 +91,30 @@ export const GlobeCard = forwardRef<HTMLButtonElement, GlobeCardProps>(
             }}
           >
             <motion.div
+              ref={faceRef}
               whileHover={
-                clickable && !prefersReducedMotion
-                  ? {
-                      boxShadow:
-                        `${frameShadow}, 0 18px 40px rgba(0,0,0,0.18)`,
-                      scale: 1.06,
-                      y: -8,
-                    }
-                  : undefined
-              }
-              whileTap={
-                clickable && !prefersReducedMotion
-                  ? {
-                      scale: 0.98,
-                    }
-                  : undefined
+                clickable && !prefersReducedMotion ? { scale: 1.1 } : undefined
               }
               transition={{
-                type: "spring",
-                stiffness: 280,
-                damping: 22,
+                duration: 0.16,
+                ease: [0.23, 1, 0.32, 1],
               }}
-              className="relative h-[72px] w-[72px] overflow-hidden rounded-[3px] bg-white"
+              className="relative h-[72px] w-[54px] overflow-hidden rounded-[1px] border border-black/10"
               style={{
-                boxShadow: `${frameShadow}, 0 ${shadowY}px ${shadowBlur}px rgba(0,0,0,${shadowOpacity})`,
-                outline: "8px solid white",
+                borderRadius: 1,
+                boxShadow: `0 ${shadowY}px ${shadowBlur}px rgba(0,0,0,${shadowOpacity})`,
               }}
             >
-              <Image
-                src={imageSrc}
-                alt={imageAlt}
-                fill
-                draggable={false}
-                className="pointer-events-none select-none object-cover"
-                sizes="72px"
-              />
+              <div className="relative h-full w-full overflow-hidden rounded-[1px]">
+                <Image
+                  src={imageSrc}
+                  alt={imageAlt}
+                  fill
+                  draggable={false}
+                  className="pointer-events-none select-none object-cover"
+                  sizes="54px"
+                />
+              </div>
             </motion.div>
           </div>
         </div>

@@ -5,6 +5,7 @@ import { Caveat } from "next/font/google";
 import {
   useCallback,
   useEffect,
+  useId,
   useLayoutEffect,
   useRef,
   useState,
@@ -13,6 +14,28 @@ import {
 import type { PhotoMeta } from "@/app/data/photos";
 
 const caveat = Caveat({ subsets: ["latin"], weight: "600", display: "swap" });
+
+function PaperGrain() {
+  const filterId = `paper-grain-${useId().replace(/:/g, "")}`;
+
+  return (
+    <svg
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 z-[3] h-full w-full opacity-[0.14] mix-blend-multiply"
+    >
+      <filter id={filterId} x="0%" y="0%" width="100%" height="100%">
+        <feTurbulence
+          type="fractalNoise"
+          baseFrequency="0.85"
+          numOctaves="4"
+          stitchTiles="stitch"
+        />
+        <feColorMatrix type="saturate" values="0" />
+      </filter>
+      <rect width="100%" height="100%" filter={`url(#${filterId})`} />
+    </svg>
+  );
+}
 
 export const CARD_W = 512;
 export const CARD_H = 586;
@@ -189,6 +212,7 @@ interface PostcardProps {
   navDirection?: 1 | -1 | null;
   onNavigate?: (delta: 1 | -1) => void;
   open: boolean;
+  closing?: boolean;
   scale?: number;
 }
 
@@ -197,6 +221,7 @@ export function Postcard({
   navDirection = null,
   onNavigate,
   open,
+  closing = false,
   scale = 1,
 }: PostcardProps) {
   const meta = { ...DEFAULT_META, ...photo.meta };
@@ -239,6 +264,10 @@ export function Postcard({
   }, [open]);
 
   const targetFor = (card: CardId) => {
+    if (closing) {
+      return card === "photo" ? FRONT : BACK;
+    }
+
     if (!open) {
       return card === "photo" ? FRONT : BACK;
     }
@@ -259,6 +288,16 @@ export function Postcard({
     targetFor("note"),
     overrideFor("note"),
   );
+
+  useLayoutEffect(() => {
+    if (!closing) {
+      return;
+    }
+
+    setFrontCard("photo");
+    resetPhotoSpring(FRONT);
+    resetNoteSpring(BACK);
+  }, [closing, resetNoteSpring, resetPhotoSpring]);
 
   // Layout effect so the first painted frame after a photo change already
   // has the incoming stack offscreen — a plain effect runs post-paint and
@@ -509,6 +548,7 @@ export function Postcard({
     offsetX = 0,
     blur = 0,
   ): React.CSSProperties => ({
+    borderRadius: 1,
     boxShadow: "3.6px 10.8px 36px rgba(0,0,0,0.08)",
     cursor: drag.active && drag.card === card ? "grabbing" : "grab",
     filter: blur > 0.2 ? `blur(${blur}px)` : undefined,
@@ -536,7 +576,7 @@ export function Postcard({
 
         <div
           {...makeHandlers("note")}
-          className="absolute inset-0 select-none overflow-hidden rounded-[2px] bg-lightgrey transition-opacity duration-300"
+          className="absolute inset-0 isolate select-none overflow-hidden rounded-[1px] bg-lightgrey transition-opacity duration-300"
           style={{
             ...cardShellStyle(
               "note",
@@ -545,7 +585,7 @@ export function Postcard({
               slideNewBackX,
               slide ? slide.blurBack : 0,
             ),
-            opacity: open ? 1 : 0,
+            opacity: open && !closing ? 1 : 0,
           }}
         >
           <NoteFace
@@ -557,7 +597,7 @@ export function Postcard({
 
         <div
           {...makeHandlers("photo")}
-          className="absolute inset-0 select-none overflow-hidden rounded-[2px] bg-fullwhite"
+          className="absolute inset-0 isolate select-none overflow-hidden rounded-[1px] bg-fullwhite"
           style={cardShellStyle(
             "photo",
             photoSpring,
@@ -566,6 +606,7 @@ export function Postcard({
             slide ? slide.blur : 0,
           )}
         >
+          <PaperGrain />
           <PhotoFace
             photo={photo}
             meta={meta}
@@ -594,6 +635,7 @@ function OutgoingStack({
     blur: number,
     zIndex: number,
   ): React.CSSProperties => ({
+    borderRadius: 1,
     boxShadow: "3.6px 10.8px 36px rgba(0,0,0,0.08)",
     filter: blur > 0.2 ? `blur(${blur}px)` : undefined,
     pointerEvents: "none",
@@ -604,7 +646,7 @@ function OutgoingStack({
   return (
     <>
       <div
-        className="absolute inset-0 select-none overflow-hidden rounded-[2px] bg-lightgrey"
+        className="absolute inset-0 isolate select-none overflow-hidden rounded-[1px] bg-lightgrey"
         style={positionStyle(
           photoInFront ? BACK : FRONT,
           photoInFront ? slide.back : slide.front,
@@ -615,7 +657,7 @@ function OutgoingStack({
         <NoteFace note={meta.note} signature={meta.signature} shadow={0} />
       </div>
       <div
-        className="absolute inset-0 select-none overflow-hidden rounded-[2px] bg-fullwhite"
+        className="absolute inset-0 isolate select-none overflow-hidden rounded-[1px] bg-fullwhite"
         style={positionStyle(
           photoInFront ? FRONT : BACK,
           photoInFront ? slide.front : slide.back,
@@ -623,6 +665,7 @@ function OutgoingStack({
           photoInFront ? 2 : 1,
         )}
       >
+        <PaperGrain />
         <PhotoFace
           photo={slide.from}
           meta={meta}
@@ -654,8 +697,8 @@ function PhotoFace({
       />
       <div className="flex h-full w-full flex-col gap-4 bg-fullwhite p-4">
         <div
-          className="relative shrink-0 overflow-hidden"
-          style={{ height: IMG_H }}
+          className="relative shrink-0 overflow-hidden rounded-[1px]"
+          style={{ height: IMG_H, borderRadius: 1 }}
         >
           <Image
             src={photo.imageSrc}

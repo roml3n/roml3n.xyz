@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 
 import { GlobeCard } from "./GlobeCard";
 import {
@@ -19,16 +20,22 @@ interface Photo {
   meta?: PhotoMeta;
 }
 
-const RADIUS = 315;
-const CAMERA_DISTANCE = 770;
+const RADIUS = 338;
+const CAMERA_DISTANCE = 820;
 const RAD_TO_DEG = 180 / Math.PI;
 
 interface SelectedPhoto extends Photo {
   closing: boolean;
   navDirection: 1 | -1 | null;
   originRect: RectSnapshot;
+  originLatitude: number;
+  originLongitude: number;
   originRoll: number;
+  navigatedDuringOpen: boolean;
   returnRect: RectSnapshot | null;
+  returnLatitude: number;
+  returnLongitude: number;
+  returnToOriginRect: boolean;
 }
 
 function snapshotRect(rect: DOMRect): RectSnapshot {
@@ -50,9 +57,10 @@ export function PhotoGlobe({
   const [focusRotation, setFocusRotation] =
     useState<GlobeRotation | null>(null);
   const cardRefs = useRef(new Map<string, HTMLButtonElement>());
+  const faceRefs = useRef(new Map<string, HTMLDivElement>());
   const returningPhotoId = useRef<string | null>(null);
 
-  const { rotation, bandOffsets, tick } = useGlobeRotation(
+  const { rotation, tick } = useGlobeRotation(
     selectedPhoto !== null,
     focusRotation,
   );
@@ -66,33 +74,22 @@ export function PhotoGlobe({
 
   const rotationY = (rotation.y * Math.PI) / 180;
   const rotationX = (rotation.x * Math.PI) / 180;
+  const yawCos = Math.cos(rotationY);
+  const yawSin = Math.sin(rotationY);
+  const pitchCos = Math.cos(rotationX);
+  const pitchSin = Math.sin(rotationX);
 
   const cards = useMemo(() => {
-    const bandTrig = bandOffsets.map((offset) => {
-      const yaw = rotationY + (offset * Math.PI) / 180;
-
-      return { cos: Math.cos(yaw), sin: Math.sin(yaw) };
-    });
-
     return layout
       .map((point, index) => {
-        const { cos: yawCos, sin: yawSin } = bandTrig[point.bandIndex];
-
         const x1 = point.x * yawCos - point.z * yawSin;
-
         const z1 = point.x * yawSin + point.z * yawCos;
 
-        const y2 =
-          point.y * Math.cos(rotationX) -
-          z1 * Math.sin(rotationX);
-
-        const z2 =
-          point.y * Math.sin(rotationX) +
-          z1 * Math.cos(rotationX);
+        const y2 = point.y * pitchCos - z1 * pitchSin;
+        const z2 = point.y * pitchSin + z1 * pitchCos;
 
         const latitude =
-          Math.asin(Math.max(-1, Math.min(1, y2 / RADIUS))) *
-          RAD_TO_DEG;
+          Math.asin(Math.max(-1, Math.min(1, y2 / RADIUS))) * RAD_TO_DEG;
 
         const longitude = Math.atan2(x1, z2) * RAD_TO_DEG;
 
@@ -104,7 +101,6 @@ export function PhotoGlobe({
 
           x: x1,
           y: y2,
-
           z: z2,
 
           scale: point.poleScale,
@@ -125,9 +121,8 @@ export function PhotoGlobe({
 
         return a.order - b.order;
       });
-    // `bandOffsets` is mutated in place each frame; `tick` is the frame
-    // counter that invalidates this memo when only the offsets changed.
-  }, [bandOffsets, layout, photos, rotationX, rotationY, tick]);
+    // `tick` invalidates this memo when rotation changes each frame.
+  }, [layout, photos, pitchCos, pitchSin, tick, yawCos, yawSin]);
 
   useEffect(() => {
     if (selectedPhoto || !returningPhotoId.current) {
@@ -169,6 +164,7 @@ export function PhotoGlobe({
       imageSrc: next.imageSrc,
       meta: next.meta,
       navDirection: delta,
+      navigatedDuringOpen: true,
     });
   };
 
@@ -177,15 +173,34 @@ export function PhotoGlobe({
       return;
     }
 
-    const card = cardRefs.current.get(selectedPhoto.id);
-    const returnRect = card
-      ? snapshotRect(card.getBoundingClientRect())
+    const face = faceRefs.current.get(selectedPhoto.id);
+    const cardPose = cards.find((entry) => entry.id === selectedPhoto.id);
+    const navigated = selectedPhoto.navigatedDuringOpen;
+    const measuredRect = face
+      ? snapshotRect(face.getBoundingClientRect())
       : selectedPhoto.originRect;
 
     setSelectedPhoto({
       ...selectedPhoto,
       closing: true,
-      returnRect,
+      returnRect: measuredRect,
+      returnLatitude: cardPose?.latitude ?? selectedPhoto.originLatitude,
+      returnLongitude: cardPose?.longitude ?? selectedPhoto.originLongitude,
+      returnToOriginRect: !navigated,
+    });
+  };
+
+  const handleClosingComplete = () => {
+    if (!selectedPhoto) {
+      return;
+    }
+
+    const photoId = selectedPhoto.id;
+    returningPhotoId.current = photoId;
+
+    flushSync(() => {
+      setSelectedPhoto(null);
+      setFocusRotation(null);
     });
   };
 
@@ -202,6 +217,13 @@ export function PhotoGlobe({
           <GlobeCard
             key={photo.id}
             ref={(element) => {
+              if (element) {
+                faceRefs.current.set(photo.id, element);
+              } else {
+                faceRefs.current.delete(photo.id);
+              }
+            }}
+            buttonRef={(element) => {
               if (element) {
                 cardRefs.current.set(photo.id, element);
               } else {
@@ -220,11 +242,13 @@ export function PhotoGlobe({
             selected={selectedPhoto?.id === photo.id}
             hidden={selectedPhoto?.id === photo.id}
             onClick={() => {
-              const card = cardRefs.current.get(photo.id);
+              const face = faceRefs.current.get(photo.id);
 
-              if (!card) {
+              if (!face) {
                 return;
               }
+
+              setFocusRotation(null);
 
               setSelectedPhoto({
                 closing: false,
@@ -233,9 +257,15 @@ export function PhotoGlobe({
                 imageSrc: photo.imageSrc,
                 meta: photo.meta,
                 navDirection: null,
-                originRect: snapshotRect(card.getBoundingClientRect()),
+                originRect: snapshotRect(face.getBoundingClientRect()),
+                originLatitude: photo.latitude,
+                originLongitude: photo.longitude,
                 originRoll: photo.roll,
+                navigatedDuringOpen: false,
                 returnRect: null,
+                returnLatitude: photo.latitude,
+                returnLongitude: photo.longitude,
+                returnToOriginRect: true,
               });
             }}
           />
@@ -246,17 +276,18 @@ export function PhotoGlobe({
         <PhotoGlobeOverlay
           photo={selectedPhoto}
           originRect={selectedPhoto.originRect}
+          originLatitude={selectedPhoto.originLatitude}
+          originLongitude={selectedPhoto.originLongitude}
           originRoll={selectedPhoto.originRoll}
           returnRect={selectedPhoto.returnRect}
+          returnLatitude={selectedPhoto.returnLatitude}
+          returnLongitude={selectedPhoto.returnLongitude}
+          returnToOriginRect={selectedPhoto.returnToOriginRect}
           closing={selectedPhoto.closing}
           navDirection={selectedPhoto.navDirection}
           onClose={closeSelectedPhoto}
           onNavigate={navigateSelectedPhoto}
-          onClosed={() => {
-            returningPhotoId.current = selectedPhoto.id;
-            setSelectedPhoto(null);
-            setFocusRotation(null);
-          }}
+          onClosingComplete={handleClosingComplete}
         />
       ) : null}
     </section>

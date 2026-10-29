@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion, useReducedMotion } from "framer-motion";
 
@@ -24,16 +24,24 @@ export interface RectSnapshot {
 interface PhotoGlobeOverlayProps {
   photo: Photo;
   originRect: RectSnapshot;
+  originLatitude: number;
+  originLongitude: number;
   originRoll: number;
   returnRect: RectSnapshot | null;
+  returnLatitude: number;
+  returnLongitude: number;
+  returnToOriginRect: boolean;
   closing: boolean;
   navDirection: 1 | -1 | null;
   onClose: () => void;
-  onClosed: () => void;
+  onClosingComplete: () => void;
   onNavigate: (delta: 1 | -1) => void;
 }
 
-const EASE = [0.16, 1, 0.3, 1] as const;
+const EASE = [0.23, 1, 0.32, 1] as const;
+
+const OPEN_DURATION = 0.55;
+const CLOSE_DURATION = 0.42;
 
 // Tapping the empty backdrop closes the overlay; swiping it browses
 // photos, matching the thresholds used on the card itself.
@@ -115,16 +123,22 @@ function getFlipTransform(from: RectSnapshot, to: RectSnapshot) {
 export function PhotoGlobeOverlay({
   photo,
   originRect,
+  originLatitude,
+  originLongitude,
   originRoll,
   returnRect,
+  returnLatitude,
+  returnLongitude,
+  returnToOriginRect,
   closing,
   navDirection,
   onClose,
-  onClosed,
+  onClosingComplete,
   onNavigate,
 }: PhotoGlobeOverlayProps) {
   const prefersReducedMotion = useReducedMotion();
   const photoRef = useRef<HTMLDivElement>(null);
+  const closeCompletedRef = useRef(false);
   const backdropDrag = useRef({ active: false, startX: 0, startY: 0, t: 0 });
   const [hasEntered, setHasEntered] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -176,10 +190,16 @@ export function PhotoGlobeOverlay({
     }
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setMounted(true);
     setCenterRect(getCenterRect());
   }, []);
+
+  useLayoutEffect(() => {
+    if (closing) {
+      closeCompletedRef.current = false;
+    }
+  }, [closing]);
 
   useEffect(() => {
     if (mounted && !closing) {
@@ -187,7 +207,7 @@ export function PhotoGlobeOverlay({
     }
   }, [closing, mounted]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!mounted || centerRect === null || closing) {
       return;
     }
@@ -249,23 +269,35 @@ export function PhotoGlobeOverlay({
   const originTransform = {
     ...getFlipTransform(originRect, centerRect),
     rotate: originRoll,
+    rotateX: -originLatitude,
+    rotateY: originLongitude,
   };
 
   const centerTransform = {
     rotate: 0,
+    rotateX: 0,
+    rotateY: 0,
     scaleX: 1,
     scaleY: 1,
     x: 0,
     y: 0,
   };
 
-  const targetTransform = closing && returnTransform
-    ? { ...returnTransform, rotate: originRoll }
+  // returnRect is already the card's projected screen box — only translate/scale.
+  const closingTransform =
+    closing && returnTransform ? returnTransform : null;
+
+  const targetTransform = closingTransform
+    ? closingTransform
     : hasEntered
       ? centerTransform
-    : {
-        ...originTransform,
-      };
+      : originTransform;
+
+  const transitionDuration = prefersReducedMotion
+    ? 0
+    : closing
+      ? CLOSE_DURATION
+      : OPEN_DURATION;
 
   return createPortal(
     <div
@@ -279,8 +311,7 @@ export function PhotoGlobeOverlay({
         initial={false}
         style={{ willChange: "backdrop-filter, opacity" }}
         animate={{
-          backdropFilter:
-            closing || !hasEntered ? "blur(0px)" : "blur(8px)",
+          backdropFilter: closing || !hasEntered ? "blur(0px)" : "blur(8px)",
           opacity: closing || !hasEntered ? 0 : 1,
         }}
         transition={{
@@ -299,13 +330,17 @@ export function PhotoGlobeOverlay({
         initial={false}
         animate={targetTransform}
         transition={{
-          duration: prefersReducedMotion ? 0 : 0.5,
+          duration: transitionDuration,
           ease: EASE,
+          type: "tween",
         }}
         onAnimationComplete={() => {
-          if (closing) {
-            onClosed();
+          if (!closing || closeCompletedRef.current) {
+            return;
           }
+
+          closeCompletedRef.current = true;
+          onClosingComplete();
         }}
         onClick={(event) => {
           event.stopPropagation();
@@ -314,6 +349,8 @@ export function PhotoGlobeOverlay({
           height: centerRect.height,
           left: centerRect.left,
           top: centerRect.top,
+          transformPerspective: 1400,
+          transformStyle: "preserve-3d",
           willChange: "transform",
           width: centerRect.width,
         }}
@@ -322,7 +359,8 @@ export function PhotoGlobeOverlay({
           photo={photo}
           navDirection={navDirection}
           onNavigate={closing ? undefined : onNavigate}
-          open={hasEntered && !closing}
+          open
+          closing={closing}
           scale={centerRect.width / CARD_W}
         />
       </motion.div>
