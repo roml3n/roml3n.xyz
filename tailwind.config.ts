@@ -28,6 +28,7 @@ const config = {
     extend: {
       fontFamily: {
         montreal: ["var(--font-pp-neue-montreal)", "sans-serif"],
+        season: ["var(--font-season-mix)", "serif"],
       },
 
       colors: {

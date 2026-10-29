@@ -19,9 +19,6 @@ function App() {
         <AboutSection />
       </main>
     </section>
-
-    // To-do
-    // [ ] design and build hero section on landing page
   );
 }
 

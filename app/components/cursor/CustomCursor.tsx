@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   AnimatePresence,
   animate,
@@ -18,9 +18,14 @@ const TEXT_HOST_SELECTOR =
   "p, h1, h2, h3, h4, h5, h6, li, blockquote, figcaption";
 const INTERACTIVE_SELECTOR =
   "a, button, input, textarea, select, label, [role='button']";
-const LABEL_OFFSET = 14;
+const DOT_SIZE = 12;
+const LABEL_LEFT = DOT_SIZE / 2 + 8;
 const IMAGE_SIZE = { width: 104, height: 72 };
 const APPEAR_EASE = [0.16, 1, 0.3, 1] as const;
+const MORPH_DURATION = 0.46;
+
+const labelChipClass =
+  "inline-flex items-center whitespace-nowrap px-2 py-1.5 font-montreal text-[18px] font-medium leading-none text-white";
 
 type CursorVariant =
   | { kind: "hidden" }
@@ -93,6 +98,10 @@ const CustomCursor = () => {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const opacity = useMotionValue(0);
+  const pillWidth = useMotionValue(0);
+  const pillHeight = useMotionValue(0);
+  const pillLeft = useMotionValue(DOT_SIZE / 2);
+  const measureRef = useRef<HTMLSpanElement>(null);
   const reduceMotion = useReducedMotion() === true;
   const [enabled, setEnabled] = useState(false);
   const [variant, setVariant] = useState<CursorVariant>({ kind: "hidden" });
@@ -149,6 +158,33 @@ const CustomCursor = () => {
   }, [enabled, x, y]);
 
   const visible = variant.kind !== "hidden" && variant.kind !== "native";
+  const labelText = variant.kind === "label" ? variant.label : "";
+  const isText = variant.kind === "text";
+  const shapeHeight = isText ? variant.height : DOT_SIZE;
+
+  useLayoutEffect(() => {
+    const nextWidth =
+      labelText && measureRef.current ? measureRef.current.offsetWidth : 0;
+    const nextHeight =
+      labelText && measureRef.current ? measureRef.current.offsetHeight : 0;
+    const morph = {
+      duration: reduceMotion ? 0 : MORPH_DURATION,
+      ease: APPEAR_EASE,
+    };
+    const widthControls = animate(pillWidth, nextWidth, morph);
+    const heightControls = animate(pillHeight, nextHeight, morph);
+    const leftControls = animate(
+      pillLeft,
+      labelText ? LABEL_LEFT : DOT_SIZE / 2,
+      morph,
+    );
+
+    return () => {
+      widthControls.stop();
+      heightControls.stop();
+      leftControls.stop();
+    };
+  }, [labelText, pillHeight, pillLeft, pillWidth, reduceMotion]);
 
   useEffect(() => {
     const controls = animate(opacity, visible ? 1 : 0, {
@@ -161,10 +197,8 @@ const CustomCursor = () => {
 
   if (!enabled) return null;
 
-  const showDot =
-    variant.kind === "default" ||
-    variant.kind === "company" ||
-    variant.kind === "label";
+  const pillTone =
+    labelText === "coming soon" ? "bg-darkgrey" : "bg-mainblue";
 
   return (
     <motion.div
@@ -172,38 +206,12 @@ const CustomCursor = () => {
       className="pointer-events-none fixed left-0 top-0 z-[10001] h-0 w-0"
       style={{ x, y, opacity }}
     >
-      <AnimatePresence>
-        {showDot ? (
-          <motion.div
-            key="cursor-dot"
-            className="absolute left-0 top-0 size-3 rounded-full bg-mainblue"
-            style={{ x: "-50%", y: "-50%" }}
-            initial={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.6 }}
-            animate={reduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
-            exit={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.6 }}
-            transition={{ duration: reduceMotion ? 0 : 0.12, ease: APPEAR_EASE }}
-          />
-        ) : null}
-        {variant.kind === "text" ? (
-          <motion.div
-            key="cursor-caret"
-            className="absolute left-0 top-0"
-            style={{ height: variant.height, x: "-50%", y: "-50%" }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: reduceMotion ? 0 : 0.12, ease: APPEAR_EASE }}
-          >
-            <span
-              className={
-                reduceMotion
-                  ? "block h-full w-0.5 bg-mainblue"
-                  : "custom-cursor-caret block h-full w-0.5 bg-mainblue"
-              }
-            />
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+      <span
+        ref={measureRef}
+        className={`invisible absolute left-0 top-0 ${labelChipClass} ${pillTone}`}
+      >
+        {labelText}
+      </span>
 
       <AnimatePresence>
         {variant.kind === "company"
@@ -255,37 +263,37 @@ const CustomCursor = () => {
           : null}
       </AnimatePresence>
 
-      <AnimatePresence mode="wait">
-        {variant.kind === "label" ? (
-          <motion.div
-            key={variant.label}
-            className={
-              variant.label === "coming soon"
-                ? "pointer-events-none absolute top-0 whitespace-nowrap rounded-sm bg-darkgrey px-4 py-1.5 font-montreal text-sm font-medium leading-none text-white"
-                : "pointer-events-none absolute top-0 whitespace-nowrap rounded-sm bg-mainblue px-4 py-1.5 font-montreal text-sm font-medium leading-none text-white"
-            }
-            style={{ left: LABEL_OFFSET }}
-            initial={
-              reduceMotion
-                ? { opacity: 0 }
-                : { clipPath: "inset(0 100% 0 0)", opacity: 1 }
-            }
-            animate={
-              reduceMotion
-                ? { opacity: 1 }
-                : { clipPath: "inset(0 0% 0 0)", opacity: 1 }
-            }
-            exit={
-              reduceMotion
-                ? { opacity: 0 }
-                : { clipPath: "inset(0 100% 0 0)", opacity: 1 }
-            }
-            transition={{ duration: reduceMotion ? 0 : 0.22, ease: APPEAR_EASE }}
-          >
-            {variant.label}
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+      <motion.div
+        className={
+          isText && !reduceMotion
+            ? "custom-cursor-caret absolute left-0 top-0 bg-mainblue"
+            : "absolute left-0 top-0 bg-mainblue"
+        }
+        style={{ x: "-50%", y: "-50%" }}
+        initial={false}
+        animate={{
+          width: isText ? 2 : DOT_SIZE,
+          height: shapeHeight,
+          borderRadius: isText ? 1 : DOT_SIZE / 2,
+        }}
+        transition={{
+          duration: reduceMotion ? 0 : MORPH_DURATION,
+          ease: APPEAR_EASE,
+        }}
+      />
+
+      <motion.div
+        className={`absolute overflow-hidden ${pillTone}`}
+        style={{
+          left: pillLeft,
+          top: 0,
+          y: "-50%",
+          width: pillWidth,
+          height: pillHeight,
+        }}
+      >
+        <span className={labelChipClass}>{labelText}</span>
+      </motion.div>
     </motion.div>
   );
 };

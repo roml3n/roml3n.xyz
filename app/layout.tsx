@@ -8,9 +8,6 @@ import Footer from "./components/Footer";
 import { workProjects } from "./data/workProjects";
 import { PHOTO_COUNT } from "./data/photos";
 import { getWritingPosts } from "@/lib/getWritingPosts";
-import PageTransitionProvider, {
-  PageTransitionContent,
-} from "./components/transitions/PageTransitionProvider";
 import CustomCursor from "./components/cursor/CustomCursor";
 
 const ppNeueMontreal = localFont({
@@ -27,6 +24,14 @@ const ppNeueMontreal = localFont({
     },
   ],
   variable: "--font-pp-neue-montreal",
+  display: "swap",
+});
+
+const seasonMix = localFont({
+  src: "./fonts/SeasonMix-TRIAL-Regular.otf",
+  weight: "400",
+  style: "normal",
+  variable: "--font-season-mix",
   display: "swap",
 });
 
@@ -55,7 +60,7 @@ export default async function RootLayout({
   const writingMenuPosts = await getWritingPosts(20);
 
   return (
-    <html lang="en">
+    <html lang="en" data-scroll-behavior="smooth">
       <head>
         {/* Google tag (gtag.js) */}
         <script
@@ -73,24 +78,24 @@ export default async function RootLayout({
           }}
         />
       </head>
-      <body className={`${ppNeueMontreal.variable} antialiased  scroll-smooth`}>
+      <body
+        className={`${ppNeueMontreal.variable} ${seasonMix.variable} antialiased scroll-smooth`}
+      >
         <Analytics />
         <SpeedInsights />
 
-        <PageTransitionProvider>
-          <Header
-            menuCounts={{
-              work: workProjects.length,
-              writing: writingMenuPosts.length,
-              photos: PHOTO_COUNT,
-            }}
-          />
-          <main className="w-[90%] md:w-[80%] mx-auto max-w-7xl">
-            <PageTransitionContent>{children}</PageTransitionContent>
+        <Header
+          menuCounts={{
+            work: workProjects.length,
+            writing: writingMenuPosts.length,
+            photos: PHOTO_COUNT,
+          }}
+        />
+        <main className="w-[90%] md:w-[80%] mx-auto max-w-7xl">
+          {children}
 
-            <Footer />
-          </main>
-        </PageTransitionProvider>
+          <Footer />
+        </main>
         <CustomCursor />
       </body>
     </html>
