@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Caveat } from "next/font/google";
+import { useReducedMotion } from "framer-motion";
 import {
   useCallback,
   useEffect,
@@ -267,8 +268,6 @@ interface PostcardProps {
   chromeIntro?: PostcardChromeIntro;
   /** Eased 0–1 for padding / caption */
   introProgress?: number;
-  /** Linear 0–1 clock for note spread (wall time / open intro) */
-  introLinearProgress?: number;
   scale?: number;
 }
 
@@ -281,7 +280,6 @@ export function Postcard({
   hideImage = false,
   chromeIntro = "done",
   introProgress,
-  introLinearProgress,
   scale = 1,
 }: PostcardProps) {
   const globeMotion = usePhotoGlobeMotion();
@@ -329,23 +327,54 @@ export function Postcard({
   const frontCardRef = useRef(frontCard);
   const slideRef = useRef<SlideState | null>(null);
   const slideRaf = useRef(0);
+  const prefersReducedMotion = useReducedMotion();
   const [introT, setIntroT] = useState(chromeIntro === "active" ? 0 : 1);
-  const [introLinearT, setIntroLinearT] = useState(chromeIntro === "active" ? 0 : 1);
+  const [spreadT, setSpreadT] = useState(chromeIntro === "active" ? 0 : 1);
   const chromeIntroRun = useRef(0);
 
   const effectiveIntroT = introProgress ?? introT;
-  const effectiveIntroLinear = introLinearProgress ?? introLinearT;
-  const spreadProgress =
-    chromeIntro === "active"
-      ? clamp(
-          (effectiveIntroLinear - noteSpread.spreadStartLinearProgress) /
-            Math.max(0.001, noteSpread.spreadAnimLinearLength),
-          0,
-          1,
-        )
-      : 1;
-  const spreadEased = easeOutPow(spreadProgress, noteSpread.spreadEasePower);
+  const spreadEased = easeOutPow(spreadT, noteSpread.spreadEasePower);
   const introNotePose = lerpSpring(FRONT, BACK, spreadEased);
+  const noteIsSpreading = open && !closing && spreadT < 1;
+
+  // Keyed on `open`, not chromeIntro. The zoom phase flips to "done" before
+  // this longer spread finishes, and a cleanup tied to that flip was cancelling
+  // the timer and leaving the note stacked behind the photo at opacity 0.
+  useLayoutEffect(() => {
+    if (!open || closing) {
+      return;
+    }
+
+    if (prefersReducedMotion) {
+      setSpreadT(1);
+      return;
+    }
+
+    let raf = 0;
+    const start = performance.now();
+    const durationMs = Math.max(1, noteSpread.spreadAnimDurationSec * 1000);
+
+    const tick = () => {
+      const linear = Math.min(1, (performance.now() - start) / durationMs);
+      setSpreadT(linear);
+
+      if (linear < 1) {
+        raf = requestAnimationFrame(tick);
+      }
+    };
+
+    setSpreadT(0);
+    raf = requestAnimationFrame(tick);
+
+    return () => {
+      cancelAnimationFrame(raf);
+    };
+  }, [
+    closing,
+    noteSpread.spreadAnimDurationSec,
+    open,
+    prefersReducedMotion,
+  ]);
 
   useEffect(() => {
     if (introProgress !== undefined) {
@@ -355,14 +384,12 @@ export function Postcard({
     if (chromeIntro !== "active") {
       if (chromeIntro === "done") {
         setIntroT(1);
-        setIntroLinearT(1);
       }
       return;
     }
 
     const runId = ++chromeIntroRun.current;
     setIntroT(0);
-    setIntroLinearT(0);
 
     const start = performance.now();
     let frame = 0;
@@ -376,7 +403,6 @@ export function Postcard({
         1,
         (performance.now() - start) / globeMotion.lightboxOpen.openIntroTimelineMs,
       );
-      setIntroLinearT(linear);
       setIntroT(easeOutQuart(linear));
 
       if (linear < 1) {
@@ -406,7 +432,7 @@ export function Postcard({
       return card === "photo" ? FRONT : BACK;
     }
 
-    if (chromeIntro === "active" && spreadProgress <= 0) {
+    if (chromeIntro === "active" && spreadT <= 0) {
       return FRONT;
     }
 
@@ -422,7 +448,7 @@ export function Postcard({
       return { rotate: targetFor(card).rotate, x: drag.x, y: drag.y };
     }
 
-    if (chromeIntro === "active" && card === "note" && spreadProgress > 0) {
+    if (noteIsSpreading && card === "note") {
       return introNotePose;
     }
 
@@ -702,28 +728,7 @@ export function Postcard({
   const slideNewX = slide ? slide.front + slide.dir * slide.slot : 0;
   const slideNewBackX = slide ? slide.back + slide.dir * slide.slot : 0;
 
-  const noteOpacity = (() => {
-    if (!open || closing) {
-      return 0;
-    }
-
-    if (chromeIntro === "active") {
-      if (spreadProgress <= 0) {
-        return 0;
-      }
-
-      const fadeSpan = Math.max(0.001, 1 - noteSpread.noteFadeDelayInSpread);
-      const fadeT = clamp(
-        (spreadProgress - noteSpread.noteFadeDelayInSpread) / fadeSpan,
-        0,
-        1,
-      );
-
-      return easeOutQuart(fadeT);
-    }
-
-    return 1;
-  })();
+  const noteOpacity = !open || closing ? 0 : 1;
 
   const contentIntro = chromeIntro === "active" ? effectiveIntroT : 1;
 

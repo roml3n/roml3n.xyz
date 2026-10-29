@@ -214,7 +214,6 @@ export function PhotoGlobeOverlay({
   const [phase, setPhase] = useState<OverlayPhase>("opening-image");
   const [imageAtCenter, setImageAtCenter] = useState(false);
   const [openIntroT, setOpenIntroT] = useState(0);
-  const [openIntroLinear, setOpenIntroLinear] = useState(0);
   const openIntroRun = useRef(0);
 
   const handleBackdropPointerDown = (event: React.PointerEvent) => {
@@ -276,14 +275,12 @@ export function PhotoGlobeOverlay({
     if (prefersReducedMotion) {
       setImageAtCenter(true);
       setOpenIntroT(1);
-      setOpenIntroLinear(1);
       setPhase("open");
       return;
     }
 
     const runId = ++openIntroRun.current;
     setOpenIntroT(0);
-    setOpenIntroLinear(0);
     setPhase("opening-image");
 
     const start = performance.now();
@@ -297,7 +294,6 @@ export function PhotoGlobeOverlay({
       const linear = Math.min(1, (performance.now() - start) / OPEN_INTRO_MS);
       const eased = easeOutQuart(linear);
 
-      setOpenIntroLinear(linear);
       setOpenIntroT(eased);
       setImageAtCenter(linear >= PHOTO_LAND_AT);
 
@@ -600,7 +596,12 @@ export function PhotoGlobeOverlay({
         style={{
           height: centerRect.height,
           left: centerRect.left,
-          overflow: phase === "open" ? "visible" : "hidden",
+          overflow:
+            phase === "open" ||
+            phase === "opening-image" ||
+            phase === "opening-chrome"
+              ? "visible"
+              : "hidden",
           top: centerRect.top,
           width: centerRect.width,
           willChange: chromeClipActive ? "clip-path, opacity" : "opacity",
@@ -623,11 +624,6 @@ export function PhotoGlobeOverlay({
           introProgress={
             phase === "opening-image" || phase === "opening-chrome"
               ? openIntroT
-              : undefined
-          }
-          introLinearProgress={
-            phase === "opening-image" || phase === "opening-chrome"
-              ? openIntroLinear
               : undefined
           }
           scale={cardScale}

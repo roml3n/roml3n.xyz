@@ -1,8 +1,9 @@
 /**
  * Photo Globe motion — edit values here, then `yarn build`.
  *
- * Back note card spread starts when the photo fly-in begins (same moment the
- * tile expands toward the lightbox). Tune duration, fade delay, and ease below.
+ * The back note starts stacked behind the photo when the lightbox zoom begins,
+ * then slides up and out to its rest pose. It runs slightly longer than the
+ * zoom so it settles after the photo has landed.
  */
 
 export const PHOTO_GLOBE_EASE = [0.23, 1, 0.32, 1] as const;
@@ -59,9 +60,10 @@ export const photoGlobeMotionDefaults = {
     closePeelMaskInset: 46,
   },
   lightboxNoteSpread: {
-    spreadAnimDurationSec: 0.23,
-    noteFadeDelayInSpread: 0.91,
-    spreadEasePower: 5,
+    /** How long the note keeps moving after the lightbox zoom has finished. */
+    finishAfterZoomSec: 0.22,
+    /** Ease-out power. 3 starts quickly and settles, like a card sliding out. */
+    spreadEasePower: 3,
   },
   postcardStack: {
     stiffness: 0.195,
@@ -129,9 +131,8 @@ export type PhotoGlobeMotion = {
     closePeelMaskInset: number;
   };
   lightboxNoteSpread: {
-    spreadStartOffsetFromPhotoLandSec: number;
+    finishAfterZoomSec: number;
     spreadAnimDurationSec: number;
-    noteFadeDelayInSpread: number;
     spreadEasePower: number;
     /** 0–1 on the open intro timeline where spread motion begins */
     spreadStartLinearProgress: number;
@@ -166,7 +167,7 @@ export type PhotoGlobeMotionInput = {
   lightboxFrame: PhotoGlobeMotion["lightboxFrame"];
   lightboxNoteSpread: Omit<
     PhotoGlobeMotion["lightboxNoteSpread"],
-    | "spreadStartOffsetFromPhotoLandSec"
+    | "spreadAnimDurationSec"
     | "spreadStartLinearProgress"
     | "spreadAnimLinearLength"
   >;
@@ -182,11 +183,10 @@ export function buildPhotoGlobeMotion(raw: PhotoGlobeMotionInput): PhotoGlobeMot
   const photoLandTimeSec = raw.lightboxOpen.photoFlyDuration;
   const photoLandAtTimelineProgress = photoLandTimeSec / introTotalSec;
 
-  /** Spread begins at open intro t=0 — in sync with photo fly / expand. */
-  const spreadStartOffsetFromPhotoLandSec = -photoLandTimeSec;
+  /** Spread begins with the zoom and keeps going a little after it lands. */
+  const spreadAnimDurationSec = introTotalSec + raw.lightboxNoteSpread.finishAfterZoomSec;
   const spreadStartLinearProgress = 0;
-  const spreadAnimLinearLength =
-    raw.lightboxNoteSpread.spreadAnimDurationSec / introTotalSec;
+  const spreadAnimLinearLength = spreadAnimDurationSec / introTotalSec;
 
   return {
     ...raw,
@@ -206,7 +206,7 @@ export function buildPhotoGlobeMotion(raw: PhotoGlobeMotionInput): PhotoGlobeMot
     },
     lightboxNoteSpread: {
       ...raw.lightboxNoteSpread,
-      spreadStartOffsetFromPhotoLandSec,
+      spreadAnimDurationSec,
       spreadStartLinearProgress,
       spreadAnimLinearLength,
     },
