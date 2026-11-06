@@ -45,7 +45,7 @@ const MoreProjectsSection = ({ currentHref }: MoreProjectsSectionProps) => {
       ))}
 
       <div className="col-span-4 md:col-span-8 lg:col-span-12">
-        <Button variant="secondary" label="Explore all projects" url="/#work" />
+        <Button variant="secondary" label="Explore all projects" url="/work" />
       </div>
     </section>
   );

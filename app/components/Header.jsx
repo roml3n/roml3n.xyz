@@ -10,7 +10,7 @@ const formatCount = (value) => {
 };
 
 const desktopItems = [
-  { id: "work", label: "Work", href: "/#work" },
+  { id: "work", label: "Work", href: "/work" },
   { id: "notes", label: "Notes", href: "/writing" },
   { id: "photos", label: "Photos", href: "/photos" },
   { id: "about", label: "About", href: "/about" },
@@ -34,7 +34,7 @@ const Header = ({ menuCounts }) => {
       },
       {
         label: "Work",
-        href: "/#work",
+        href: "/work",
         meta: formatCount(menuCounts?.work),
         color: { light: "#ffcd04", dark: "#755606" },
       },
@@ -87,7 +87,7 @@ const Header = ({ menuCounts }) => {
     if (id === "photos") return pathname.startsWith("/photos");
     if (id === "about") return pathname.startsWith("/about");
     if (id === "work") {
-      return pathname === "/" || pathname.startsWith("/work");
+      return pathname.startsWith("/work");
     }
     return false;
   };

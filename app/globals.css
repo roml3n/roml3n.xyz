@@ -60,6 +60,11 @@ body::before {
   @apply text-base font-montreal text-darkgrey;
 }
 
+/* Explicit so the card hover tint is not dropped when Tailwind misses a new opacity step. */
+.work-card-hover {
+  background-color: rgba(0, 0, 255, 0.12);
+}
+
 @keyframes marquee {
   0% {
     transform: translateX(0);

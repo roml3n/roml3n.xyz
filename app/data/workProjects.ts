@@ -1,4 +1,14 @@
-export const workProjects = [
+export type WorkProject = {
+  title: string;
+  company: string;
+  date: string;
+  className: string;
+  coverImage: string;
+  href: string;
+  featured: boolean;
+};
+
+export const workProjects: WorkProject[] = [
   {
     title: "Repositioning Pawa IT for the AI era",
     company: "PawaIT",
@@ -6,6 +16,7 @@ export const workProjects = [
     className: "md:row-start-2",
     coverImage: "/images/work/pawa-website-cover.webp",
     href: "/work/pawa-website",
+    featured: true,
   },
   {
     title: "Designing U.S. banking for people without an SSN",
@@ -14,6 +25,7 @@ export const workProjects = [
     className: "md:row-start-2",
     coverImage: "/images/work/waya-ssn-cover.webp",
     href: "/work/waya-ssn",
+    featured: true,
   },
   {
     title: "Redesigning e-commerce to boost loyalty, sales, and satisfaction",
@@ -22,6 +34,7 @@ export const workProjects = [
     className: "md:row-start-3",
     coverImage: "/images/work/bigstore-cover.webp",
     href: "/work/bigstore",
+    featured: true,
   },
   {
     title: "Empowering immigrant founders to bank, build, and grow",
@@ -30,6 +43,7 @@ export const workProjects = [
     className: "md:row-start-3",
     coverImage: "/images/work/waya-business-cover.webp",
     href: "/work/waya-business",
+    featured: true,
   },
   {
     title: "Crafting a high-stakes experience for sports betting enthusiasts",
@@ -38,5 +52,17 @@ export const workProjects = [
     className: "md:row-start-4",
     coverImage: "/images/work/tucheze-cover.webp",
     href: "/work/tucheze",
+    featured: false,
   },
 ];
+
+const featuredCount = workProjects.filter((project) => project.featured).length;
+
+if (process.env.NODE_ENV !== "production" && featuredCount > 4) {
+  throw new Error(
+    `[workProjects] At most 4 projects can have featured: true (found ${featuredCount}).`,
+  );
+}
+
+export const getFeaturedWorkProjects = (): WorkProject[] =>
+  workProjects.filter((project) => project.featured).slice(0, 4);

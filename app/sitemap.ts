@@ -60,6 +60,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly" as const,
       priority: 0.7,
     },
+    {
+      url: `${baseUrl}/work/waya-business`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    },
   ];
 
   return staticPages;
