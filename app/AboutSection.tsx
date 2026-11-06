@@ -6,9 +6,9 @@ export const AboutSection = () => {
   return (
     <section
       id="about"
-      className="mt-[4rem] w-screen justify-center flex py-16 bg-hoverbg scroll-mt-20"
+      className="mt-[4rem] flex w-full flex-col items-stretch justify-center py-16 scroll-mt-20"
     >
-      <div className="w-[90%] md:w-[80%] max-w-7xl grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 grid-rows-[auto_auto_auto_auto] md:grid-rows-[auto_auto_auto] auto-rows-min gap-4 md:gap-2">
+      <div className="grid w-full grid-cols-4 md:grid-cols-8 lg:grid-cols-12 grid-rows-[auto_auto_auto_auto] md:grid-rows-[auto_auto_auto] auto-rows-min gap-4 md:gap-2">
         <div className="flex flex-col gap-6 md:gap-16 lg:gap-48 col-span-4 lg:col-span-5 row-span-1 col-start-1 row-start-1 h-fit mr-6">
           <div className="w-full flex flex-col gap-0">
             <h2 className="h2"> About </h2>

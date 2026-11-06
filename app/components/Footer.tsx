@@ -4,11 +4,12 @@ import Image from "next/image";
 
 const Footer = () => {
   return (
-    <footer
-      id="about"
-      className="w-screen place-self-center justify-center flex py-8 md:py-16 bg-[radial-gradient(150%_80%_at_bottom,_#B3E2EF_0%,_#F5F5F5_0%)]"
-    >
-      <div className="w-[90%] md:w-[80%] max-w-7xl flex flex-col">
+    <footer className="relative flex w-screen place-self-center justify-center overflow-hidden bg-transparent py-8 md:py-16">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_220%_45%_at_50%_100%,rgb(0_0_255/0.12)_0%,rgb(0_0_255/0)_72%)]"
+      />
+      <div className="relative z-10 flex w-[90%] max-w-7xl flex-col md:w-[80%]">
         {/* Logo and Links  */}
         <div className="z-20 flex items-start md:items-center justify-between gap-4 col-span-4 md:col-span-8 lg:col-span-12">
           {/* Logo  */}
