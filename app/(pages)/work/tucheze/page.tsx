@@ -2,6 +2,8 @@ import CaseSection from "@/app/(pages)/work/caseSection";
 import CaseIntroSection from "@/app/(pages)/work/CaseIntroSection";
 import TuchezeCard from "@/app/(pages)/work/tucheze/TuchezeCard";
 import Image from "next/image";
+import CaseStudyHero from "@/app/components/CaseStudyHero";
+import { getWorkProjectByHref } from "@/app/data/workProjects";
 import Button from "@/app/components/Button";
 import MoreProjectsSection from "@/app/(pages)/work/MoreProjectsSection";
 import { IconBrandFigma } from "@tabler/icons-react";
@@ -19,12 +21,12 @@ const Tucheze = () => {
 
       {/* Hero  */}
       <div className="flex flex-col col-span-4 md:col-span-8 lg:col-span-12">
-        <Image
+        <CaseStudyHero
           src="/images/work/tucheze/tucheze-hero.webp"
           alt="Two iPhones displaying the Tucheze mobile interface"
           width={1280}
           height={720}
-          className="w-full mb-4"
+          coverFill={getWorkProjectByHref("/work/tucheze")?.coverFill}
         />
         <div className="flex justify-between w-full">
         <h5 className="h5 font-medium opacity-40 whitespace-pre-line">

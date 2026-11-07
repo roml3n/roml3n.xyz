@@ -25,6 +25,7 @@ const WorkProjectsGrid = ({ projects }: WorkProjectsGridProps) => {
             date={project.date}
             className={project.className}
             coverImage={project.coverImage}
+            coverFill={project.coverFill}
           />
         </TransitionLink>
       ))}

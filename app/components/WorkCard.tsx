@@ -1,26 +1,68 @@
+"use client";
+
 import Image from "next/image";
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   cursorCompanyProps,
   cursorLabelProps,
 } from "@/app/components/cursor/cursorProps";
+
+import WorkCardCoverFill, {
+  isInteractiveFillSrc,
+} from "@/app/components/WorkCardCoverFill";
 
 const WorkCard = ({
   title,
   company,
   date,
   coverImage,
+  coverFill,
   className = "",
 }: {
   title: string;
   company: string;
   date: string;
   coverImage: string;
+  coverFill?: string;
   className?: string;
 }) => {
+  const hasInteractiveFill = Boolean(
+    coverFill && isInteractiveFillSrc(coverFill),
+  );
+  const [fillActive, setFillActive] = useState(false);
+  const [canInteract, setCanInteract] = useState(false);
+
+  useEffect(() => {
+    const hoverMq = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const motionMq = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    const sync = () => {
+      setCanInteract(hoverMq.matches && !motionMq.matches);
+    };
+
+    sync();
+    hoverMq.addEventListener("change", sync);
+    motionMq.addEventListener("change", sync);
+
+    return () => {
+      hoverMq.removeEventListener("change", sync);
+      motionMq.removeEventListener("change", sync);
+    };
+  }, []);
+
+  const handlePointerEnter = useCallback(() => {
+    if (hasInteractiveFill && canInteract) setFillActive(true);
+  }, [canInteract, hasInteractiveFill]);
+
+  const handlePointerLeave = useCallback(() => {
+    if (hasInteractiveFill) setFillActive(false);
+  }, [hasInteractiveFill]);
+
   return (
     <div
       {...cursorLabelProps("view case study")}
+      onPointerEnter={hasInteractiveFill ? handlePointerEnter : undefined}
+      onPointerLeave={hasInteractiveFill ? handlePointerLeave : undefined}
       className={`group relative flex flex-col gap-6 col-span-4 md:col-span-4 lg:col-span-6 row-span-1 ${className}`}
     >
       <span
@@ -34,13 +76,20 @@ const WorkCard = ({
           <br />[ {date} ]
         </h5>
       </div>
-      <div className="w-full aspect-[16/10] bg-midgrey rounded-sm">
+      <div className="relative isolate w-full aspect-[16/10] overflow-hidden rounded-sm bg-midgrey">
+        {coverFill ? (
+          <WorkCardCoverFill
+            coverFill={coverFill}
+            isActive={fillActive}
+            canInteract={canInteract}
+          />
+        ) : null}
         <Image
           src={coverImage}
           height={1080}
           width={675}
           alt="screenshot of project"
-          className="object-contain"
+          className="relative z-[1] size-full object-contain"
         />
       </div>
     </div>

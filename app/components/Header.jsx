@@ -98,7 +98,7 @@ const Header = ({ menuCounts }) => {
         <Logo />
         <nav
           aria-label="Primary"
-          className="flex h-12 items-center gap-8 overflow-hidden rounded-full bg-[rgba(146,146,146,0.1)] px-7 backdrop-blur-[12px]"
+          className="flex h-12 items-center gap-8 overflow-hidden rounded-full bg-[rgba(255,255,255,0.88)] px-7 backdrop-blur-[16px]"
         >
           {desktopItems.map((item) => {
             const active = isDesktopActive(item.id);

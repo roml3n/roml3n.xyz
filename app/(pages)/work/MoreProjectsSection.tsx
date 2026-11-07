@@ -40,6 +40,7 @@ const MoreProjectsSection = ({ currentHref }: MoreProjectsSectionProps) => {
             company={project.company}
             date={project.date}
             coverImage={project.coverImage}
+            coverFill={project.coverFill}
           />
         </TransitionLink>
       ))}
