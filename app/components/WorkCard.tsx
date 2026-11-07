@@ -67,16 +67,16 @@ const WorkCard = ({
     >
       <span
         aria-hidden={true}
-        className="work-card-hover pointer-events-none absolute -inset-3 -z-10 rounded-lg opacity-0 scale-95 transition-all duration-300 group-hover:opacity-100 group-hover:scale-100"
+        className="work-card-hover pointer-events-none absolute -inset-2 -z-10 rounded-2xl opacity-0 scale-95 transition-all duration-300 group-hover:opacity-100 group-hover:scale-100"
       />
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-1 px-1">
         <h4 className="h4 text-fullgrey w-full !leading-none">{title}</h4>
         <h5 className="h5 font-medium w-full opacity-60 !leading-tight">
           <span {...cursorCompanyProps(company)}>{company}</span>
           <br />[ {date} ]
         </h5>
       </div>
-      <div className="relative isolate w-full aspect-[16/10] overflow-hidden rounded-sm bg-midgrey">
+      <div className="relative isolate w-full aspect-[16/10] overflow-hidden rounded-xl bg-midgrey">
         {coverFill ? (
           <WorkCardCoverFill
             coverFill={coverFill}

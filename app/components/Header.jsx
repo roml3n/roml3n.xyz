@@ -93,7 +93,7 @@ const Header = ({ menuCounts }) => {
   };
 
   return (
-    <header className="fixed top-4 left-1/2 z-[9999] w-[min(1120px,calc(100%-2rem))] -translate-x-1/2">
+    <header className="fixed top-4 left-1/2 z-[9999] w-[min(calc(100%-2rem),calc(90%+12px))] md:w-[min(calc(100%-2rem),calc(80%+12px),calc(80rem+12px))] -translate-x-1/2">
       <div className="hidden items-center justify-between md:flex">
         <Logo />
         <nav
