@@ -14,7 +14,7 @@ const WorkSection = () => {
     >
       <div className="row-span-1 col-span-4 md:col-span-8 lg:col-span-12 flex flex-row flex-wrap items-baseline justify-between gap-x-4 gap-y-2">
         <div className="flex flex-col gap-1">
-          <h2 className="h2">Featured work</h2>
+          <h2 className="page-heading">Featured work</h2>
         </div>
         <TransitionLink
           href="/work"

@@ -44,6 +44,14 @@ body::before {
   @apply text-[1.75rem] md:text-3xl lg:text-4xl font-montreal font-medium text-fullgrey;
 }
 
+.page-heading {
+  @apply font-season text-[2rem] font-normal leading-none text-fullgrey md:text-[2.5rem] lg:text-5xl;
+}
+
+.page-heading-sub {
+  @apply font-season text-[2rem] font-normal leading-none text-fullgrey opacity-40 md:text-[2.5rem] lg:text-5xl;
+}
+
 .h3 {
   @apply text-[1.375rem] md:text-2xl font-medium font-montreal text-fullgrey;
 }

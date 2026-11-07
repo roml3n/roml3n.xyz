@@ -23,9 +23,7 @@ export const AboutSection = () => {
             <AboutStickerCluster boundsRef={boundsRef} />
 
             <div className="flex flex-col gap-6">
-              <h2 className="font-season text-[2rem] font-normal leading-none text-fullgrey md:text-[2.5rem] lg:text-5xl">
-                About
-              </h2>
+              <h2 className="page-heading">About</h2>
 
               <div className="h6 max-w-none tracking-[0.01em]">
                 <p className="mb-0">
