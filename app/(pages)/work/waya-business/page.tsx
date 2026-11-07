@@ -2,8 +2,6 @@
 import Image from "next/image";
 import Footer from "@/app/components/Footer";
 import CaseImageCarousel from "@/app/components/CaseImageCarousel";
-import CaseStudyHero from "@/app/components/CaseStudyHero";
-import { getWorkProjectByHref } from "@/app/data/workProjects";
 
 //sections
 import CaseSection from "@/app/(pages)/work/caseSection";
@@ -24,13 +22,12 @@ const WayaBusiness = () => {
 
       {/* Hero  */}
       <div className="flex flex-col col-span-4 md:col-span-8 lg:col-span-12">
-        <CaseStudyHero
+        <Image
           src="/images/work/waya-business/hero-img.webp"
           alt="A collage of screenshots from the Waya Business web application"
           width={1080}
           height={720}
-          className="mb-4 w-[80%] self-center"
-          coverFill={getWorkProjectByHref("/work/waya-business")?.coverFill}
+          className="w-[80%] self-center mb-4"
         />
         <h5 className="h5 font-medium opacity-40 whitespace-pre-line">
           {" "}

@@ -1,6 +1,4 @@
 import Image from "next/image";
-import CaseStudyHero from "@/app/components/CaseStudyHero";
-import { getWorkProjectByHref } from "@/app/data/workProjects";
 import WayaInterviewCard from "@/app/(pages)/work/waya-ssn/WayaInterviewCard";
 import AnalysisCard from "@/app/(pages)/work/waya-ssn/AnalysisCard";
 import MoreProjectsSection from "@/app/(pages)/work/MoreProjectsSection";
@@ -23,12 +21,12 @@ const WayaSSN = () => {
 
       {/* Hero  */}
       <div className="flex flex-col col-span-4 md:col-span-8 lg:col-span-12">
-        <CaseStudyHero
+        <Image
           src="/images/work/waya-ssn/waya-ssn-hero.webp"
           alt="Two iPhones showing the Waya app"
           width={1280}
           height={720}
-          coverFill={getWorkProjectByHref("/work/waya-ssn")?.coverFill}
+          className="w-full mb-4"
         />
         <div className="flex justify-between">
         <h5 className="h5 font-medium opacity-40 whitespace-pre-line">

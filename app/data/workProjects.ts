@@ -73,6 +73,3 @@ if (process.env.NODE_ENV !== "production" && featuredCount > 4) {
 
 export const getFeaturedWorkProjects = (): WorkProject[] =>
   workProjects.filter((project) => project.featured).slice(0, 4);
-
-export const getWorkProjectByHref = (href: string): WorkProject | undefined =>
-  workProjects.find((project) => project.href === href);

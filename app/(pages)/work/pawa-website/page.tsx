@@ -1,7 +1,5 @@
 import Image from "next/image";
 import Button from "@/app/components/Button";
-import CaseStudyHero from "@/app/components/CaseStudyHero";
-import { getWorkProjectByHref } from "@/app/data/workProjects";
 import CaseImageCarousel from "@/app/components/CaseImageCarousel";
 import CaseSection from "@/app/(pages)/work/caseSection";
 import CaseIntroSection from "@/app/(pages)/work/CaseIntroSection";
@@ -19,12 +17,12 @@ const BigStore = () => {
 
       {/* Hero  */}
       <div className="flex flex-col col-span-4 md:col-span-8 lg:col-span-12">
-        <CaseStudyHero
+        <Image
           src="/images/work/pawa-website/pawa-hero.webp"
           alt="A laptop mockup showing the Pawa IT website"
           width={1280}
           height={720}
-          coverFill={getWorkProjectByHref("/work/pawa-website")?.coverFill}
+          className="w-full mb-4"
         />
         <div className="w-full flex justify-between"><h5 className="h5 font-medium opacity-40 whitespace-pre-line">
           {" "}
